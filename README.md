@@ -1,4 +1,1 @@
-# `hannobraun.com`
-
-This repository contains some of my personal websites, hosted as a single
-project on Deno Deploy.
+This repository is no longer active. The site it contains has been integrated into a different repository.
