@@ -47,6 +47,12 @@ export const handler = (request: Request) => {
                     .plusPath(),
             ),
         )
+        .onRequest(
+            redirect.permanent(
+                fromHosts(["fornjot.app", "www.fornjot.app"]),
+                to("https://archive.hannobraun.com/fornjot").plusPath(),
+            ),
+        )
         .orElse(not_found());
 
     return response;
