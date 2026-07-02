@@ -32,21 +32,9 @@ export const handler = (request: Request) => {
         .onRequest(
             redirect.permanent(
                 fromHosts([
-                    "crosscut.cc",
-                    "www.crosscut.cc",
-                    "capi.hannobraun.com",
-                ]),
-                to("https://archive.hannobraun.com/crosscut").plusPath(),
-            ),
-        )
-        .onRequest(
-            redirect.permanent(
-                fromHosts([
                     "hanno.braun-odw.eu",
                     "braun-odw.eu",
                     "www.braun-odw.eu",
-                    "made-by.braun-odw.eu",
-                    "madeby.hannobraun.de",
                 ]),
                 to("https://archive.hannobraun.com/hanno.braun-odw.eu")
                     .plusPath(),
@@ -54,12 +42,7 @@ export const handler = (request: Request) => {
         )
         .onRequest(
             redirect.permanent(
-                fromHosts([
-                    "braun-embedded.com",
-                    "www.braun-embedded.com",
-                    "braun-robotics.com",
-                    "www.braun-robotics.com",
-                ]),
+                fromHosts(["braun-embedded.com", "www.braun-embedded.com"]),
                 to("https://archive.hannobraun.com/braun-embedded.com")
                     .plusPath(),
             ),
