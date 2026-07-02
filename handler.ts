@@ -22,7 +22,10 @@ export const handler = (request: Request) => {
         .onRequest(serveStatic("archive.hannobraun.com"))
         .onRequest(
             redirect.permanent(
-                fromHosts(["hannobraun.deno.dev", "archive.braun-odw.eu"]),
+                fromHosts([
+                    "https://archivehannobrauncom.hannobraun.deno.net/",
+                    "archive.braun-odw.eu",
+                ]),
                 to("https://archive.hannobraun.com").plusPath(),
             ),
         )
