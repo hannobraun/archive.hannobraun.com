@@ -10,11 +10,5 @@
   "fmt": {
     "indentWidth": 4,
     "exclude": ["archive.hannobraun.com"]
-  },
-  "deploy": {
-    "project": "95609e24-9dae-46f6-9818-96cc93550f96",
-    "exclude": ["**/node_modules"],
-    "include": [],
-    "entrypoint": "server.ts"
   }
 }
