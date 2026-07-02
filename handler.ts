@@ -6,18 +6,16 @@ export const handler = (request: Request) => {
     const response = new Pipeline(request)
         .onRequest(
             redirect.permanent(
-                fromHosts([
-                    "hannobraun.de",
-                    "www.hannobraun.de",
-                ]),
+                fromHosts(["hannobraun.de", "www.hannobraun.de"]),
                 to("https://www.hannobraun.com").plusPath(),
             ),
         )
         .onRequest(
             redirect.temporary(
-                fromHosts(["archive.hannobraun.com"]).andPaths(
-                    ["/crosscut", "/crosscut/"],
-                ),
+                fromHosts(["archive.hannobraun.com"]).andPaths([
+                    "/crosscut",
+                    "/crosscut/",
+                ]),
                 to("https://archive.hannobraun.com/crosscut/daily"),
             ),
         )
