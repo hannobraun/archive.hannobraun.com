@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        
+        
+            
+        
+
+        
+            <title>Fornjot - Weekly Release - 2022-W39</title>
+        
+
+        <link
+            href="/fornjot/style.css"
+            rel="stylesheet"
+            type="text/css"
+            media="all" />
+
+        <link href="/fornjot/atom.xml" rel="alternate" type="application/atom+xml" />
+    </head>
+    <body>
+        <header>
+            <div class="archival highlight">
+                This website has been archived. It will not be kept up-to-date.
+            </div>
+            <a class="title" href="/fornjot/">
+                <h1>Fornjot</h1>
+                <h2>early-stage b-rep CAD kernel, written in Rust</h2>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/fornjot/">About</a></li>
+                    <li><a href="/fornjot/blog">Blog</a></li>
+                    <li><a href="https://github.com/hannobraun/fornjot">GitHub ↪</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            
+    <article class="blog-post">
+        <header>
+            <h2>Weekly Release - 2022-W39</h2>
+            <span class="metadata">
+        Posted on <time datetime="2022-09-26">2022-09-26</time> by <a href="https://github.com/hannobraun">Hanno Braun</a>
+
+        </span>
+        </header>
+
+        <aside>
+            
+    <p>
+        <a href="/fornjot/">Fornjot</a> is an early-stage project to create a next-generation Code-CAD application. This is the announcement for this week's release, version <a href="https://github.com/hannobraun/Fornjot/releases/tag/v0.17.0">0.17.0</a>.
+    </p>
+
+        </aside>
+
+        <p>I've been busy with cleanups for a few weeks now, and that hasn't changed last week either. My priority remains implementing the union operation (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/42">#42</a>), but that is currently blocked by <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/993">#993</a>, which in turn is blocked by <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/1079">#1079</a>, which until recently was blocked by <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/1021">#1021</a>.</p>
+<p>I've made enough progress on <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/1021">#1021</a> to un-block <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/1079">#1079</a>, so I've returned my attention there. As it turns out, finishing up that issue requires more changes all around the kernel code than I initially expected, but in the end this isn't really surprising. The changes to the <code>GlobalCurve</code> object that are the subject of <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/1079">#1079</a> have a follow-on effect on all other objects that reference it, so a lot of code needs to be updated.</p>
+<p>Going into the details here would be a bit much, but the gist of it is, there's a new way of doing things (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/1079#issuecomment-1252416096">comparing objects by identity instead of equality</a>). This new way will make the kernel code more reliable, but right now this can't be implemented, because the current code is cutting a lot of corners.</p>
+<p>Un-cutting those corners, as well as implementing the infrastructure required to do that without making the affected code too cumbersome, is what I'm currently working on. If you want to know more about that, I suggest to follow the links to those issues, as I keep those updated with the details of the work I'm doing.</p>
+<h3 id="sponsors">Sponsors</h3>
+<p>Fornjot is supported by <a rel="external" href="https://github.com/webtrax-oz">@webtrax-oz</a>, <a rel="external" href="https://github.com/lthiery">@lthiery</a>, <a rel="external" href="https://github.com/Yatekii">@Yatekii</a>, <a rel="external" href="https://github.com/martindederer">@martindederer</a>, <a rel="external" href="https://github.com/hobofan">@hobofan</a>, <a rel="external" href="https://github.com/ahdinosaur">@ahdinosaur</a>, <a rel="external" href="https://github.com/thawkins">@thawkins</a>, <a rel="external" href="https://github.com/bollian">@bollian</a>, <a rel="external" href="https://github.com/rozgo">@rozgo</a>, <a rel="external" href="https://github.com/reivilibre">@reivilibre</a>, and <a rel="external" href="https://github.com/sponsors/hannobraun">my other awesome sponsors</a>. Thank you!</p>
+<strong class="call-to-action">
+    <p>
+        If you want Fornjot to be sustainable long-term, please consider <a href="https://github.com/sponsors/hannobraun">supporting me</a> too.
+    </p>
+</strong>
+<h3 id="end-user-improvements">End-user improvements</h3>
+<p>Improvements to Fornjot and its documentation that are visible to end-users.</p>
+<p><em>None this week. Busy improving the kernel!</em></p>
+<h3 id="ecosystem-improvements">Ecosystem improvements</h3>
+<p>Improvements to the Fornjot ecosystem that are relevant to developers who are building on top of Fornjot components.</p>
+<h4 id="fj-kernel"><code>fj-kernel</code></h4>
+<ul>
+<li>Implement centralized object storage (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1108">#1108</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1116">#1116</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1121">#1121</a>)</li>
+<li>Prepare for removing geometry from <code>GlobalCurve</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1111">#1111</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1114">#1114</a>)</li>
+<li>Start converting builder API into partial object API (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1113">#1113</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1117">#1117</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1118">#1118</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1119">#1119</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1120">#1120</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1123">#1123</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1124">#1124</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1126">#1126</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1128">#1128</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1130">#1130</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1131">#1131</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1133">#1133</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1134">#1134</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1135">#1135</a>)</li>
+<li>Simplify <code>Triangulate</code> trait (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1122">#1122</a>)</li>
+<li>Clean up <code>Face</code> constructor (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1125">#1125</a>)</li>
+<li>Remove <code>HalfEdge::from_curve_and_vertices</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1127">#1127</a>)</li>
+</ul>
+<h3 id="internal-improvements">Internal Improvements</h3>
+<p>Improvements that are relevant to developers working on Fornjot itself.</p>
+<ul>
+<li>Update dependencies (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1101">#1101</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1103">#1103</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1104">#1104</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1105">#1105</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1106">#1106</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1107">#1107</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1109">#1109</a>)</li>
+<li>Remove unused dependencies (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1110">#1110</a>)</li>
+<li>Expand release automation (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1115">#1115</a>)</li>
+<li>Upgrade to Rust 1.64.0 (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1132">#1132</a>)</li>
+<li>Update list of sponsors in README (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1136">#1136</a>)</li>
+</ul>
+<h3 id="issue-of-the-week">Issue of the Week</h3>
+<p>The Fornjot UI can display status updates. For example, that the model has been reloaded, or that there has been an error trying to do just that. A nice incremental improvement to that capability, would be to also display a timestamp with each update.</p>
+<p>If you're interested in getting into Fornjot, and are looking for something manageable, maybe check out <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/971">#971 - Print timestamp with each status update</a></p>
+<h3 id="outlook">Outlook</h3>
+<p>Cleanups will continue for the time being. I've been questioning whether I should find some shortcut to get back on track with the union operation (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/42">#42</a>) instead, but so far I've decided against that. First, it's not clear to me what that shortcut would be. Second, fixing <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/1079">#1079</a> and then <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/993">#993</a> the proper way has many positive side effects, making the kernel more reliable and preventing whole classes of bugs.</p>
+<p>I'll stay the course for now and will keep re-evaluation the situation as I go on.</p>
+
+
+        <footer>
+            
+        </footer>
+    </article>
+
+        </main>
+        <footer>
+            <hr />
+
+            <p>
+                This website is maintained by <a href="https://www.hannobraun.com/">me</a>:
+            </p>
+
+            <address>
+                Hanno Braun<br />
+                Untere Pfarrgasse 19<br />
+                64720 Michelstadt<br />
+                Germany<br />
+                <br />
+                <a href="mailto:hello@hannobraun.com">hello@hannobraun.com</a><br />
+            </address>
+        </footer>
+    </body>
+</html>

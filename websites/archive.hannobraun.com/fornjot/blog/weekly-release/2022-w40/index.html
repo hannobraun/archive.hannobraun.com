@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        
+        
+            
+        
+
+        
+            <title>Fornjot - Weekly Release - 2022-W40</title>
+        
+
+        <link
+            href="/fornjot/style.css"
+            rel="stylesheet"
+            type="text/css"
+            media="all" />
+
+        <link href="/fornjot/atom.xml" rel="alternate" type="application/atom+xml" />
+    </head>
+    <body>
+        <header>
+            <div class="archival highlight">
+                This website has been archived. It will not be kept up-to-date.
+            </div>
+            <a class="title" href="/fornjot/">
+                <h1>Fornjot</h1>
+                <h2>early-stage b-rep CAD kernel, written in Rust</h2>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/fornjot/">About</a></li>
+                    <li><a href="/fornjot/blog">Blog</a></li>
+                    <li><a href="https://github.com/hannobraun/fornjot">GitHub ↪</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            
+    <article class="blog-post">
+        <header>
+            <h2>Weekly Release - 2022-W40</h2>
+            <span class="metadata">
+        Posted on <time datetime="2022-10-04">2022-10-04</time> by <a href="https://github.com/hannobraun">Hanno Braun</a>
+
+        </span>
+        </header>
+
+        <aside>
+            
+    <p>
+        <a href="/fornjot/">Fornjot</a> is an early-stage project to create a next-generation Code-CAD application. This is the announcement for this week's release, version <a href="https://github.com/hannobraun/Fornjot/releases/tag/v0.18.0">0.18.0</a>.
+    </p>
+
+        </aside>
+
+        <p>Hey folks, sorry for being a day late with the weekly release! Yesterday was a public holiday here in Germany.</p>
+<p>Last week, I've been able to finish the round of cleanups that kept me busy over the last few weeks. I addressed <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/1079">#1079</a>, then fixed <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/993">#993</a>, which had been holding up further progress on the union operation (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/42">#42</a>).</p>
+<p>I returned to implementing the intersection tests required for the union operation and made some progress there. I pretty quickly found out that the sweep algorithm (and possibly more code) is generating invalid geometry though (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/1162">#1162</a>), which is preventing further progress on the intersection tests, so I started working on that.</p>
+<h3 id="sponsors">Sponsors</h3>
+<p>Fornjot is supported by <a rel="external" href="https://github.com/webtrax-oz">@webtrax-oz</a>, <a rel="external" href="https://github.com/lthiery">@lthiery</a>, <a rel="external" href="https://github.com/ahdinosaur">@ahdinosaur</a>, <a rel="external" href="https://github.com/Yatekii">@Yatekii</a>, <a rel="external" href="https://github.com/martindederer">@martindederer</a>, <a rel="external" href="https://github.com/hobofan">@hobofan</a>, <a rel="external" href="https://github.com/thawkins">@thawkins</a>, <a rel="external" href="https://github.com/bollian">@bollian</a>, <a rel="external" href="https://github.com/rozgo">@rozgo</a>, <a rel="external" href="https://github.com/reivilibre">@reivilibre</a>, and <a rel="external" href="https://github.com/sponsors/hannobraun">my other awesome sponsors</a>. Thank you!</p>
+<strong class="call-to-action">
+    <p>
+        If you want Fornjot to be sustainable long-term, please consider <a href="https://github.com/sponsors/hannobraun">supporting me</a> too.
+    </p>
+</strong>
+<h3 id="end-user-improvements">End-user improvements</h3>
+<p>Improvements to Fornjot and its documentation that are visible to end-users.</p>
+<p><em>None this week. Busy improving the kernel!</em></p>
+<h3 id="ecosystem-improvements">Ecosystem improvements</h3>
+<p>Improvements to the Fornjot ecosystem that are relevant to developers who are building on top of Fornjot components.</p>
+<h4 id="fj-kernel"><code>fj-kernel</code></h4>
+<ul>
+<li>Improve some panic messages (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1139">#1139</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1149">#1149</a>)</li>
+<li>Improve partial object API (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1140">#1140</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1144">#1144</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1148">#1148</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1150">#1150</a>)</li>
+<li>Fix some code that creates duplicate global curves (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1145">#1145</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1151">#1151</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1152">#1152</a>)</li>
+<li>Remove redundant geometry from <code>GlobalCurve</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1146">#1146</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1153">#1153</a>)</li>
+<li>Make <code>GlobalEdge</code> undirected (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1155">#1155</a>)</li>
+<li>Validate winding of interior cycles of <code>Face</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1158">#1158</a>)</li>
+<li>Add <code>HorizontalRayToTheRight::direction</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1159">#1159</a>)</li>
+<li>Integrate <code>Surface</code> into centralized object storage (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1163">#1163</a>)</li>
+</ul>
+<h4 id="fj-math"><code>fj-math</code></h4>
+<ul>
+<li>Add <code>Plane</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1157">#1157</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1160">#1160</a>)</li>
+<li>Expand and clean up API of <code>Vector</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1161">#1161</a>)</li>
+</ul>
+<h3 id="internal-improvements">Internal Improvements</h3>
+<p>Improvements that are relevant to developers working on Fornjot itself.</p>
+<ul>
+<li>Update release procedure (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1138">#1138</a>)</li>
+<li>Expand release automation (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1141">#1141</a>)</li>
+<li>Update dependencies (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1142">#1142</a>)</li>
+<li>Update screenshot of test model (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1156">#1156</a>)</li>
+</ul>
+<h3 id="issue-of-the-week">Issue of the Week</h3>
+<p>Fornjot being code-first gives a lot of flexibility to models. They can run arbitrary logic to create geometry, process complex inputs, and perform all kinds of calculations. But they lack ways to present output to the user.</p>
+<p>So far, the best they can do is print to <code>stdout</code>, which the user might not even see. Fornjot already displays model status updates to the user. If models could display arbitrary message there, that would be a step in the right direction.</p>
+<p>Does that sound interesting to you? If so, maybe give <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/996">#996 - Models should be able to add status messages</a> a try.</p>
+<h3 id="outlook">Outlook</h3>
+<p>Since <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/1162">#1162</a> is preventing further progress on the union operation (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/42">#42</a>), I'm working on that right now. I'd like to fix that bug properly, so instead of just addressing the specific instances I'm aware of, I'd like to add validation code that makes <em>all</em> instances visible.</p>
+<p>That new validation code would benefit from the scope of the centralized object storage being expanded (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/1021">#1021</a>), so that's my next step.</p>
+
+
+        <footer>
+            
+        </footer>
+    </article>
+
+        </main>
+        <footer>
+            <hr />
+
+            <p>
+                This website is maintained by <a href="https://www.hannobraun.com/">me</a>:
+            </p>
+
+            <address>
+                Hanno Braun<br />
+                Untere Pfarrgasse 19<br />
+                64720 Michelstadt<br />
+                Germany<br />
+                <br />
+                <a href="mailto:hello@hannobraun.com">hello@hannobraun.com</a><br />
+            </address>
+        </footer>
+    </body>
+</html>

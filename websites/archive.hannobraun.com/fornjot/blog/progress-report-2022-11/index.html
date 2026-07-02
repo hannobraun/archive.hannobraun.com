@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        
+        
+            
+        
+
+        
+            <title>Fornjot - Progress Report - 2022-11</title>
+        
+
+        <link
+            href="/fornjot/style.css"
+            rel="stylesheet"
+            type="text/css"
+            media="all" />
+
+        <link href="/fornjot/atom.xml" rel="alternate" type="application/atom+xml" />
+    </head>
+    <body>
+        <header>
+            <div class="archival highlight">
+                This website has been archived. It will not be kept up-to-date.
+            </div>
+            <a class="title" href="/fornjot/">
+                <h1>Fornjot</h1>
+                <h2>early-stage b-rep CAD kernel, written in Rust</h2>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/fornjot/">About</a></li>
+                    <li><a href="/fornjot/blog">Blog</a></li>
+                    <li><a href="https://github.com/hannobraun/fornjot">GitHub ↪</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            
+    <article class="blog-post">
+        <header>
+            <h2>Progress Report - 2022-11</h2>
+            <span class="metadata">
+        Posted on <time datetime="2022-11-10">2022-11-10</time> by <a href="https://github.com/hannobraun">Hanno Braun</a>
+
+        </span>
+        </header>
+
+        
+
+        <p>Hey folks!</p>
+<p><strong>Fornjot</strong> is an <strong>early-stage project</strong> to create a <strong>next-generation, code-first CAD application</strong>. In this progress report I present the changes that happened over the last few months. This is a new format on this blog, and it replaces the old release announcements that I used to write. This progress report summarizes the changes that happened since <a href="/fornjot/blog/fornjot-0.7/">the release of Fornjot 0.7</a>. <em>(We have since switched to a weekly release schedule, and the new weekly release announcements have, by necessity, a very different format.)</em></p>
+<p><strong>It's still early days for Fornjot!</strong> It is limited and immature. What's currently there should be seen as a preview of what's to come, not <em>yet</em> as a useful tool.</p>
+<h3 id="modeling">Modeling</h3>
+<p>Let's start with the core of what any CAD program is about: modeling! Fornjot is code-first, meaning CAD models are defined using a programming language. Currently, only Rust is supported for that.</p>
+<p>Here's what a simple Fornjot model looks like:</p>
+<pre class="giallo" style="color: #24292E; background-color: #FFFFFF;"><code data-lang="rust"><span class="giallo-l"><span style="color: #D73A49;">use</span><span style="color: #6F42C1;"> fj</span><span style="color: #D73A49;">::</span><span style="color: #6F42C1;">syntax</span><span style="color: #D73A49;">::*</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>#[fj</span><span style="color: #D73A49;">::</span><span>model]</span></span>
+<span class="giallo-l"><span style="color: #D73A49;">pub fn</span><span style="color: #6F42C1;"> model</span><span>(</span></span>
+<span class="giallo-l"><span>    #[</span><span style="color: #6F42C1;">param</span><span>(default</span><span style="color: #D73A49;"> =</span><span style="color: #005CC5;"> 1.0</span><span>, min</span><span style="color: #D73A49;"> =</span><span> inner</span><span style="color: #D73A49;"> *</span><span style="color: #005CC5;"> 1.01</span><span>)] outer</span><span style="color: #D73A49;">:</span><span style="color: #6F42C1;"> f64</span><span>,</span></span>
+<span class="giallo-l"><span>    #[</span><span style="color: #6F42C1;">param</span><span>(default</span><span style="color: #D73A49;"> =</span><span style="color: #005CC5;"> 0.5</span><span>, max</span><span style="color: #D73A49;"> =</span><span> outer</span><span style="color: #D73A49;"> *</span><span style="color: #005CC5;"> 0.99</span><span>)] inner</span><span style="color: #D73A49;">:</span><span style="color: #6F42C1;"> f64</span><span>,</span></span>
+<span class="giallo-l"><span>    #[</span><span style="color: #6F42C1;">param</span><span>(default</span><span style="color: #D73A49;"> =</span><span style="color: #005CC5;"> 1.0</span><span>)] height</span><span style="color: #D73A49;">:</span><span style="color: #6F42C1;"> f64</span><span>,</span></span>
+<span class="giallo-l"><span>)</span><span style="color: #D73A49;"> -&gt;</span><span style="color: #6F42C1;"> fj</span><span style="color: #D73A49;">::</span><span style="color: #6F42C1;">Shape</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #D73A49;">    let</span><span> outer_edge</span><span style="color: #D73A49;"> =</span><span style="color: #6F42C1;"> fj</span><span style="color: #D73A49;">::</span><span style="color: #6F42C1;">Sketch</span><span style="color: #D73A49;">::</span><span style="color: #6F42C1;">from_circle</span><span>(</span><span style="color: #6F42C1;">fj</span><span style="color: #D73A49;">::</span><span style="color: #6F42C1;">Circle</span><span style="color: #D73A49;">::</span><span style="color: #6F42C1;">from_radius</span><span>(outer));</span></span>
+<span class="giallo-l"><span style="color: #D73A49;">    let</span><span> inner_edge</span><span style="color: #D73A49;"> =</span><span style="color: #6F42C1;"> fj</span><span style="color: #D73A49;">::</span><span style="color: #6F42C1;">Sketch</span><span style="color: #D73A49;">::</span><span style="color: #6F42C1;">from_circle</span><span>(</span><span style="color: #6F42C1;">fj</span><span style="color: #D73A49;">::</span><span style="color: #6F42C1;">Circle</span><span style="color: #D73A49;">::</span><span style="color: #6F42C1;">from_radius</span><span>(inner));</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #D73A49;">    let</span><span> footprint</span><span style="color: #D73A49;"> =</span><span> outer_edge</span><span style="color: #D73A49;">.</span><span style="color: #6F42C1;">difference</span><span>(</span><span style="color: #D73A49;">&amp;</span><span>inner_edge);</span></span>
+<span class="giallo-l"><span style="color: #D73A49;">    let</span><span> spacer</span><span style="color: #D73A49;"> =</span><span> footprint</span><span style="color: #D73A49;">.</span><span style="color: #6F42C1;">sweep</span><span>([</span><span style="color: #005CC5;">0</span><span style="color: #D73A49;">.</span><span>,</span><span style="color: #005CC5;"> 0</span><span style="color: #D73A49;">.</span><span>, height]);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>    spacer</span><span style="color: #D73A49;">.</span><span style="color: #6F42C1;">into</span><span>()</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p>This example displays two tweaks that have been made since version 0.7:</p>
+<ul>
+<li>Parameters are now annotated with <code>#[param]</code>, which is more descriptive than the old <code>#[value]</code>.</li>
+<li><code>fj::Circle</code> is no longer its own shape and has been integrated with <code>fj::Sketch</code>. This is only an early peek of what's to come, as it's still not possible to create sketches with both straight lines and arcs.</li>
+</ul>
+<p>Here's the 3D model that the above code creates:</p>
+<p><img src="/fornjot/blog/progress-report-2022-11/spacer.png" alt="3D model of a cylinder with a circular hole along its height" /></p>
+<p>There have also been other improvements related to modeling:</p>
+<ul>
+<li>Group and transform operations now also work on 2D shapes.</li>
+<li>The <code>model</code> function shown above is now type-checked (contributed by <a rel="external" href="https://github.com/Michael-F-Bryan">@Michael-F-Bryan</a>). Less opportunity for accidentally producing weird errors!</li>
+<li>Fornjot models are technically Rust libraries right now, and you had to specify a very specific <code>crate-type</code> in the model's <code>Cargo.toml</code> file. This is no longer necessary.</li>
+<li>The Fornjot app will look for the model's <code>target/</code> directory (where Cargo, the Rust build tool, puts its output) where it's actually supposed to be, and no longer blindly expects it in the model directory (contributed by <a rel="external" href="https://github.com/Michael-F-Bryan">@Michael-F-Bryan</a>). This means you can have models in Cargo workspaces.</li>
+<li>The app now detects, if a model is using a different version of Fornjot, showing errors or warnings as appropriate (contributed by <a rel="external" href="https://github.com/zthompson47">@zthompson47</a> and others)</li>
+<li>And many other small tweaks and improvements!</li>
+</ul>
+<h3 id="user-interface">User Interface</h3>
+<p>Fornjot's GUI (graphical user interface) has made big strides! In version 0.7 (the last version that I published a progress report kinda like this for, see above), we only had an extremely basic GUI that didn't allow you to do a whole lot. Since then, we have integrated a new GUI based on <a rel="external" href="https://github.com/emilk/egui">egui</a> (originally by <a rel="external" href="https://github.com/follower">@follower</a>, with many follow-up improvements by <a rel="external" href="https://github.com/devanlooches">@devanlooches</a>, <a rel="external" href="https://github.com/connor-lennox">@connor-lennox</a>, <a rel="external" href="https://github.com/erenoku">@erenoku</a>, and others).</p>
+<p>Here's what the GUI looked like in version 0.7:</p>
+<p><img src="/fornjot/blog/progress-report-2022-11/gui-before.png" alt="Screenshot of the Fornjot app from version 0.7; nothing that&#39;s recognizable as a modern GUI is visible" /></p>
+<p>And this is what the GUI looks like right now (development version, shortly after version 0.22.0):</p>
+<p><img src="/fornjot/blog/progress-report-2022-11/gui-after.png" alt="Screenshot of the current Fornjot app; shows a GUI with checkboxes and labels for some debug options, and a UI element displaying status messages" /></p>
+<p>You can now start the app without any arguments or configuration that specify a model, and you'll be prompted to select one (contributed by <a rel="external" href="https://github.com/erenoku">@erenoku</a>):</p>
+<p><img src="/fornjot/blog/progress-report-2022-11/gui-no-model.png" alt="Screenshot of the current Fornjot app; no model is being displayed, and there&#39;s a button in the center of the window that prompts the user to pick a model" /></p>
+<p>And there's more:</p>
+<ul>
+<li>The app always starts immediately (contributed by <a rel="external" href="https://github.com/payload">@payload</a> and others). No more wondering if something went wrong, when you're running for the first time and it takes a moment to compile the model.</li>
+<li>Some weird crashes have been fixed, informative and actionable error messages being shown instead (contributed by <a rel="external" href="https://github.com/ArshErgon">@ArshErgon</a> and others).</li>
+<li>The app now has a <code>--version</code> command-line argument, which intelligently displays the current version and whether it's a release or not (contributed by <a rel="external" href="https://github.com/Michael-F-Bryan">@Michael-F-Bryan</a>).</li>
+<li>Zooming behavior has been simplified/fixed (contributed by <a rel="external" href="https://github.com/jeevcat">@jeevcat</a>). It previously was a bit overly ambitious in what it tried to do and didn't work that great.</li>
+<li>The graphics backend should be more robust, working with more combinations of operating systems and graphics hardware (contributed by <a rel="external" href="https://github.com/hekno25">@hekno25</a> and others)</li>
+<li>Anti-aliasing has been implemented, making models look nicer.</li>
+<li>And many other small improvements!</li>
+</ul>
+<p>Fornjot still has some ways to go before it provides a truly user-friendly experience, but we're slowly getting there.</p>
+<h3 id="under-the-hood">Under the Hood</h3>
+<p>Despite all the improvements mentioned above, most work by far has gone into technical foundations that don't (yet) have a big impact on the user experience. The primary focus remains the implementation of <a rel="external" href="https://en.wikipedia.org/wiki/Constructive_solid_geometry">boolean operations</a>, which is an essential feature that will help raise Fornjot from its current preview state to a level of basic usefulness.</p>
+<p>Unfortunately there's more to it than implementing a few algorithms. To make implementing those algorithms practical, and the results of these algorithms reliable, the data structures of the CAD kernel need to be at a certain level of robustness and maturity.</p>
+<p>The whole process of working on boolean operations has been defined by a long series of bugs and limitations being discovered, each requiring changes to the data structures to fix them properly. When that happens, the code that generates and manipulates those data structures is affected, often requiring deep architectural changes.</p>
+<p>We're still figuring out how to structure a robust CAD kernel. It's a slow process, but things are moving in the right direction.</p>
+<p>Another notable improvement is the new API that is used to communicate between the Fornjot app and the models it loads (contributed by <a rel="external" href="https://github.com/Michael-F-Bryan">@Michael-F-Bryan</a>). This will enable many useful features in the future, like being able to manipulate model parameters from the GUI; or models that export multiple shapes, assemblies, and other kinds of artifacts.</p>
+<h3 id="conclusion">Conclusion</h3>
+<p>Fornjot is making slow but steady forward progress on its way from what is essentially a preview, to a basic but useful, and eventually a fully productive, CAD application.</p>
+<p>Citing from the <a href="/fornjot/">home page</a>, the goal of this project is to create a CAD application that:</p>
+<ul>
+<li>uses a <strong>code-first</strong> approach;</li>
+<li>is <strong>open source</strong>;</li>
+<li>is broadly available, with <strong>support for all major platforms</strong>;</li>
+<li>is based on a <strong>new b-rep CAD kernel</strong>, written in Rust;</li>
+<li>provides a <strong>well-rounded feature set</strong>;</li>
+<li>and support for <strong>different modeling languages</strong>.</li>
+</ul>
+<p><strong>If this vision resonates with you, please consider supporting the project.</strong> Join the <a href="/fornjot/community">community</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/blob/main/CONTRIBUTING.md">contribute</a> to the project, or help out by <a rel="external" href="https://github.com/sponsors/hannobraun">sponsoring me</a>.</p>
+
+
+        <footer>
+            
+        </footer>
+    </article>
+
+        </main>
+        <footer>
+            <hr />
+
+            <p>
+                This website is maintained by <a href="https://www.hannobraun.com/">me</a>:
+            </p>
+
+            <address>
+                Hanno Braun<br />
+                Untere Pfarrgasse 19<br />
+                64720 Michelstadt<br />
+                Germany<br />
+                <br />
+                <a href="mailto:hello@hannobraun.com">hello@hannobraun.com</a><br />
+            </address>
+        </footer>
+    </body>
+</html>

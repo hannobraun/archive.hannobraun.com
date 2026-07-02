@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        
+        
+            
+        
+
+        
+            <title>Fornjot - Weekly Dev Log - 2022-W07</title>
+        
+
+        <link
+            href="/fornjot/style.css"
+            rel="stylesheet"
+            type="text/css"
+            media="all" />
+
+        <link href="/fornjot/atom.xml" rel="alternate" type="application/atom+xml" />
+    </head>
+    <body>
+        <header>
+            <div class="archival highlight">
+                This website has been archived. It will not be kept up-to-date.
+            </div>
+            <a class="title" href="/fornjot/">
+                <h1>Fornjot</h1>
+                <h2>early-stage b-rep CAD kernel, written in Rust</h2>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/fornjot/">About</a></li>
+                    <li><a href="/fornjot/blog">Blog</a></li>
+                    <li><a href="https://github.com/hannobraun/fornjot">GitHub ↪</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            
+    <article class="blog-post">
+        <header>
+            <h2>Weekly Dev Log - 2022-W07</h2>
+            <span class="metadata">
+        Posted on <time datetime="2022-02-21">2022-02-21</time> by <a href="https://github.com/hannobraun">Hanno Braun</a>
+
+        </span>
+        </header>
+
+        <aside>
+            
+    <p>
+        <a href="/fornjot/">Fornjot</a> is an early-stage project to create a next-generation Code-CAD application. This is Fornjot's Weekly Dev Log, a summary of the previous week's development activities.
+    </p>
+
+        </aside>
+
+        <p>I started out last week by continuing my work from the previous one: to use boundary representation for <em>all</em> shapes. It's being used for most, but there's still one last hold-out that's based on an older representation (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/97">#97</a>). Addressing that is necessary before I can start working on support for <a rel="external" href="https://en.wikipedia.org/wiki/Constructive_solid_geometry">constructive solid geometry</a> (CSG) operations.</p>
+<p>I made some good progress on that early in the week, then let myself get distracted by another bit of cleanup work. Writing math code sometimes required some annoying workarounds to do certain tasks (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/193">#193</a>). This wasn't serious enough to be an immediate priority, but somehow I got fed up enough about it that I just went and fixed it.</p>
+<p>That was a lot of work, but it's probably better this way. Having better tools at your disposal is good for productivity, so this will certainly pay off in the long run.</p>
+<h3 id="sponsors">Sponsors</h3>
+<p>Fornjot is supported by <a rel="external" href="https://github.com/lthiery">@lthiery</a>, <a rel="external" href="https://github.com/Yatekii">@Yatekii</a>, and <a rel="external" href="https://github.com/sponsors/hannobraun">my other awesome sponsors</a>. Thank you!</p>
+<p>If you're interested in helping to make the project sustainable long-term, please consider <a rel="external" href="https://github.com/sponsors/hannobraun">supporting me</a> too.</p>
+<h3 id="user-visible-improvements">User-visible improvements</h3>
+<ul>
+<li>Add UI element that shows size of model bounding box (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/217">#217</a>; special thanks to first-time contributor <a rel="external" href="https://github.com/therealprof">Daniel Egger</a>!)</li>
+<li>Fix example in README (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/218">#218</a>; thanks to <a rel="external" href="https://github.com/therealprof">Daniel Egger</a>!)</li>
+</ul>
+<h3 id="internal-improvements">Internal improvements</h3>
+<ul>
+<li>Update dependencies (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/181">#181</a>)</li>
+<li>Replace planes with surfaces created by sweeping curves (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/182">#182</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/183">#183</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/184">#184</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/190">#190</a>)</li>
+<li>Make various minor cleanups in CAD kernel (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/185">#185</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/189">#189</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/191">#191</a>)</li>
+<li>Add custom math types that implement <code>Eq</code>/<code>Ord</code>/<code>Hash</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/194">#194</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/195">#195</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/196">#196</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/197">#197</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/198">#198</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/199">#199</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/200">#200</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/203">#203</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/204">#204</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/205">#205</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/209">#209</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/210">#210</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/211">#211</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/212">#212</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/214">#214</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/215">#215</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/216">#216</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/221">#221</a>)</li>
+<li>Clean up the CI build (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/206">#206</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/207">#207</a>; thanks to <a rel="external" href="https://github.com/hendrikmaus">Hendrik Maus</a>!)</li>
+</ul>
+<h3 id="website">Website</h3>
+<ul>
+<li>Add Weekly Dev Log (<a rel="external" href="https://github.com/hannobraun/www.fornjot.app/pull/31">#31</a>)</li>
+</ul>
+<h3 id="outlook">Outlook</h3>
+<p>Now that I got the math code squared away, I'm back on track to address <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/97">#97</a>. I feel like I'm getting pretty close to finally fixing that, but it's hard to say how long it will still take.</p>
+<p>I can already see some issues I need to address first, like improving the approximation and triangulation code to support faces that are continuous, meaning they connect to themselves (like the outside of a cylinder). And I'm sure there are more problems that will pop up as I'm getting closer.</p>
+
+
+        <footer>
+            
+        </footer>
+    </article>
+
+        </main>
+        <footer>
+            <hr />
+
+            <p>
+                This website is maintained by <a href="https://www.hannobraun.com/">me</a>:
+            </p>
+
+            <address>
+                Hanno Braun<br />
+                Untere Pfarrgasse 19<br />
+                64720 Michelstadt<br />
+                Germany<br />
+                <br />
+                <a href="mailto:hello@hannobraun.com">hello@hannobraun.com</a><br />
+            </address>
+        </footer>
+    </body>
+</html>

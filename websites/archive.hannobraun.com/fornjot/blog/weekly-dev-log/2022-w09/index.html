@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        
+        
+            
+        
+
+        
+            <title>Fornjot - Weekly Dev Log - 2022-W09</title>
+        
+
+        <link
+            href="/fornjot/style.css"
+            rel="stylesheet"
+            type="text/css"
+            media="all" />
+
+        <link href="/fornjot/atom.xml" rel="alternate" type="application/atom+xml" />
+    </head>
+    <body>
+        <header>
+            <div class="archival highlight">
+                This website has been archived. It will not be kept up-to-date.
+            </div>
+            <a class="title" href="/fornjot/">
+                <h1>Fornjot</h1>
+                <h2>early-stage b-rep CAD kernel, written in Rust</h2>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/fornjot/">About</a></li>
+                    <li><a href="/fornjot/blog">Blog</a></li>
+                    <li><a href="https://github.com/hannobraun/fornjot">GitHub ↪</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            
+    <article class="blog-post">
+        <header>
+            <h2>Weekly Dev Log - 2022-W09</h2>
+            <span class="metadata">
+        Posted on <time datetime="2022-03-07">2022-03-07</time> by <a href="https://github.com/hannobraun">Hanno Braun</a>
+
+        </span>
+        </header>
+
+        <aside>
+            
+    <p>
+        <a href="/fornjot/">Fornjot</a> is an early-stage project to create a next-generation Code-CAD application. This is Fornjot's Weekly Dev Log, a summary of the previous week's development activities.
+    </p>
+
+        </aside>
+
+        <p>Last week, I had started working on vertex validation (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/242">#242</a>) and was hopeful to  make quick progress. Turns out, that work was a bit <em>too</em> successful. The original intent was to use vertex validation to provide some coverage for upcoming work on the sweep code, as previous attempts had resulted in subtle bugs.</p>
+<p>Before I could get there though, it uncovered some bugs in the existing sweep code! It's good to know that working on vertex validation was worthwhile, but it also means more unexpected work. On top of that, fixing those bugs turned out to be difficult with the current shape representation, so I decided to fix that problem at the source, by improving the shape representation (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/280">#280</a>).</p>
+<p>All in all, it's business as usual: more problems, more fixes, more opportunities to make the CAD kernel more robust!</p>
+<h3 id="sponsors">Sponsors</h3>
+<p>Fornjot is supported by <a rel="external" href="https://github.com/webtrax-oz">@webtrax-oz</a>, <a rel="external" href="https://github.com/lthiery">@lthiery</a>, <a rel="external" href="https://github.com/Yatekii">@Yatekii</a>, <a rel="external" href="https://github.com/martindederer">@martindederer</a>, and <a rel="external" href="https://github.com/sponsors/hannobraun">my other awesome sponsors</a>. Thank you!</p>
+<p>If you're interested in helping to make the project sustainable long-term, please consider <a rel="external" href="https://github.com/sponsors/hannobraun">supporting me</a> too.</p>
+<h3 id="user-visible-improvements">User-visible improvements</h3>
+<ul>
+<li>Update sponsors in README (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/258">#258</a>)</li>
+<li>Remove <code>fj::Difference</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/265">#265</a>)</li>
+<li>Fix sweeping of un-symmetrical sketches (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/284">#284</a>)</li>
+<li>Fix incorrectly shaded faces (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/289">#289</a>)</li>
+</ul>
+<h3 id="internal-improvements">Internal improvements</h3>
+<ul>
+<li>Run Clippy and formatting check in CI build (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/208">#208</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/266">#266</a>; special thanks to first-time contributor <a rel="external" href="https://github.com/ObiWanRohan">@ObiWanRohan</a>!)</li>
+<li>Update dependencies (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/259">#259</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/260">#260</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/264">#264</a>)</li>
+<li>Prepare for vertex validation (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/267">#267</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/268">#268</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/273">#273</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/274">#274</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/276">#276</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/277">#277</a>)</li>
+<li>Fix warnings in documentation (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/270">#270</a>)</li>
+<li>Document kernel design principle (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/272">#272</a>)</li>
+<li>Consolidate all transformation code in a single module (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/275">#275</a>)</li>
+<li>Move sweep code to <code>kernel::algorithms::sweep</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/279">#279</a>)</li>
+<li>Improve test suite (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/281">#281</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/282">#282</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/285">#285</a>)</li>
+<li>Work on improving shape representation (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/283">#283</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/286">#286</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/287">#287</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/288">#288</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/290">#290</a>)</li>
+</ul>
+<h3 id="issue-of-the-week">Issue of the week</h3>
+<p>When you submit a pull request to the Fornjot repository, it runs through a continuous integration (CI) build, to make sure it doesn't have any obvious issues. The CI build checks for a few things, like Clippy warnings and code formatting, that might not be obvious to new users.</p>
+<p>To make it a bit easier to determine, if your pull request is ready to be merged, it would be great to have a local build script to determine whether your changes will likely pass CI.</p>
+<p>If you're looking for a way to get involved with Fornjot, why not give <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/269">#269 - Add local build script</a> a try?</p>
+<h3 id="outlook">Outlook</h3>
+<p>The work on improving the shape representation (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/280">#280</a>) has been progressing nicely. Once that is done, I can fix the bugs uncovered by vertex validation and enable that permanently (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/242">#242</a>). After that, I can resume work on <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/97">#97</a>, which has been the main driver behind all this recent work on kernel robustness.</p>
+
+
+        <footer>
+            
+        </footer>
+    </article>
+
+        </main>
+        <footer>
+            <hr />
+
+            <p>
+                This website is maintained by <a href="https://www.hannobraun.com/">me</a>:
+            </p>
+
+            <address>
+                Hanno Braun<br />
+                Untere Pfarrgasse 19<br />
+                64720 Michelstadt<br />
+                Germany<br />
+                <br />
+                <a href="mailto:hello@hannobraun.com">hello@hannobraun.com</a><br />
+            </address>
+        </footer>
+    </body>
+</html>

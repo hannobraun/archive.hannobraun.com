@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        
+        
+            
+        
+
+        
+            <title>Fornjot - Weekly Release - Making Room for Distractions</title>
+        
+
+        <link
+            href="/fornjot/style.css"
+            rel="stylesheet"
+            type="text/css"
+            media="all" />
+
+        <link href="/fornjot/atom.xml" rel="alternate" type="application/atom+xml" />
+    </head>
+    <body>
+        <header>
+            <div class="archival highlight">
+                This website has been archived. It will not be kept up-to-date.
+            </div>
+            <a class="title" href="/fornjot/">
+                <h1>Fornjot</h1>
+                <h2>early-stage b-rep CAD kernel, written in Rust</h2>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/fornjot/">About</a></li>
+                    <li><a href="/fornjot/blog">Blog</a></li>
+                    <li><a href="https://github.com/hannobraun/fornjot">GitHub ↪</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            
+    <article class="blog-post">
+        <header>
+            <h2>Weekly Release - Making Room for Distractions</h2>
+            <span class="metadata">
+        Posted on <time datetime="2022-10-17">2022-10-17</time> by <a href="https://github.com/hannobraun">Hanno Braun</a>
+
+        </span>
+        </header>
+
+        <aside>
+            
+    <p>
+        <a href="/fornjot/">Fornjot</a> is an early-stage project to create a next-generation Code-CAD application. This is the announcement for this week's release, version <a href="https://github.com/hannobraun/Fornjot/releases/tag/v0.20.0">0.20.0</a>.
+    </p>
+
+        </aside>
+
+        <p>My main priority was and remains the implementation of the union operations, but it should have become quite obvious to anyone following these updates, that it's taking a while. Meanwhile, other parts of the project remain in a largely immature state. I have reason to believe that this isn't making a great impression on potential contributors and sponsors, and it isn't great for <em>my</em> morale either.</p>
+<p>So I've made a decision: In parallel to the ongoing work on the union operation (and boolean operations in general), I'll allocate some time to work on smaller tasks that have an immediate and visible benefit. I've started this effort by picking off some issues that had been open for a while. Check out the list of changes below!</p>
+<p>As far as the big picture goes, I've continued the effort to expand the scope of the centralized object storage (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/1021">#1021</a>) and making use of that by enhancing the existing validation code (by using <a rel="external" href="https://docs.rs/fj-kernel/0.19.0/fj_kernel/objects/index.html#object-identity-vs-object-equality">object identity instead of object equality</a> for comparisons). This is slow and tedious work, as a lot of code that constructs objects needs to be updated to meet the stricter validation requirements.</p>
+<p>All of this leads to more robust code though, and thus fewer bugs. The specific goal I'm working toward is to fix <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/1162">#1162</a>, which is currently blocking further progress on the union operation (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/42">#42</a>).</p>
+<p>Meanwhile, <a rel="external" href="https://github.com/ArshErgon">@ArshErgon</a> improved the error message for when a model can't be found, and <a rel="external" href="https://github.com/Philipp-M">@Philipp-M</a> added a Nix flake.</p>
+<h3 id="sponsors">Sponsors</h3>
+<p>Fornjot is supported by <a rel="external" href="https://github.com/webtrax-oz">@webtrax-oz</a>, <a rel="external" href="https://github.com/lthiery">@lthiery</a>, <a rel="external" href="https://github.com/ahdinosaur">@ahdinosaur</a>, <a rel="external" href="https://github.com/Yatekii">@Yatekii</a>, <a rel="external" href="https://github.com/martindederer">@martindederer</a>, <a rel="external" href="https://github.com/hobofan">@hobofan</a>, <a rel="external" href="https://github.com/thawkins">@thawkins</a>, <a rel="external" href="https://github.com/bollian">@bollian</a>, <a rel="external" href="https://github.com/rozgo">@rozgo</a>, <a rel="external" href="https://github.com/reivilibre">@reivilibre</a>, and <a rel="external" href="https://github.com/sponsors/hannobraun">my other awesome sponsors</a>. Thank you!</p>
+<strong class="call-to-action">
+    <p>
+        If you want Fornjot to be sustainable long-term, please consider <a href="https://github.com/sponsors/hannobraun">supporting me</a> too.
+    </p>
+</strong>
+<h3 id="end-user-improvements">End-user improvements</h3>
+<p>Improvements to Fornjot and its documentation that are visible to end users.</p>
+<ul>
+<li>Improve error message, if model can't be found (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1154">#1154</a>; thank you, <a rel="external" href="https://github.com/ArshErgon">@ArshErgon</a>!)</li>
+<li>Remove old UI (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1202">#1202</a>)</li>
+<li>Invert default zoom direction; add config to override that (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1204">#1204</a>)</li>
+<li>Document convenient syntax for <code>fj</code> operations (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1205">#1205</a>)</li>
+<li>Remove the need to specify <code>crate-type</code> in <code>Cargo.toml</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1209">#1209</a>)</li>
+<li>Fix some <code>wgpu</code>/<code>egui-winit</code> errors and warnings (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1216">#1216</a>)</li>
+</ul>
+<h3 id="ecosystem-improvements">Ecosystem improvements</h3>
+<p>Improvements to Fornjot components that are relevant to developers building on top of those. These have an indirect effect on end users, through fixed bugs and improved robustness.</p>
+<h4 id="fj-kernel"><code>fj-kernel</code></h4>
+<ul>
+<li>Rename <code>Stores</code> to <code>Objects</code>, move it to <code>objects</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1198">#1198</a>)</li>
+<li>Provide access to default planes through <code>Objects</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1200">#1200</a>)</li>
+<li>Fix more object duplication issues (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1206">#1206</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1207">#1207</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1215">#1215</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1218">#1218</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1220">#1220</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1222">#1222</a>)</li>
+<li>Expand partial object API(<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1212">#1212</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1213">#1213</a>)</li>
+<li>Integrate <code>SurfaceVertex</code> into centralized object storage (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1214">#1214</a>)</li>
+<li>Add methods to access single <code>HalfEdge</code> vertices (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1219">#1219</a>)</li>
+</ul>
+<h4 id="fj-math"><code>fj-math</code></h4>
+<ul>
+<li>Fix <code>Triangle::winding</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1217">#1217</a>)</li>
+</ul>
+<h4 id="fj-operations"><code>fj-operations</code></h4>
+<ul>
+<li>Remove redundant argument from <code>Shape::compute_brep</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1201">#1201</a>)</li>
+</ul>
+<h4 id="fj-viewer"><code>fj-viewer</code></h4>
+<ul>
+<li>Remove dependency on winit (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1210">#1210</a>)</li>
+</ul>
+<h3 id="internal-improvements">Internal Improvements</h3>
+<p>Improvements that are relevant to developers working on Fornjot itself.</p>
+<ul>
+<li>Update release procedure (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1195">#1195</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1208">#1208</a>)</li>
+<li>Update dependencies (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1196">#1196</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1197">#1197</a>)</li>
+<li>Add Nix build and dev-shell support via Nix flakes (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1199">#1199</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1203">#1203</a>; thank you, <a rel="external" href="https://github.com/Philipp-M">@Philipp-M</a>!)</li>
+<li>Clean up egui-related code (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1211">#1211</a>)</li>
+</ul>
+
+
+        <footer>
+            
+        </footer>
+    </article>
+
+        </main>
+        <footer>
+            <hr />
+
+            <p>
+                This website is maintained by <a href="https://www.hannobraun.com/">me</a>:
+            </p>
+
+            <address>
+                Hanno Braun<br />
+                Untere Pfarrgasse 19<br />
+                64720 Michelstadt<br />
+                Germany<br />
+                <br />
+                <a href="mailto:hello@hannobraun.com">hello@hannobraun.com</a><br />
+            </address>
+        </footer>
+    </body>
+</html>

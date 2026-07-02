@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        
+        
+            
+        
+
+        
+            <title>Fornjot - Weekly Release - Keep Things Moving</title>
+        
+
+        <link
+            href="/fornjot/style.css"
+            rel="stylesheet"
+            type="text/css"
+            media="all" />
+
+        <link href="/fornjot/atom.xml" rel="alternate" type="application/atom+xml" />
+    </head>
+    <body>
+        <header>
+            <div class="archival highlight">
+                This website has been archived. It will not be kept up-to-date.
+            </div>
+            <a class="title" href="/fornjot/">
+                <h1>Fornjot</h1>
+                <h2>early-stage b-rep CAD kernel, written in Rust</h2>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/fornjot/">About</a></li>
+                    <li><a href="/fornjot/blog">Blog</a></li>
+                    <li><a href="https://github.com/hannobraun/fornjot">GitHub ↪</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            
+    <article class="blog-post">
+        <header>
+            <h2>Weekly Release - Keep Things Moving</h2>
+            <span class="metadata">
+        Posted on <time datetime="2023-01-23">2023-01-23</time> by <a href="https://github.com/hannobraun">Hanno Braun</a>
+
+        </span>
+        </header>
+
+        <aside>
+            
+    <p>
+        <a href="/fornjot/">Fornjot</a> is an early-stage project to create a next-generation Code-CAD application. This is the announcement for this week's release, version <a href="https://github.com/hannobraun/Fornjot/releases/tag/v0.33.0">0.33.0</a>.
+    </p>
+
+        </aside>
+
+        <p>Over the last week, I have started to shift my focus away from the work that directly contributes to advancing <a href="/fornjot/roadmap/">the roadmap</a>, towards more foundational work. Right now, that mostly means simplifying the core data structures (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/1525">#1525</a>), which should pretty much make every aspect of kernel development easier.</p>
+<p>Honestly, I think I just need a break from staring at the builder code (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/1162">#1162</a>), like I've been doing for the last few weeks. In addition, improving the foundational infrastructure will benefit all future development. I don't know when I'll get back to <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/1162">#1162</a>, but I think it's most important for me to stay productive and move things in the right direction in general, rather than advance along one specific path, even when that path could be considered the most important one.</p>
+<h3 id="sponsors">Sponsors</h3>
+<p>Fornjot is supported by <a rel="external" href="https://github.com/webtrax-oz">@webtrax-oz</a>, <a rel="external" href="https://github.com/lthiery">@lthiery</a>, <a rel="external" href="https://github.com/ahdinosaur">@ahdinosaur</a>, <a rel="external" href="https://github.com/Yatekii">@Yatekii</a>, <a rel="external" href="https://github.com/martindederer">@martindederer</a>, <a rel="external" href="https://github.com/hobofan">@hobofan</a>, <a rel="external" href="https://github.com/thawkins">@thawkins</a>, <a rel="external" href="https://github.com/bollian">@bollian</a>, <a rel="external" href="https://github.com/rozgo">@rozgo</a>, <a rel="external" href="https://github.com/reivilibre">@reivilibre</a>, and <a rel="external" href="https://github.com/sponsors/hannobraun">my other awesome sponsors</a>. Thank you!</p>
+<strong class="call-to-action">
+    <p>
+        If you want Fornjot to be sustainable long-term, please consider <a href="https://github.com/sponsors/hannobraun">supporting me</a> too.
+    </p>
+</strong>
+<h3 id="end-user-improvements">End-user improvements</h3>
+<p>Improvements to Fornjot and its documentation that are visible to end users.</p>
+<p>None this week, busy working on the kernel!</p>
+<h3 id="ecosystem-improvements">Ecosystem improvements</h3>
+<p>Improvements to Fornjot components that are relevant to developers building on top of those. These have an indirect effect on end users, through fixed bugs and improved robustness.</p>
+<h4 id="fj-kernel"><code>fj-kernel</code></h4>
+<ul>
+<li>Improve validation error message (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1518">#1518</a>)</li>
+<li>Add <code>FaceBuilder::infer_curves</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1520">#1520</a>)</li>
+<li>Simplify object graph around <code>HalfEdge</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1521">#1521</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1522">#1522</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1524">#1524</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1526">#1526</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1527">#1527</a>)</li>
+</ul>
+<h4 id="fj-math"><code>fj-math</code></h4>
+<ul>
+<li>Fix <code>Plane::project_vector</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1523">#1523</a>)</li>
+</ul>
+<h3 id="internal-improvements">Internal Improvements</h3>
+<p>Improvements that are relevant to developers working on Fornjot itself.</p>
+<ul>
+<li>Update dependencies (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1512">#1512</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1517">#1517</a>)</li>
+</ul>
+
+
+        <footer>
+            
+        </footer>
+    </article>
+
+        </main>
+        <footer>
+            <hr />
+
+            <p>
+                This website is maintained by <a href="https://www.hannobraun.com/">me</a>:
+            </p>
+
+            <address>
+                Hanno Braun<br />
+                Untere Pfarrgasse 19<br />
+                64720 Michelstadt<br />
+                Germany<br />
+                <br />
+                <a href="mailto:hello@hannobraun.com">hello@hannobraun.com</a><br />
+            </address>
+        </footer>
+    </body>
+</html>

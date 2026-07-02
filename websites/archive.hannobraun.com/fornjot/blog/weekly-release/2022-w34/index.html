@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        
+        
+            
+        
+
+        
+            <title>Fornjot - Weekly Release - 2022-W34</title>
+        
+
+        <link
+            href="/fornjot/style.css"
+            rel="stylesheet"
+            type="text/css"
+            media="all" />
+
+        <link href="/fornjot/atom.xml" rel="alternate" type="application/atom+xml" />
+    </head>
+    <body>
+        <header>
+            <div class="archival highlight">
+                This website has been archived. It will not be kept up-to-date.
+            </div>
+            <a class="title" href="/fornjot/">
+                <h1>Fornjot</h1>
+                <h2>early-stage b-rep CAD kernel, written in Rust</h2>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/fornjot/">About</a></li>
+                    <li><a href="/fornjot/blog">Blog</a></li>
+                    <li><a href="https://github.com/hannobraun/fornjot">GitHub ↪</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            
+    <article class="blog-post">
+        <header>
+            <h2>Weekly Release - 2022-W34</h2>
+            <span class="metadata">
+        Posted on <time datetime="2022-08-22">2022-08-22</time> by <a href="https://github.com/hannobraun">Hanno Braun</a>
+
+        </span>
+        </header>
+
+        <aside>
+            
+    <p>
+        <a href="/fornjot/">Fornjot</a> is an early-stage project to create a next-generation Code-CAD application. This is the announcement for this week's release, version <a href="https://github.com/hannobraun/Fornjot/releases/tag/v0.12.0">0.12.0</a>.
+    </p>
+
+        </aside>
+
+        <p>After taking a week off, I'm back this week with another release! Aside from some relaxing and a lot of hiking, I spent most of my time since the last release on cleaning up and expanding the intersection testing infrastructure. Intersection testing is a necessary building block for implementing the union operation (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/42">#42</a>). I <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/42#issuecomment-1206449099">maintain a list</a> of the building blocks still required, according to my current understanding.</p>
+<p>Meanwhile, <a rel="external" href="https://github.com/Michael-F-Bryan">@Michael-F-Bryan</a> has upgraded/rewritten the host/model API to switch to a model-driven concept. This is invisible to users right now, but it's a prerequisite for many future improvements. <a rel="external" href="https://github.com/devanlooches">@devanlooches</a> and <a rel="external" href="https://github.com/connor-lennox">@connor-lennox</a> have worked on improving the status updates that have recently been added to the Fornjot app.</p>
+<h3 id="sponsors">Sponsors</h3>
+<p>Fornjot is supported by <a rel="external" href="https://github.com/webtrax-oz">@webtrax-oz</a>, <a rel="external" href="https://github.com/lthiery">@lthiery</a>, <a rel="external" href="https://github.com/Yatekii">@Yatekii</a>, <a rel="external" href="https://github.com/martindederer">@martindederer</a>, <a rel="external" href="https://github.com/hobofan">@hobofan</a>, <a rel="external" href="https://github.com/ahdinosaur">@ahdinosaur</a>, <a rel="external" href="https://github.com/thawkins">@thawkins</a>, <a rel="external" href="https://github.com/bollian">@bollian</a>, <a rel="external" href="https://github.com/rozgo">@rozgo</a>, and <a rel="external" href="https://github.com/sponsors/hannobraun">my other awesome sponsors</a>. Thank you!</p>
+<p>If you want Fornjot to be stable and sustainable long-term, please consider <a rel="external" href="https://github.com/sponsors/hannobraun">supporting me</a> too.</p>
+<h3 id="end-user-improvements">End-user improvements</h3>
+<p>Improvements to Fornjot and its documentation that are visible to end-users.</p>
+<ul>
+<li>Display the last few status updates (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/919">#919</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/945">#945</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/952">#952</a>; thank you, <a rel="external" href="https://github.com/devanlooches">@devanlooches</a>!)</li>
+<li>Add table of contents to README (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/942">#942</a>)</li>
+<li>Display model compile times in status updates (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/960">#960</a>; thank you, <a rel="external" href="https://github.com/connor-lennox">@connor-lennox</a>!)</li>
+</ul>
+<h3 id="ecosystem-improvements">Ecosystem improvements</h3>
+<p>Improvements to the Fornjot ecosystem that are relevant to developers who are building on top of Fornjot components.</p>
+<h4 id="fj-kernel"><code>fj-kernel</code></h4>
+<ul>
+<li>Add <code>Surface</code> to <code>Cycle</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/939">#939</a>)</li>
+<li>Clean up and expand intersection testing code (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/940">#940</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/941">#941</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/946">#946</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/947">#947</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/948">#948</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/949">#949</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/950">#950</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/951">#951</a>)</li>
+</ul>
+<h3 id="internal-improvements">Internal Improvements</h3>
+<p>Improvements that are relevant to developers working on Fornjot itself.</p>
+<ul>
+<li>Switch to model-driven host API (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/885">#885</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/934">#934</a>; thank you, <a rel="external" href="https://github.com/Michael-F-Bryan">@Michael-F-Bryan</a>!)</li>
+<li>Update list of sponsors in README (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/921">#921</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/961">#961</a>)</li>
+<li>Update dependencies (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/922">#922</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/923">#923</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/924">#924</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/925">#925</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/926">#926</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/928">#928</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/929">#929</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/930">#930</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/931">#931</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/933">#933</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/953">#953</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/954">#954</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/956">#956</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/957">#957</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/958">#958</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/959">#959</a>)</li>
+<li>Update release procedure (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/932">#932</a>)</li>
+</ul>
+<h3 id="issue-of-the-week">Issue of the Week</h3>
+<p>Fornjot is still at an early stage, and one way that manifests is in its error messages, which can be pretty raw and not very helpful. An example of that, is when a user forgets to define that a model is to be compiled to a dynamic library.</p>
+<p>It should be able to prevent that case outright, by using a different Cargo command to compile Fornjot models, and passing the right parameters. If playing around with Rust and Cargo to get an introduction to Fornjot sounds appealing to you, why not take a look at <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/938">#938 - Use <code>cargo rustc</code> to compile models as dynamic libraries</a>?</p>
+<h3 id="outlook">Outlook</h3>
+<p>I'll be busy writing intersection testing code for the foreseeable future, as part of the process of implementing the union operation (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/42">#42</a>).</p>
+
+
+        <footer>
+            
+        </footer>
+    </article>
+
+        </main>
+        <footer>
+            <hr />
+
+            <p>
+                This website is maintained by <a href="https://www.hannobraun.com/">me</a>:
+            </p>
+
+            <address>
+                Hanno Braun<br />
+                Untere Pfarrgasse 19<br />
+                64720 Michelstadt<br />
+                Germany<br />
+                <br />
+                <a href="mailto:hello@hannobraun.com">hello@hannobraun.com</a><br />
+            </address>
+        </footer>
+    </body>
+</html>

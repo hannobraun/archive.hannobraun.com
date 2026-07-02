@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        
+        
+            
+        
+
+        
+            <title>Fornjot - Fornjot 0.48.0</title>
+        
+
+        <link
+            href="/fornjot/style.css"
+            rel="stylesheet"
+            type="text/css"
+            media="all" />
+
+        <link href="/fornjot/atom.xml" rel="alternate" type="application/atom+xml" />
+    </head>
+    <body>
+        <header>
+            <div class="archival highlight">
+                This website has been archived. It will not be kept up-to-date.
+            </div>
+            <a class="title" href="/fornjot/">
+                <h1>Fornjot</h1>
+                <h2>early-stage b-rep CAD kernel, written in Rust</h2>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/fornjot/">About</a></li>
+                    <li><a href="/fornjot/blog">Blog</a></li>
+                    <li><a href="https://github.com/hannobraun/fornjot">GitHub ↪</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            
+    <article class="blog-post">
+        <header>
+            <h2>Fornjot 0.48.0</h2>
+            <span class="metadata">
+        Posted on <time datetime="2023-12-15">2023-12-15</time> by <a href="https://github.com/hannobraun">Hanno Braun</a>
+
+        </span>
+        </header>
+
+        <aside>
+            
+    <p>
+        <a href="/fornjot/">Fornjot</a> is an early-stage b-rep CAD kernel, written in Rust. This is the announcement for the new release, version <a href="https://github.com/hannobraun/Fornjot/releases/tag/v0.48.0">0.48.0</a>.
+    </p>
+
+        </aside>
+
+        <p>Shutting down the weekly release schedule was necessary. But waiting 6 months for putting out another release? Not quite as I thought it would go 😄</p>
+<p>Time passed quickly, as it usually does, and now the year is basically over. But don't worry, that time was filled with lots of work on Fornjot. Let's take a look at some of the highlights!</p>
+<h4 id="build-update-operations-and-objectset">Build/update operations and <code>ObjectSet</code></h4>
+<p>Fornjot has APIs, called <em>operations</em>, to create and modify shapes. Two of the most important types of operations are <code>build</code> operations, which build shapes, and <code>update</code> operations, for low-level modifications of shapes.</p>
+<p>These operations have been expanded and refined since the last release. Here's an example:</p>
+<pre class="giallo" style="color: #24292E; background-color: #FFFFFF;"><code data-lang="rust"><span class="giallo-l"><span style="color: #6F42C1;">Sketch</span><span style="color: #D73A49;">::</span><span style="color: #6F42C1;">empty</span><span>()</span></span>
+<span class="giallo-l"><span style="color: #D73A49;">    .</span><span style="color: #6F42C1;">add_region</span><span>(</span></span>
+<span class="giallo-l"><span style="color: #6F42C1;">        Region</span><span style="color: #D73A49;">::</span><span style="color: #6F42C1;">polygon</span><span>(</span></span>
+<span class="giallo-l"><span>            [</span></span>
+<span class="giallo-l"><span>                [</span><span style="color: #D73A49;">-</span><span>x</span><span style="color: #D73A49;"> /</span><span style="color: #005CC5;"> 2</span><span style="color: #D73A49;">.</span><span>,</span><span style="color: #D73A49;"> -</span><span>y</span><span style="color: #D73A49;"> /</span><span style="color: #005CC5;"> 2</span><span style="color: #D73A49;">.</span><span>],</span></span>
+<span class="giallo-l"><span>                [x</span><span style="color: #D73A49;"> /</span><span style="color: #005CC5;"> 2</span><span style="color: #D73A49;">.</span><span>,</span><span style="color: #D73A49;"> -</span><span>y</span><span style="color: #D73A49;"> /</span><span style="color: #005CC5;"> 2</span><span style="color: #D73A49;">.</span><span>],</span></span>
+<span class="giallo-l"><span>                [x</span><span style="color: #D73A49;"> /</span><span style="color: #005CC5;"> 2</span><span style="color: #D73A49;">.</span><span>, y</span><span style="color: #D73A49;"> /</span><span style="color: #005CC5;"> 2</span><span style="color: #D73A49;">.</span><span>],</span></span>
+<span class="giallo-l"><span>                [</span><span style="color: #D73A49;">-</span><span>x</span><span style="color: #D73A49;"> /</span><span style="color: #005CC5;"> 2</span><span style="color: #D73A49;">.</span><span>, y</span><span style="color: #D73A49;"> /</span><span style="color: #005CC5;"> 2</span><span style="color: #D73A49;">.</span><span>],</span></span>
+<span class="giallo-l"><span>            ],</span></span>
+<span class="giallo-l"><span>            services,</span></span>
+<span class="giallo-l"><span>        )</span></span>
+<span class="giallo-l"><span style="color: #D73A49;">        .</span><span style="color: #6F42C1;">insert</span><span>(services),</span></span>
+<span class="giallo-l"><span>    )</span></span></code></pre>
+<p>This example combines both <code>build</code> operations, like <code>Sketch::empty</code> and <code>Region::polygon</code>, with <code>update</code> operations, like <code>add_region</code>, to create a rectangular sketch.</p>
+<p>There's also the new <code>ObjectSet</code> data structure, which is used by all objects that reference multiple other objects of the same type. Combining it with <code>update</code> operations makes it easier to select the specific objects you want to modify:</p>
+<pre class="giallo" style="color: #24292E; background-color: #FFFFFF;"><code data-lang="rust"><span class="giallo-l"><span>solid</span></span>
+<span class="giallo-l"><span style="color: #D73A49;">    .</span><span style="color: #6F42C1;">update_shell</span><span>(solid</span><span style="color: #D73A49;">.</span><span style="color: #6F42C1;">shells</span><span>()</span><span style="color: #D73A49;">.</span><span style="color: #6F42C1;">only</span><span>(),</span><span style="color: #D73A49;"> |</span><span>shell</span><span style="color: #D73A49;">|</span><span> {</span></span>
+<span class="giallo-l"><span>        shell</span></span>
+<span class="giallo-l"><span style="color: #D73A49;">            .</span><span style="color: #6F42C1;">update_face</span><span>(shell</span><span style="color: #D73A49;">.</span><span style="color: #6F42C1;">faces</span><span>()</span><span style="color: #D73A49;">.</span><span style="color: #6F42C1;">first</span><span>(),</span><span style="color: #D73A49;"> |</span><span>face</span><span style="color: #D73A49;">|</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #6A737D;">                // Update the face here!</span></span>
+<span class="giallo-l"><span style="color: #6F42C1;">                todo!</span><span>()</span></span>
+<span class="giallo-l"><span>            })</span></span>
+<span class="giallo-l"><span style="color: #D73A49;">            .</span><span style="color: #6F42C1;">insert</span><span>(services)</span></span>
+<span class="giallo-l"><span>    })</span></span></code></pre>
+<p>Here, we express that we want to update the <em>only</em> shell of <code>solid</code> (which will helpfully panic, if it has multiple shells, to tell us about our wrong assumption), and the <em>first</em> face of <code>shell</code>.</p>
+<p>This is still a very basic way to select objects, and it becomes very tedious, or even impossible, to use in non-trivial scenarios. This is an area where further improvement is required.</p>
+<h4 id="split-and-sweep">Split and sweep</h4>
+<p>Sweeping is an operation that "sweeps" a 2D shape through space, to create a 3D shape (you can also sweep a 1D shape into a 2D shape, but that's more of an implementation detail). We've had this feature for a long time!</p>
+<p>In this release, the <code>sweep</code> code has been cleaned up significantly, and this cleanup has enabled an important new capability: Where previously, the main use case was to sweep a sketch into a new shell, you can now take an existing shell and sweep one of its faces to extend the shell.</p>
+<p>Combined with the new <code>split</code> operation, which can split a face into two, this can create interesting shapes that haven't been possible before. Here's an example:</p>
+<pre class="giallo" style="color: #24292E; background-color: #FFFFFF;"><code data-lang="rust"><span class="giallo-l"><span>cube</span></span>
+<span class="giallo-l"><span style="color: #D73A49;">    .</span><span style="color: #6F42C1;">update_shell</span><span>(cube</span><span style="color: #D73A49;">.</span><span style="color: #6F42C1;">shells</span><span>()</span><span style="color: #D73A49;">.</span><span style="color: #6F42C1;">only</span><span>(),</span><span style="color: #D73A49;"> |</span><span>shell</span><span style="color: #D73A49;">|</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #D73A49;">        let</span><span> face</span><span style="color: #D73A49;"> =</span><span> shell</span><span style="color: #D73A49;">.</span><span style="color: #6F42C1;">faces</span><span>()</span><span style="color: #D73A49;">.</span><span style="color: #6F42C1;">first</span><span>();</span></span>
+<span class="giallo-l"><span style="color: #D73A49;">        let</span><span> cycle</span><span style="color: #D73A49;"> =</span><span> face</span><span style="color: #D73A49;">.</span><span style="color: #6F42C1;">region</span><span>()</span><span style="color: #D73A49;">.</span><span style="color: #6F42C1;">exterior</span><span>();</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #D73A49;">        let</span><span> line</span><span style="color: #D73A49;"> =</span><span> [</span></span>
+<span class="giallo-l"><span>            (cycle</span><span style="color: #D73A49;">.</span><span style="color: #6F42C1;">half_edges</span><span>()</span><span style="color: #D73A49;">.</span><span style="color: #6F42C1;">nth</span><span>(</span><span style="color: #005CC5;">0</span><span>)</span><span style="color: #D73A49;">.</span><span style="color: #6F42C1;">unwrap</span><span>(), [split_pos]),</span></span>
+<span class="giallo-l"><span>            (cycle</span><span style="color: #D73A49;">.</span><span style="color: #6F42C1;">half_edges</span><span>()</span><span style="color: #D73A49;">.</span><span style="color: #6F42C1;">nth</span><span>(</span><span style="color: #005CC5;">2</span><span>)</span><span style="color: #D73A49;">.</span><span style="color: #6F42C1;">unwrap</span><span>(), [split_pos]),</span></span>
+<span class="giallo-l"><span>        ];</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #D73A49;">        let</span><span> (shell, [face, _])</span><span style="color: #D73A49;"> =</span><span> shell</span><span style="color: #D73A49;">.</span><span style="color: #6F42C1;">split_face</span><span>(face, line, services);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>        shell</span></span>
+<span class="giallo-l"><span style="color: #D73A49;">            .</span><span style="color: #6F42C1;">sweep_face_of_shell</span><span>(face, [</span><span style="color: #005CC5;">0</span><span style="color: #D73A49;">.</span><span>,</span><span style="color: #005CC5;"> 0</span><span style="color: #D73A49;">.</span><span>,</span><span style="color: #D73A49;"> -</span><span>size</span><span style="color: #D73A49;"> /</span><span style="color: #005CC5;"> 2</span><span style="color: #D73A49;">.</span><span>], services)</span></span>
+<span class="giallo-l"><span style="color: #D73A49;">            .</span><span style="color: #6F42C1;">insert</span><span>(services)</span></span>
+<span class="giallo-l"><span>    })</span></span></code></pre>
+<p>And here's the result:
+<img src="/fornjot/blog/release/0.48.0/split-and-sweep.png" alt="A cube, which had one of its faces split, then one of the resulting smaller faces swept." /></p>
+<p>This is a big step forward in capability, but there's also much left to do:</p>
+<ul>
+<li>The new <code>split</code> operation is clunky and limited. Creating the line along which the face is split is awkward, and it can <em>only</em> be a line.</li>
+<li>What we <em>actually</em> want here, is to apply a sketch to a face, then extrude that sketch. This will happen, but it requires smarter operations, and better infrastructure to support them.</li>
+<li>Actually using the <code>split</code> operation suffers from the limited ways to select objects (as mentioned above).</li>
+</ul>
+<p>Splitting faces is only a first step, a proof of concept. Right now, it enables models that haven't been possible before, and it paves the way for more advanced operations to be implemented in the future.</p>
+<h4 id="holes">Holes</h4>
+<p>Cleaning up the <code>sweep</code> operations enabled another new feature: You can now create holes!</p>
+<p><img src="/fornjot/blog/release/0.48.0/holes.png" alt="A cuboid with two holes: a blind hole on the left, and a through hole on the right" /></p>
+<p>Here's an example that creates a blind hole in the bottom face of a shell:</p>
+<pre class="giallo" style="color: #24292E; background-color: #FFFFFF;"><code data-lang="rust"><span class="giallo-l"><span>shell</span><span style="color: #D73A49;">.</span><span style="color: #6F42C1;">add_blind_hole</span><span>(</span></span>
+<span class="giallo-l"><span style="color: #6F42C1;">    HoleLocation</span><span> {</span></span>
+<span class="giallo-l"><span>        face</span><span style="color: #D73A49;">:</span><span> bottom_face,</span></span>
+<span class="giallo-l"><span>        position</span><span style="color: #D73A49;">:</span><span> [</span><span style="color: #D73A49;">-</span><span>offset,</span><span style="color: #6F42C1;"> Scalar</span><span style="color: #D73A49;">::</span><span style="color: #005CC5;">ZERO</span><span>]</span><span style="color: #D73A49;">.</span><span style="color: #6F42C1;">into</span><span>(),</span></span>
+<span class="giallo-l"><span>    },</span></span>
+<span class="giallo-l"><span>    radius,</span></span>
+<span class="giallo-l"><span>    [</span><span style="color: #6F42C1;">Scalar</span><span style="color: #D73A49;">::</span><span style="color: #005CC5;">ZERO</span><span>,</span><span style="color: #6F42C1;"> Scalar</span><span style="color: #D73A49;">::</span><span style="color: #005CC5;">ZERO</span><span>, depth],</span></span>
+<span class="giallo-l"><span>    services,</span></span>
+<span class="giallo-l"><span>)</span></span></code></pre>
+<p>And this one creates a through hole, from a shell's bottom face to its top face:</p>
+<pre class="giallo" style="color: #24292E; background-color: #FFFFFF;"><code data-lang="rust"><span class="giallo-l"><span>shell</span></span>
+<span class="giallo-l"><span style="color: #D73A49;">    .</span><span style="color: #6F42C1;">add_through_hole</span><span>(</span></span>
+<span class="giallo-l"><span>        [</span></span>
+<span class="giallo-l"><span style="color: #6F42C1;">            HoleLocation</span><span> {</span></span>
+<span class="giallo-l"><span>                face</span><span style="color: #D73A49;">:</span><span> bottom_face,</span></span>
+<span class="giallo-l"><span>                position</span><span style="color: #D73A49;">:</span><span> [offset,</span><span style="color: #6F42C1;"> Scalar</span><span style="color: #D73A49;">::</span><span style="color: #005CC5;">ZERO</span><span>]</span><span style="color: #D73A49;">.</span><span style="color: #6F42C1;">into</span><span>(),</span></span>
+<span class="giallo-l"><span>            },</span></span>
+<span class="giallo-l"><span style="color: #6F42C1;">            HoleLocation</span><span> {</span></span>
+<span class="giallo-l"><span>                face</span><span style="color: #D73A49;">:</span><span> top_face,</span></span>
+<span class="giallo-l"><span>                position</span><span style="color: #D73A49;">:</span><span> [offset,</span><span style="color: #6F42C1;"> Scalar</span><span style="color: #D73A49;">::</span><span style="color: #005CC5;">ZERO</span><span>]</span><span style="color: #D73A49;">.</span><span style="color: #6F42C1;">into</span><span>(),</span></span>
+<span class="giallo-l"><span>            },</span></span>
+<span class="giallo-l"><span>        ],</span></span>
+<span class="giallo-l"><span>        radius,</span></span>
+<span class="giallo-l"><span>        services,</span></span>
+<span class="giallo-l"><span>    )</span></span></code></pre>
+<p>While this is pretty neat, it is still quite limited:</p>
+<ul>
+<li>The new <code>hole</code> operations are not very smart. You have to explicitly specify whether to create a blind or through hole.</li>
+<li>The hole entry and exit each need to be contained within a face. You can't create a hole where two faces meet, and you can't create a groove using a hole that only partially overlaps the shell.</li>
+<li>And I'm sure there are more bugs and limitations that haven't been discovered yet.</li>
+</ul>
+<p>Again, like the face splitting, this is just a first step. Future iterations will be more powerful, robust, and flexible.</p>
+<h4 id="and-much-more">And much more!</h4>
+<p>This is only the tip of the iceberg! There are many more improvements. Some user-visible, but smaller than the ones presented above. Others under the hood, where they support the user-visible features.</p>
+<p>Check out the list below, for a more complete overview.</p>
+<h4 id="what-s-next">What's next?</h4>
+<p>I've been focused on new features for a while, and this release is the culmination of that. But now it's time to turn inward. To lift some of the limitations of those features, and to add new and better features, we need better infrastructure.</p>
+<p>The planning process for this has started. We'll have to see where it takes us, but <a rel="external" href="https://github.com/hannobraun/fornjot/issues/2116">#2116</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/issues/2117">#2117</a>, and <a rel="external" href="https://github.com/hannobraun/fornjot/issues/2118">#2118</a>, are probably what will keep me busy for a while.</p>
+<p>However, this is not all there is to do! There are <a rel="external" href="https://github.com/hannobraun/fornjot/issues">open issues</a> and a <a rel="external" href="https://github.com/hannobraun/fornjot/discussions/146">feature wishlist</a> with many more work items, and <strong>help is always appreciated</strong>. So if you see anything there that appeals to you, or have an idea of your own, please feel free to jump in and help out!</p>
+<h3 id="sponsors">Sponsors</h3>
+<p>Fornjot is supported by <a rel="external" href="https://github.com/MitchellHansen">@MitchellHansen</a>, <a rel="external" href="https://github.com/webtrax-oz">@webtrax-oz</a>, <a rel="external" href="https://github.com/seanjensengrey">@seanjensengrey</a>, <a rel="external" href="https://github.com/reivilibre">@reivilibre</a>, <a rel="external" href="https://github.com/lthiery">@lthiery</a>, <a rel="external" href="https://github.com/ahdinosaur">@ahdinosaur</a>, <a rel="external" href="https://github.com/martindederer">@martindederer</a>, <a rel="external" href="https://github.com/bollian">@bollian</a>, and <a rel="external" href="https://github.com/sponsors/hannobraun">my other awesome sponsors</a>. Thank you!</p>
+<p>Additional thanks go to <a rel="external" href="https://github.com/jonnedelm">@jonnedelm</a>, <a rel="external" href="https://github.com/refarb">@refarb</a>, and <a rel="external" href="https://github.com/Retraze">@Retraze</a>, who also supported this release with their financial contribution!</p>
+<strong class="call-to-action">
+    <p>
+        If you want Fornjot to be sustainable long-term, please consider <a href="https://github.com/sponsors/hannobraun">supporting me</a> too.
+    </p>
+</strong>
+<h3 id="library-improvements">Library improvements</h3>
+<p>Improvements to Fornjot libraries.</p>
+<h4 id="fj"><code>fj</code></h4>
+<ul>
+<li>Improve error output (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/2012">#2012</a>)</li>
+<li>Set up logging in model handler (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/2013">#2013</a>)</li>
+</ul>
+<h4 id="fj-core"><code>fj-core</code></h4>
+<ul>
+<li>Make improvements to validation infrastructure (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/1907">#1907</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1914">#1914</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1942">#1942</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2058">#2058</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2061">#2061</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2064">#2064</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2065">#2065</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2095">#2095</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2096">#2096</a>)</li>
+<li>Expand and clean up build and update operations (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/1912">#1912</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1913">#1913</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1934">#1934</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1975">#1975</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2029">#2029</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2031">#2031</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2032">#2032</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2033">#2033</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2119">#2119</a>)</li>
+<li>Add <code>ObjectSet</code> to manage and access references to other objects (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/1915">#1915</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2026">#2026</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2027">#2027</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2028">#2028</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2036">#2036</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2083">#2083</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2084">#2084</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2109">#2109</a>)</li>
+<li>Clean up edge approximation code (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/1936">#1936</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1953">#1953</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1966">#1966</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1996">#1996</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2005">#2005</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2008">#2008</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2009">#2009</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2010">#2010</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2016">#2016</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2017">#2017</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2019">#2019</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2020">#2020</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2021">#2021</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2041">#2041</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2042">#2042</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2043">#2043</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2044">#2044</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2046">#2046</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2051">#2051</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2054">#2054</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2055">#2055</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2057">#2057</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2066">#2066</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2067">#2067</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2068">#2068</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2074">#2074</a>)</li>
+<li>Improve user-facing documentation (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/1938">#1938</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2056">#2056</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2081">#2081</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2100">#2100</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2101">#2101</a>)</li>
+<li>Clean up representation of curves in object graph (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/1939">#1939</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1950">#1950</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1952">#1952</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1982">#1982</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1983">#1983</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1997">#1997</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1998">#1998</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1999">#1999</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2000">#2000</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2059">#2059</a>)</li>
+<li>Make various minor cleanups and additions (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/1940">#1940</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1951">#1951</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1981">#1981</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2107">#2107</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2113">#2113</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2127">#2127</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2135">#2135</a>)</li>
+<li>Add <code>CurveBoundary</code> to represent boundaries on a curve (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/1941">#1941</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1967">#1967</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1990">#1990</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1991">#1991</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2037">#2037</a>)</li>
+<li>Add <code>queries</code> API (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/1949">#1949</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1974">#1974</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2063">#2063</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2077">#2077</a>)</li>
+<li>Remove out-of-date note (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/1954">#1954</a>; thank you, <a rel="external" href="https://github.com/A-Walrus">@A-Walrus</a>!)</li>
+<li>Validate shell orientations (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/1968">#1968</a>; thank you, <a rel="external" href="https://github.com/A-Walrus">@A-Walrus</a>!)</li>
+<li>Expand reverse operation (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/1976">#1976</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1979">#1979</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1980">#1980</a>)</li>
+<li>Make <code>IsInserted</code> more useful (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/1978">#1978</a>)</li>
+<li>Add <code>operations::split</code> (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/2076">#2076</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2088">#2088</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2093">#2093</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2094">#2094</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2097">#2097</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2115">#2115</a>)</li>
+<li>Add <code>operations::replace</code> (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/2086">#2086</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2089">#2089</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2091">#2091</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2092">#2092</a>)</li>
+<li>Clean up sweep operations (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/2099">#2099</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2103">#2103</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2106">#2106</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2110">#2110</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2111">#2111</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2114">#2114</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2120">#2120</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2137">#2137</a>)</li>
+<li>Add operation to extend a shell by sweeping one of its faces (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/2121">#2121</a>)</li>
+<li>Add operations to add holes to a shell (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/2128">#2128</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2134">#2134</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2136">#2136</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2138">#2138</a>)</li>
+</ul>
+<h4 id="fj-viewer"><code>fj-viewer</code></h4>
+<ul>
+<li>Be more relaxed about what GPU configs to accept (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/2014">#2014</a>)</li>
+<li>Fix initialization panic with GL backend (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/2015">#2015</a>)</li>
+<li>Add debug logging, improve error messages, shuffle some render stuff around (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/2035">#2035</a>)</li>
+<li>Try all adapters, if one fails to return a device (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/2038">#2038</a>)</li>
+</ul>
+<h3 id="other-changes">Other changes</h3>
+<p>Improvements that are not associated with a specific Fornjot library.</p>
+<ul>
+<li>Update release procedure (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/1902">#1902</a>)</li>
+<li>Update README (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/1903">#1903</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1989">#1989</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2050">#2050</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2075">#2075</a>)</li>
+<li>Update dependencies (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/1906">#1906</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1911">#1911</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1919">#1919</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1933">#1933</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1948">#1948</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1965">#1965</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1972">#1972</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1987">#1987</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1992">#1992</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1993">#1993</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1994">#1994</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1995">#1995</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2001">#2001</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2002">#2002</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2003">#2003</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2006">#2006</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2007">#2007</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2018">#2018</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2022">#2022</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2030">#2030</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2039">#2039</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2048">#2048</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2052">#2052</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2053">#2053</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2062">#2062</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2073">#2073</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2079">#2079</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2080">#2080</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2082">#2082</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2085">#2085</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2090">#2090</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2102">#2102</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2112">#2112</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2122">#2122</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2131">#2131</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2139">#2139</a>)</li>
+<li>Add automation for generating blog posts on sponsor updates (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/1920">#1920</a>)</li>
+<li>Update contribution guide (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/1955">#1955</a>; thank you, <a rel="external" href="https://github.com/TobiasJacob">@TobiasJacob</a>!)</li>
+<li>Remove fj.toml file (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/1956">#1956</a>; thank you, <a rel="external" href="https://github.com/TobiasJacob">@TobiasJacob</a>!)</li>
+<li>Upgrade to Rust 1.74.1 (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/1988">#1988</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2004">#2004</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2024">#2024</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2045">#2045</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2104">#2104</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2129">#2129</a>)</li>
+<li>Add configuration for developing on NixOS (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/2105">#2105</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2108">#2108</a>)</li>
+</ul>
+
+
+        <footer>
+            
+        </footer>
+    </article>
+
+        </main>
+        <footer>
+            <hr />
+
+            <p>
+                This website is maintained by <a href="https://www.hannobraun.com/">me</a>:
+            </p>
+
+            <address>
+                Hanno Braun<br />
+                Untere Pfarrgasse 19<br />
+                64720 Michelstadt<br />
+                Germany<br />
+                <br />
+                <a href="mailto:hello@hannobraun.com">hello@hannobraun.com</a><br />
+            </address>
+        </footer>
+    </body>
+</html>

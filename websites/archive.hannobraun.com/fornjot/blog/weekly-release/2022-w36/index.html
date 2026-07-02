@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        
+        
+            
+        
+
+        
+            <title>Fornjot - Weekly Release - 2022-W36</title>
+        
+
+        <link
+            href="/fornjot/style.css"
+            rel="stylesheet"
+            type="text/css"
+            media="all" />
+
+        <link href="/fornjot/atom.xml" rel="alternate" type="application/atom+xml" />
+    </head>
+    <body>
+        <header>
+            <div class="archival highlight">
+                This website has been archived. It will not be kept up-to-date.
+            </div>
+            <a class="title" href="/fornjot/">
+                <h1>Fornjot</h1>
+                <h2>early-stage b-rep CAD kernel, written in Rust</h2>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/fornjot/">About</a></li>
+                    <li><a href="/fornjot/blog">Blog</a></li>
+                    <li><a href="https://github.com/hannobraun/fornjot">GitHub ↪</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            
+    <article class="blog-post">
+        <header>
+            <h2>Weekly Release - 2022-W36</h2>
+            <span class="metadata">
+        Posted on <time datetime="2022-09-05">2022-09-05</time> by <a href="https://github.com/hannobraun">Hanno Braun</a>
+
+        </span>
+        </header>
+
+        <aside>
+            
+    <p>
+        <a href="/fornjot/">Fornjot</a> is an early-stage project to create a next-generation Code-CAD application. This is the announcement for this week's release, version <a href="https://github.com/hannobraun/Fornjot/releases/tag/v0.14.0">0.14.0</a>.
+    </p>
+
+        </aside>
+
+        <p>I spent most of last week working on CAD kernel cleanups, with the goal of addressing the issue that is blocking further progress on the union operation (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/993">#993</a>; also see the <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/993#issuecomment-1234425471">more detailed update</a> I left in there).</p>
+<p>I'm very happy with the progress I've made, but I also hope to finish this work soon, so I can return to working on the union operation (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/42">#42</a>) directly.</p>
+<h3 id="sponsors">Sponsors</h3>
+<p>Fornjot is supported by <a rel="external" href="https://github.com/webtrax-oz">@webtrax-oz</a>, <a rel="external" href="https://github.com/lthiery">@lthiery</a>, <a rel="external" href="https://github.com/Yatekii">@Yatekii</a>, <a rel="external" href="https://github.com/martindederer">@martindederer</a>, <a rel="external" href="https://github.com/hobofan">@hobofan</a>, <a rel="external" href="https://github.com/ahdinosaur">@ahdinosaur</a>, <a rel="external" href="https://github.com/thawkins">@thawkins</a>, <a rel="external" href="https://github.com/bollian">@bollian</a>, <a rel="external" href="https://github.com/rozgo">@rozgo</a>, <a rel="external" href="https://github.com/reivilibre">@reivilibre</a>, and <a rel="external" href="https://github.com/sponsors/hannobraun">my other awesome sponsors</a>. Thank you!</p>
+<p>If you want Fornjot to be stable and sustainable long-term, please consider <a rel="external" href="https://github.com/sponsors/hannobraun">supporting me</a> too.</p>
+<h3 id="end-user-improvements">End-user improvements</h3>
+<p>Improvements to Fornjot and its documentation that are visible to end-users.</p>
+<ul>
+<li>Fix crash on some graphics hardware (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1035">#1035</a>)</li>
+</ul>
+<h3 id="ecosystem-improvements">Ecosystem improvements</h3>
+<p>Improvements to the Fornjot ecosystem that are relevant to developers who are building on top of Fornjot components.</p>
+<h4 id="fj-kernel"><code>fj-kernel</code></h4>
+<ul>
+<li>Clean up approximation code (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1011">#1011</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1012">#1012</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1013">#1013</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1028">#1028</a>)</li>
+<li>Clean up and expand <code>algorithms::reverse</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1017">#1017</a>)</li>
+<li>Fix edge cases in object equality comparisons (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1018">#1018</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1022">#1022</a>)</li>
+<li>Improve and expand object validation (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1023">#1023</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1024">#1024</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1030">#1030</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1031">#1031</a>)</li>
+<li>Make small improvements in kernel (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1025">#1025</a>)</li>
+<li>Clean up sweep algorithm (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1026">#1026</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1033">#1033</a>)</li>
+</ul>
+<h4 id="fj-math"><code>fj-math</code></h4>
+<ul>
+<li>Add some validation code to <code>PolyChain</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1027">#1027</a>)</li>
+<li>Derive <code>Default</code> for all math types (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1029">#1029</a>)</li>
+<li>Add <code>Line::from_points_with_line_coords</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1032">#1032</a>)</li>
+</ul>
+<h3 id="internal-improvements">Internal Improvements</h3>
+<p>Improvements that are relevant to developers working on Fornjot itself.</p>
+<ul>
+<li>Update release procedure (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1008">#1008</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1009">#1009</a>)</li>
+<li>Update dependencies (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1010">#1010</a>)</li>
+<li>Expand release automation (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1016">#1016</a>)</li>
+</ul>
+<h3 id="issue-of-the-week">Issue of the Week</h3>
+<p>One important function of a CAD application is to export the CAD model to external file formats, for further processing in other software. Fornjot currently supports export to STL and 3MF. Both of those formats are comparable, in that they contain a triangle mesh.</p>
+<p>3MF is more tightly specified than STL, however, and we make use of that by verifying the validity of exported 3MF files as part of our CI build. This has caught a lot of bugs already! We use a custom tool based on <a rel="external" href="https://github.com/3MFConsortium/lib3mf">lib3mf</a> to do that, but unfortunately this tool only works on Linux, making it impossible for users of other operating systems to do a full build locally.</p>
+<p>If you have access to Windows or macOS and know a thing or two about linking C/C++ code into a Rust program (or would like to learn), <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/920">#920 - <code>export-validator</code> doesn't support macOS and Windows</a> might interest you.</p>
+<h3 id="outlook">Outlook</h3>
+<p>My priority remains the union operation (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/42">#42</a>), which is currently blocked by <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/993">#993</a>. Addressing that will keep me busy with cleanups for some more time.</p>
+<p>Next up is finishing the cleanup of the sweep algorithm, which should help unblock <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/993">#993</a> and <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/1020">#1020</a>. After that, I plan to address <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/1020">#1020</a>, as that will simplify a lot of code, promises to address some long-standing issues (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/97">#97</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/250">#250</a>), and should make the next steps easier. After that, I'll look into <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/695">#695</a>, as solving that will help address <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/993">#993</a>.</p>
+
+
+        <footer>
+            
+        </footer>
+    </article>
+
+        </main>
+        <footer>
+            <hr />
+
+            <p>
+                This website is maintained by <a href="https://www.hannobraun.com/">me</a>:
+            </p>
+
+            <address>
+                Hanno Braun<br />
+                Untere Pfarrgasse 19<br />
+                64720 Michelstadt<br />
+                Germany<br />
+                <br />
+                <a href="mailto:hello@hannobraun.com">hello@hannobraun.com</a><br />
+            </address>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        
+        
+            
+        
+
+        
+            <title>Fornjot - Why Fornjot is Using Boundary Representation</title>
+        
+
+        <link
+            href="/fornjot/style.css"
+            rel="stylesheet"
+            type="text/css"
+            media="all" />
+
+        <link href="/fornjot/atom.xml" rel="alternate" type="application/atom+xml" />
+    </head>
+    <body>
+        <header>
+            <div class="archival highlight">
+                This website has been archived. It will not be kept up-to-date.
+            </div>
+            <a class="title" href="/fornjot/">
+                <h1>Fornjot</h1>
+                <h2>early-stage b-rep CAD kernel, written in Rust</h2>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/fornjot/">About</a></li>
+                    <li><a href="/fornjot/blog">Blog</a></li>
+                    <li><a href="https://github.com/hannobraun/fornjot">GitHub ↪</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            
+    <article class="blog-post">
+        <header>
+            <h2>Why Fornjot is Using Boundary Representation</h2>
+            <span class="metadata">
+        Posted on <time datetime="2022-01-26">2022-01-26</time> by <a href="https://github.com/hannobraun">Hanno Braun</a>
+
+        </span>
+        </header>
+
+        <aside>
+            
+    <p>
+        This article originally appeared <a href="https://hanno.braun-odw.eu/notes/why-fornjot-is-using-boundary-representation/">on my website</a>.
+    </p>
+
+        </aside>
+
+        <p>Fornjot uses a technique called boundary representation (or b-rep, for short). This is the traditional technique, used by many of the big commercial CAD packages, and it wasn't my first choice. In this note, I'd like to explain where I started with Fornjot, and why I ended up with b-rep.</p>
+<p>What triggered my years-long work on CAD software was <a rel="external" href="http://jamie-wong.com/2016/07/15/ray-marching-signed-distance-functions/">Jamie Wong's article about ray marching and signed distance functions</a>. I quickly came up with the idea of applying this technique to CAD, a topic that had started to interest me around the same time.</p>
+<h3 id="falling-in-love-with-signed-distance-functions">Falling in love with signed distance functions</h3>
+<p>I really liked signed distance functions (also known as signed distance fields, implicit functions, function representation; or by their short-hands, SDF or f-rep), for a few reasons:</p>
+<ul>
+<li>You can <a rel="external" href="https://iquilezles.org/www/articles/distfunctions/distfunctions.htm">describe shapes</a>, ranging from simple to complex, using pure math. That's neat.</li>
+<li>You can combine those shapes trivially using <a rel="external" href="https://en.wikipedia.org/wiki/Constructive_solid_geometry">constructive solid geometry</a> (CSG).</li>
+<li>To convert your shape to a triangle mesh (to interface with common slicers for 3D printing, for example), you just need a single algorithm.</li>
+</ul>
+<p>As it turned out, I was not the only one to <a rel="external" href="http://implicitcad.org/">have</a> <a rel="external" href="https://github.com/deadsy/sdfx">that</a> <a rel="external" href="https://libfive.com/">idea</a>, but that only encouraged me that the concept had merit. The following years (starting in 2018, I think) I was working on CAD experiments in the background, on and off.</p>
+<p>I started getting more serious about my CAD work some time in 2021. I did a serious push to get <em>something</em> to work end-to-end, basically specifying a very simple model, then exporting that model to a 3MF file for 3D printing. I tried different approaches during that phase, some based on signed distance functions, some not.</p>
+<h3 id="falling-out-of-love">Falling out of love</h3>
+<p>In the end, after some pretty intense work trying to get signed distance functions to work for me, I came to the conclusion that they were just the wrong approach for my problem. I basically found that all the reasons I like them in the beginning were nullified:</p>
+<ul>
+<li>The math just isn't that neat, if you get into it a bit deeper. Various common operations <a rel="external" href="https://iquilezles.org/www/articles/interiordistance/interiordistance.htm">just don't result in a correct SDF</a>. This is fine for many use cases, but I could see it become a problem for the engineering use cases of a CAD program, where accuracy is important.</li>
+<li>Constructive solid geometry is not enough. Yes, it's a critical part of most (all?) CAD software, but I want more than that. Modeling features like chamfering specific edges; or selecting a face, drawing a sketch on it, and making a hole in the shape of that sketch.</li>
+<li>Yes, you only need a single algorithm to create a triangle mesh, but the available algorithms either aren't that good (in terms of how well the generated triangles match the original geometry), or crazy complicated. Even the complicated ones <a rel="external" href="https://github.com/curv3d/curv/blob/bdff8dc6c046ad157f6e088e37285a5113581aa2/ideas/v-rep/To_Mesh.rst">have weaknesses</a>.</li>
+</ul>
+<p>In the end, I spent a lot of effort and never got a great result. Others have had <a rel="external" href="https://libfive.com/">better success</a>, but that doesn't change the fact that with signed distance functions, advanced CAD modeling features are a complete unknown. As far as I can tell, no one has ever created an SDF-based CAD program with more than just basic features. For all I know, it's impossible.</p>
+<h3 id="a-new-way">A new way</h3>
+<p>All that ended when I created a new prototype based on boundary representation (b-rep). Boundary representation defines solid models by their boundaries, i.e. the vertices, edges, and faces that make up the border between model and not model.</p>
+<p>Suddenly things started clicking for me. It's the version of Fornjot that I'm still working on, and that I intend to take all the way to a useful piece of CAD software (and, if I can, beyond). But why am I betting Fornjot's future on boundary representation? I think there are three main reasons:</p>
+<ul>
+<li>It's the traditional approach. Even though I don't understand it completely (yet), I know all the CAD modeling features that I want to have are possible. Because others have done it before.</li>
+<li>The things we care about in a CAD model (vertices, edges, and faces) are directly represented, so selecting and manipulating them is straight-forward. After working with a more clever and indirect representation for so long, that is very refreshing.</li>
+<li>It's not all-or-nothing. There isn't a single algorithm to make it work. I can implement things more piecemeal, get a good result for the use case I care about right now, and make it more general over time.</li>
+</ul>
+<p>Getting Fornjot to a point where it is really useful as a CAD program will take a long time, and a huge amount of work. But I'm confident now that I've chosen the right path to at least make that practical.</p>
+<h3 id="a-third-approach">A third approach</h3>
+<p>For the sake of completeness, I should note that I'm aware of a third approach: Generating triangle meshes directly from your primitives and operate on those triangle meshes to manipulate and combine them into more complex models.</p>
+<p>I haven't studied this approach deeply, but I don't want to go down that route. First, getting those triangle mesh algorithms right is probably complicated. Second, it's unclear to me how fast those algorithms can be. Third, selecting a feature of the model with the intent of manipulating it is probably complicated to support (a round edge is represented by many small triangle edges, for example, so knowing what to select when the user clicks there is unclear).</p>
+<p>We'll have to see if I made the right choice. But I can already say, for the first time since starting my work on CAD software, I feel really confident that I'm on a good path to create something really useful. Not just another experiment.</p>
+
+
+        <footer>
+            
+        </footer>
+    </article>
+
+        </main>
+        <footer>
+            <hr />
+
+            <p>
+                This website is maintained by <a href="https://www.hannobraun.com/">me</a>:
+            </p>
+
+            <address>
+                Hanno Braun<br />
+                Untere Pfarrgasse 19<br />
+                64720 Michelstadt<br />
+                Germany<br />
+                <br />
+                <a href="mailto:hello@hannobraun.com">hello@hannobraun.com</a><br />
+            </address>
+        </footer>
+    </body>
+</html>

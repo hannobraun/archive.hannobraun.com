@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        
+        
+            
+        
+
+        
+            <title>Fornjot - Weekly Release - Inspiration</title>
+        
+
+        <link
+            href="/fornjot/style.css"
+            rel="stylesheet"
+            type="text/css"
+            media="all" />
+
+        <link href="/fornjot/atom.xml" rel="alternate" type="application/atom+xml" />
+    </head>
+    <body>
+        <header>
+            <div class="archival highlight">
+                This website has been archived. It will not be kept up-to-date.
+            </div>
+            <a class="title" href="/fornjot/">
+                <h1>Fornjot</h1>
+                <h2>early-stage b-rep CAD kernel, written in Rust</h2>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/fornjot/">About</a></li>
+                    <li><a href="/fornjot/blog">Blog</a></li>
+                    <li><a href="https://github.com/hannobraun/fornjot">GitHub ↪</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            
+    <article class="blog-post">
+        <header>
+            <h2>Weekly Release - Inspiration</h2>
+            <span class="metadata">
+        Posted on <time datetime="2022-11-21">2022-11-21</time> by <a href="https://github.com/hannobraun">Hanno Braun</a>
+
+        </span>
+        </header>
+
+        <aside>
+            
+    <p>
+        <a href="/fornjot/">Fornjot</a> is an early-stage project to create a next-generation Code-CAD application. This is the announcement for this week's release, version <a href="https://github.com/hannobraun/Fornjot/releases/tag/v0.25.0">0.25.0</a>.
+    </p>
+
+        </aside>
+
+        <p>It's been a good week for Fornjot! I made progress with the cleanup of the object construction code (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/1249">#1249</a>), fixed bugs, and made some cosmetic improvements. See below for more details!</p>
+<p>But honestly, the most significant change this weeks wasn't anything that happened with the Fornjot code. It was a change in my thinking, after watching <a rel="external" href="https://www.youtube.com/watch?v=8Ab3ArE8W3s">a talk</a> that I was must have been primed for, having thought about these topics for the last 10 years.</p>
+<p>I'm not going to say any more than that  here, as I'm still in the middle of sorting out what all of it means for Fornjot. If you're interested in hearing more, why not <a rel="external" href="https://matrix.to/#/#fornjot:pub.solar">join the Fornjot Matrix channel</a>? Not only have we been talking about the topic there, it's also a good place for day-to-day updates on Fornjot's development.</p>
+<h3 id="sponsors">Sponsors</h3>
+<p>Fornjot is supported by <a rel="external" href="https://github.com/webtrax-oz">@webtrax-oz</a>, <a rel="external" href="https://github.com/lthiery">@lthiery</a>, <a rel="external" href="https://github.com/ahdinosaur">@ahdinosaur</a>, <a rel="external" href="https://github.com/Yatekii">@Yatekii</a>, <a rel="external" href="https://github.com/martindederer">@martindederer</a>, <a rel="external" href="https://github.com/hobofan">@hobofan</a>, <a rel="external" href="https://github.com/thawkins">@thawkins</a>, <a rel="external" href="https://github.com/bollian">@bollian</a>, <a rel="external" href="https://github.com/rozgo">@rozgo</a>, <a rel="external" href="https://github.com/reivilibre">@reivilibre</a>, and <a rel="external" href="https://github.com/sponsors/hannobraun">my other awesome sponsors</a>. Thank you!</p>
+<strong class="call-to-action">
+    <p>
+        If you want Fornjot to be sustainable long-term, please consider <a href="https://github.com/sponsors/hannobraun">supporting me</a> too.
+    </p>
+</strong>
+<h3 id="end-user-improvements">End-user improvements</h3>
+<p>Improvements to Fornjot and its documentation that are visible to end users.</p>
+<ul>
+<li>Fix potential soundness hole in version comparison (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1358">#1358</a>)</li>
+<li>Fix error when <code>cargo install</code>ing <code>fj-app</code> from <code>crates.io</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1364">#1364</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1365">#1365</a>)</li>
+<li>Soften shading (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1366">#1366</a>)</li>
+<li>Improve output of <code>--version</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1367">#1367</a>)</li>
+<li>Fix triangulation of sharp, concave faces (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1369">#1369</a>)</li>
+</ul>
+<h3 id="ecosystem-improvements">Ecosystem improvements</h3>
+<p>Improvements to Fornjot components that are relevant to developers building on top of those. These have an indirect effect on end users, through fixed bugs and improved robustness.</p>
+<h4 id="fj-kernel"><code>fj-kernel</code></h4>
+<ul>
+<li>Add infrastructure for abstracting over access to referenced objects (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1359">#1359</a>)</li>
+<li>Continue cleanup of partial object API (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1360">#1360</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1361">#1361</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1362">#1362</a>)</li>
+</ul>
+<h3 id="internal-improvements">Internal Improvements</h3>
+<p>Improvements that are relevant to developers working on Fornjot itself.</p>
+<ul>
+<li>Update dependencies (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1345">#1345</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1347">#1347</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1348">#1348</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1355">#1355</a>)</li>
+<li>Update release procedure (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1363">#1363</a>)</li>
+<li>Make some smaller code cleanups (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1368">#1368</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1370">#1370</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1371">#1371</a>)</li>
+</ul>
+
+
+        <footer>
+            
+        </footer>
+    </article>
+
+        </main>
+        <footer>
+            <hr />
+
+            <p>
+                This website is maintained by <a href="https://www.hannobraun.com/">me</a>:
+            </p>
+
+            <address>
+                Hanno Braun<br />
+                Untere Pfarrgasse 19<br />
+                64720 Michelstadt<br />
+                Germany<br />
+                <br />
+                <a href="mailto:hello@hannobraun.com">hello@hannobraun.com</a><br />
+            </address>
+        </footer>
+    </body>
+</html>

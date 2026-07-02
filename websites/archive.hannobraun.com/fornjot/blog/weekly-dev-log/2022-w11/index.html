@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        
+        
+            
+        
+
+        
+            <title>Fornjot - Weekly Dev Log - 2022-W11</title>
+        
+
+        <link
+            href="/fornjot/style.css"
+            rel="stylesheet"
+            type="text/css"
+            media="all" />
+
+        <link href="/fornjot/atom.xml" rel="alternate" type="application/atom+xml" />
+    </head>
+    <body>
+        <header>
+            <div class="archival highlight">
+                This website has been archived. It will not be kept up-to-date.
+            </div>
+            <a class="title" href="/fornjot/">
+                <h1>Fornjot</h1>
+                <h2>early-stage b-rep CAD kernel, written in Rust</h2>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/fornjot/">About</a></li>
+                    <li><a href="/fornjot/blog">Blog</a></li>
+                    <li><a href="https://github.com/hannobraun/fornjot">GitHub ↪</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            
+    <article class="blog-post">
+        <header>
+            <h2>Weekly Dev Log - 2022-W11</h2>
+            <span class="metadata">
+        Posted on <time datetime="2022-03-21">2022-03-21</time> by <a href="https://github.com/hannobraun">Hanno Braun</a>
+
+        </span>
+        </header>
+
+        <aside>
+            
+    <p>
+        <a href="/fornjot/">Fornjot</a> is an early-stage project to create a next-generation Code-CAD application. This is Fornjot's Weekly Dev Log, a summary of the previous week's development activities.
+    </p>
+
+        </aside>
+
+        <p>For weeks now, I've been focused on an internal CAD kernel cleanup: reducing the use of the obsolete triangle representation, replacing it with full boundary representation (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/97">#97</a>), as well as various sub-issues that were in the way of addressing that (most recently <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/242">#242</a>). This work has been blocking the implementation of <a rel="external" href="https://en.wikipedia.org/wiki/Constructive_solid_geometry">constructive solid geometry</a> (CSG).</p>
+<p>I'm happy to report, that while this work is not fully completed, it's complete enough to start working on CSG for bodies with straight edges and flat faces. Since supporting CSG for those is part of <a href="/fornjot/blog/straight-edges-flat-faces-simple-sketches-full-csg/">the milestone I'm currently working on</a>, this is good enough to wrap this work up for now and move on to other things.</p>
+<p>Before tackling CSG, I decided to go on a bit of a rampage to celebrate, fixing some issues that have been open a bit too long for my taste. One of them, splitting the Fornjot code into smaller libraries (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/141">#141</a>), has been a bit more substantial, as I took the opportunity to clean up and document each of those new libraries. Work on that is still ongoing.</p>
+<h3 id="sponsors">Sponsors</h3>
+<p>Fornjot is supported by <a rel="external" href="https://github.com/webtrax-oz">@webtrax-oz</a>, <a rel="external" href="https://github.com/lthiery">@lthiery</a>, <a rel="external" href="https://github.com/Yatekii">@Yatekii</a>, <a rel="external" href="https://github.com/martindederer">@martindederer</a>, and <a rel="external" href="https://github.com/sponsors/hannobraun">my other awesome sponsors</a>. Thank you!</p>
+<p>If you're interested in helping to make the project sustainable long-term, please consider <a rel="external" href="https://github.com/sponsors/hannobraun">supporting me</a> too.</p>
+<h3 id="app-and-documentation">App and Documentation</h3>
+<p>Improvements to the Fornjot application and documentation, that are relevant to end users.</p>
+<ul>
+<li>Fix warning about glyph size on startup (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/337">#337</a>; thanks to <a rel="external" href="https://github.com/therealprof">@therealprof</a>!)</li>
+<li>Add support for coloring models (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/338">#338</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/343">#343</a>; thanks to <a rel="external" href="https://github.com/therealprof">@therealprof</a>!)</li>
+<li>Update list of sponsors in README (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/348">#348</a>)</li>
+<li>Support manually specifying triangulation tolerance (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/352">#352</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/359">#359</a>; thanks to <a rel="external" href="https://github.com/mxdamien">@mxdamien</a>!)</li>
+<li>Enable vertex validation (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/354">#354</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/278">#278</a>)</li>
+<li>Rename application to <code>fj-app</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/356">#356</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/357">#357</a>)</li>
+<li>Fix errors when running app outside the repository (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/361">#361</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/362">#362</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/364">#364</a>)</li>
+<li>Rename <code>fj::Union</code> to <code>fj::Group</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/366">#366</a>)</li>
+<li>Add convenient syntax for 2D difference operation (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/372">#372</a>)</li>
+<li>Fix tolerance not being updated on model reload (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/379">#379</a>)</li>
+<li>Fix race condition when loading model initially (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/380">#380</a>)</li>
+</ul>
+<h3 id="ecosystem">Ecosystem</h3>
+<p>Improvements to the Fornjot ecosystem that are relevant to developers who are building on top of Fornjot components.</p>
+<ul>
+<li>Extract <code>fj-math</code> from <code>fj-app</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/374">#374</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/375">#375</a>)</li>
+<li>Extract <code>fj-debug</code> from <code>fj-app</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/376">#376</a>)</li>
+<li>Extract <code>fj-kernel</code> from <code>fj-app</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/377">#377</a>)</li>
+<li>Extract <code>fj-operations</code> from <code>fj-app</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/378">#378</a>)</li>
+<li>Extract <code>fj-host</code> from <code>fj-app</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/381">#381</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/382">#382</a>)</li>
+</ul>
+<h3 id="internal-improvements">Internal Improvements</h3>
+<p>Improvements that are relevant to developers working on Fornjot itself.</p>
+<ul>
+<li>Update dependencies (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/344">#344</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/345">#345</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/346">#346</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/347">#347</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/349">#349</a>)</li>
+<li>Start automating release procedure (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/325">#325</a>)</li>
+<li>Improve <code>Shape</code> API (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/351">#351</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/353">#353</a>)</li>
+<li>Further replace use of triangle representation (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/355">#355</a>)</li>
+<li>Clean up <code>Model</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/363">#363</a>)</li>
+<li>Add Cargo workspace (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/368">#368</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/370">#370</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/373">#373</a>; thanks to <a rel="external" href="https://github.com/hendrikmaus">@hendrikmaus</a>!)</li>
+</ul>
+<h3 id="issue-of-the-week">Issue of the Week</h3>
+<p>The Fornjot repository contains different models, that each test different features. Often, a bug in the Fornjot kernel will cause a crash, if some of those models are loaded. But this isn't always noticed, allowing bugs to slip through.</p>
+<p>If you're looking to get involved in Fornjot, maybe take a look at <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/307">#307 - Smoke testing</a>. It involves loading all models as part of the regular CI build, so these kinds of bugs no longer have a chance to go unnoticed.</p>
+<h3 id="outlook">Outlook</h3>
+<p>I'm still working on <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/141">#141</a>, which I expect to be wrapping up this week. Once that is completed, I want to publish a new release, which is overdue. Then, I'd like to address some long-standing triangulation bugs (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/105">#105</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/143">#143</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/145">#145</a>). After that, the next big topic is going to be CSG (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/42">#42</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/43">#43</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/44">#44</a>)</p>
+
+
+        <footer>
+            
+        </footer>
+    </article>
+
+        </main>
+        <footer>
+            <hr />
+
+            <p>
+                This website is maintained by <a href="https://www.hannobraun.com/">me</a>:
+            </p>
+
+            <address>
+                Hanno Braun<br />
+                Untere Pfarrgasse 19<br />
+                64720 Michelstadt<br />
+                Germany<br />
+                <br />
+                <a href="mailto:hello@hannobraun.com">hello@hannobraun.com</a><br />
+            </address>
+        </footer>
+    </body>
+</html>

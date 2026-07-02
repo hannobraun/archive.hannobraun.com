@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        
+        
+            
+        
+
+        
+            <title>Fornjot - Weekly Dev Log - 2022-W13</title>
+        
+
+        <link
+            href="/fornjot/style.css"
+            rel="stylesheet"
+            type="text/css"
+            media="all" />
+
+        <link href="/fornjot/atom.xml" rel="alternate" type="application/atom+xml" />
+    </head>
+    <body>
+        <header>
+            <div class="archival highlight">
+                This website has been archived. It will not be kept up-to-date.
+            </div>
+            <a class="title" href="/fornjot/">
+                <h1>Fornjot</h1>
+                <h2>early-stage b-rep CAD kernel, written in Rust</h2>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/fornjot/">About</a></li>
+                    <li><a href="/fornjot/blog">Blog</a></li>
+                    <li><a href="https://github.com/hannobraun/fornjot">GitHub ↪</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            
+    <article class="blog-post">
+        <header>
+            <h2>Weekly Dev Log - 2022-W13</h2>
+            <span class="metadata">
+        Posted on <time datetime="2022-04-04">2022-04-04</time> by <a href="https://github.com/hannobraun">Hanno Braun</a>
+
+        </span>
+        </header>
+
+        <aside>
+            
+    <p>
+        <a href="/fornjot/">Fornjot</a> is an early-stage project to create a next-generation Code-CAD application. This is Fornjot's Weekly Dev Log, a summary of the previous week's development activities.
+    </p>
+
+        </aside>
+
+        <p>It's been a slow week, as I was busy dealing with the fallout from my broken office PC. Good news is, I managed to get my data (including some Fornjot work-in-progress) off of it, and managed to pick up right where I left off the week before, making some progress on <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/105">#105</a>.</p>
+<p>In other news, <a rel="external" href="https://github.com/hendrikmaus">@hendrikmaus</a> continued his work of automating the release process. I hope to test this out soon, as a new release is overdue, in my opinion.</p>
+<h3 id="sponsors">Sponsors</h3>
+<p>Fornjot is supported by <a rel="external" href="https://github.com/webtrax-oz">@webtrax-oz</a>, <a rel="external" href="https://github.com/lthiery">@lthiery</a>, <a rel="external" href="https://github.com/Yatekii">@Yatekii</a>, <a rel="external" href="https://github.com/martindederer">@martindederer</a>, <a rel="external" href="https://github.com/hobofan">@hobofan</a>, and <a rel="external" href="https://github.com/sponsors/hannobraun">my other awesome sponsors</a>. Thank you!</p>
+<p>If you're interested in helping to make the project sustainable long-term, please consider <a rel="external" href="https://github.com/sponsors/hannobraun">supporting me</a> too.</p>
+<h3 id="end-user-improvements">End-user improvements</h3>
+<p>Improvements to the Fornjot application, the API for creating models, and documentation.</p>
+<ul>
+<li>Improve documentation of <code>fj</code> crate (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/411">#411</a>)</li>
+<li>Make some cleanups in <code>fj</code> API (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/412">#412</a>)</li>
+</ul>
+<h3 id="ecosystem-improvements">Ecosystem improvements</h3>
+<p>Improvements to the Fornjot ecosystem that are relevant to developers who are building on top of Fornjot components.</p>
+<h4 id="fj-kernel"><code>fj-kernel</code></h4>
+<ul>
+<li>Simplify <code>Handle</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/413">#413</a>)</li>
+<li>Replace <code>add_*</code> methods with <code>Shape::insert</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/416">#416</a>)</li>
+<li>Add <code>Shape::get_handle</code>, <code>Shape::get_handle_or_insert</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/417">#417</a>)</li>
+<li>Extend builder API, use it to simplify approximation tests (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/418">#418</a>)</li>
+</ul>
+<h3 id="internal-improvements">Internal Improvements</h3>
+<p>Improvements that are relevant to developers working on Fornjot itself.</p>
+<ul>
+<li>Update dependencies (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/405">#405</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/406">#406</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/407">#407</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/410">#410</a>)</li>
+<li>Improve release infrastructure (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/408">#408</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/409">#409</a>; thanks to <a rel="external" href="https://github.com/hendrikmaus">@hendrikmaus</a>!)</li>
+<li>Simplify <code>Store</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/414">#414</a>)</li>
+<li>Clean up shape validation internals (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/415">#415</a>)</li>
+</ul>
+<h3 id="issue-of-the-week">Issue of the Week</h3>
+<p>Do you enjoy playing with unsafe Rust code? There's a tiny bit of it in Fornjot, and while it seems to be sound, it's leaking memory!</p>
+<p>If that sounds like a fun introduction to Fornjot to you, maybe give <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/186">#186 - <code>fj::Sketch</code> is leaking memory</a> a try!</p>
+<h3 id="outlook">Outlook</h3>
+<p>Now that I'm back in my groove, I expect some more progress on <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/105">#105</a>. I <em>think</em> it shouldn't take too much longer to wrap that up, but of course there's always the possibility for surprises. Next, I plan to continue <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/141">#141</a>, which I hope I can finish quickly.</p>
+<p>After that, I plan to put out a new release of all Fornjot crates. It's been a while since the last one!</p>
+
+
+        <footer>
+            
+        </footer>
+    </article>
+
+        </main>
+        <footer>
+            <hr />
+
+            <p>
+                This website is maintained by <a href="https://www.hannobraun.com/">me</a>:
+            </p>
+
+            <address>
+                Hanno Braun<br />
+                Untere Pfarrgasse 19<br />
+                64720 Michelstadt<br />
+                Germany<br />
+                <br />
+                <a href="mailto:hello@hannobraun.com">hello@hannobraun.com</a><br />
+            </address>
+        </footer>
+    </body>
+</html>

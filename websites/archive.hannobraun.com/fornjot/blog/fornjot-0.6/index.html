@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        
+        
+            
+        
+
+        
+            <title>Fornjot - Fornjot 0.6</title>
+        
+
+        <link
+            href="/fornjot/style.css"
+            rel="stylesheet"
+            type="text/css"
+            media="all" />
+
+        <link href="/fornjot/atom.xml" rel="alternate" type="application/atom+xml" />
+    </head>
+    <body>
+        <header>
+            <div class="archival highlight">
+                This website has been archived. It will not be kept up-to-date.
+            </div>
+            <a class="title" href="/fornjot/">
+                <h1>Fornjot</h1>
+                <h2>early-stage b-rep CAD kernel, written in Rust</h2>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/fornjot/">About</a></li>
+                    <li><a href="/fornjot/blog">Blog</a></li>
+                    <li><a href="https://github.com/hannobraun/fornjot">GitHub ↪</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            
+    <article class="blog-post">
+        <header>
+            <h2>Fornjot 0.6</h2>
+            <span class="metadata">
+        Posted on <time datetime="2022-05-05">2022-05-05</time> by <a href="https://github.com/hannobraun">Hanno Braun</a>
+
+        </span>
+        </header>
+
+        
+
+        <p><a href="/fornjot/">Fornjot</a> is an early-stage project to create a next-generation Code-CAD application. This is the announcement for Fornjot's new release, version 0.6.0.</p>
+<p><strong>Fornjot is still at an early stage and far from being useful as a general-purpose CAD application.</strong> This release should be seen as a preview for anyone who's interested in following Fornjot's development.</p>
+<p>The project is steadily inching forward, however, and this new version comes with some new and refined modeling features, lots of small improvements, lots of bug fixes, and a huge amount of internal cleanup.</p>
+<p>This release announcement provides a high-level summary of those changes. For more details, please refer to the <a rel="external" href="https://github.com/hannobraun/Fornjot/blob/main/CHANGELOG.md">changelog</a>. For pre-compiled binaries, check out the <a rel="external" href="https://github.com/hannobraun/Fornjot/releases/tag/v0.6.0">release on GitHub</a>. Please report bugs in any of the usual <a href="/fornjot/community">community channels</a>.</p>
+<h3 id="sponsors">Sponsors</h3>
+<p>Fornjot is supported by <a rel="external" href="https://github.com/webtrax-oz">@webtrax-oz</a>, <a rel="external" href="https://github.com/lthiery">@lthiery</a>, <a rel="external" href="https://github.com/Yatekii">@Yatekii</a>, <a rel="external" href="https://github.com/martindederer">@martindederer</a>, <a rel="external" href="https://github.com/hobofan">@hobofan</a>, <a rel="external" href="https://github.com/ahdinosaur">@ahdinosaur</a>, <a rel="external" href="https://github.com/thawkins">@thawkins</a>, and <a rel="external" href="https://github.com/sponsors/hannobraun">my other awesome sponsors</a>. Thank you!</p>
+<p>If you're interested in helping to make the project sustainable long-term, please consider <a rel="external" href="https://github.com/sponsors/hannobraun">supporting me</a> too.</p>
+<h3 id="modeling-improvements">Modeling Improvements</h3>
+<p>The ways that models can be defined have been improved in various ways. For example, it's now possible to sweep 2D shapes in arbitrary directions, not just along the z-axis.</p>
+<p>This was already possible:
+<img src="/fornjot/blog/fornjot-0.6/sweep-old.png" alt="3D model of a cylinder with a circular hole along its height" /></p>
+<p>And now we can also do this:
+<img src="/fornjot/blog/fornjot-0.6/sweep-new.png" alt="a similar cylinder, slanted to the right" /></p>
+<p>And if you don't like the classic "Fornjot red", you have options now:
+<img src="/fornjot/blog/fornjot-0.6/color.png" alt="3D model of a cylinder with a circular hole, colored blue" /></p>
+<p>There's more: <code>fj::Union</code> has been renamed to <code>fj::Group</code> (with support for actual unions still being a work-in-progress), new convenient syntax for <code>fj::Difference2d</code> was added, documentation of the <code>fj</code> crate has been improved, and other small tweaks have been made.</p>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<p>You can define abstract geometry all day, but at some point (namely to render it, or to export it for 3D printing), you need to approximate it using a triangle mesh. This process is non-trivial and provides lots of opportunity for exciting bugs.</p>
+<p>Here's what happened, if you tried to sweep a non-symmetric sketch:</p>
+<p><img src="/fornjot/blog/fornjot-0.6/non-symmetric-sweep-old.png" alt="a sweep of a non-symmetric sketch; totally borked" /></p>
+<p>It's much better now, although this model still does not work perfectly (missing triangles in the long, narrow part of the upper face):
+<img src="/fornjot/blog/fornjot-0.6/non-symmetric-sweep-new.png" alt="a sweep of a non-symmetric sketch; less borked" /></p>
+<p>Here's another model with triangles in the wrong places:
+<img src="/fornjot/blog/fornjot-0.6/triangulation-old.png" alt="star-shaped model with triangles in the wrong places" /></p>
+<p>And here's how that looks in the new version:
+<img src="/fornjot/blog/fornjot-0.6/triangulation-new.png" alt="star-shaped model with triangles in the right places" /></p>
+<p>These are just some examples. Many more bugs have been fixed. And of course, more bugs are still lurking. But Fornjot has become much more robust in this release, and will continue to do so.</p>
+<h3 id="small-improvements">Small Improvements</h3>
+<p>There have been lots of smaller feature additions and bug fixes!</p>
+<p>If you display a model, or export it for 3D printing, the model needs to be approximated. You can now specify the tolerance value, i.e. the maximum allowed deviation of the approximation from the actual model, as a command-line argument.</p>
+<p>For example, running this from the Fornjot repository:</p>
+<p><code>cargo run -- --model=spacer --tolerance=0.1</code></p>
+<p>Results in this:
+<img src="/fornjot/blog/fornjot-0.6/tolerance-low.png" alt="a model that should be round has really jagged corners instead" /></p>
+<p>While this:</p>
+<p><code>cargo run -- --model=spacer --tolerance=0.001</code></p>
+<p>Results in this:
+<img src="/fornjot/blog/fornjot-0.6/tolerance-high.png" alt="a model that should be round is actually round" /></p>
+<p>This is just one example of many small features that were added.</p>
+<h3 id="the-fornjot-ecosystem">The Fornjot Ecosystem</h3>
+<p>Some people I've talked to have expressed interest in building their own applications on top of Fornjot, once it's ready. It might still take a while before Fornjot has matured enough for that to make sense, but in principle this is possible starting with this version.</p>
+<p>While the previous version of Fornjot consisted mostly of one monolithic application, parts of that application have been extracted into libraries that can be used on their own.</p>
+<p><a href="/fornjot/blog/ecosystem/">Check out my blog post on the Fornjot ecosystem</a>, if you're interested in this.</p>
+<h3 id="cleanup">Cleanup</h3>
+<p>Maybe the most important aspect of this release is the huge amount of cleanup work that has gone into it. Fornjot's code base is now much more capable, and much more ready to support the features we'll want to add.</p>
+<p>While this has enabled some improvements in this release, this is mostly invisible. But it will pay dividends as more features are being added over the next releases.</p>
+<h3 id="contributors">Contributors</h3>
+<p>Fornjot is an ambitious project, and it wouldn't be possible without contributors! Thanks you <a rel="external" href="https://github.com/gzsombor">@gzsombor</a>, <a rel="external" href="https://github.com/mxdamien">@mxdamien</a>, <a rel="external" href="https://github.com/hendrikmaus">@hendrikmaus</a>, <a rel="external" href="https://github.com/ObiWanRohan">@ObiWanRohan</a>, <a rel="external" href="https://github.com/therealprof">@therealprof</a>, <a rel="external" href="https://github.com/danieleades">@danieleades</a>, <a rel="external" href="https://github.com/anwentec">@anwentec</a>, <a rel="external" href="https://github.com/ozghimire">@ozghimire</a>, <a rel="external" href="https://github.com/homersimpsons">@homersimpsons</a>, <a rel="external" href="https://github.com/liubog2008">@liubog2008</a>, <a rel="external" href="https://github.com/freylint">@freylint</a>, and <a rel="external" href="https://github.com/connor-lennox">@connor-lennox</a> for your help with this release!</p>
+
+
+        <footer>
+            
+        </footer>
+    </article>
+
+        </main>
+        <footer>
+            <hr />
+
+            <p>
+                This website is maintained by <a href="https://www.hannobraun.com/">me</a>:
+            </p>
+
+            <address>
+                Hanno Braun<br />
+                Untere Pfarrgasse 19<br />
+                64720 Michelstadt<br />
+                Germany<br />
+                <br />
+                <a href="mailto:hello@hannobraun.com">hello@hannobraun.com</a><br />
+            </address>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        
+        
+            
+        
+
+        
+            <title>Fornjot - Fornjot 0.5.0</title>
+        
+
+        <link
+            href="/fornjot/style.css"
+            rel="stylesheet"
+            type="text/css"
+            media="all" />
+
+        <link href="/fornjot/atom.xml" rel="alternate" type="application/atom+xml" />
+    </head>
+    <body>
+        <header>
+            <div class="archival highlight">
+                This website has been archived. It will not be kept up-to-date.
+            </div>
+            <a class="title" href="/fornjot/">
+                <h1>Fornjot</h1>
+                <h2>early-stage b-rep CAD kernel, written in Rust</h2>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/fornjot/">About</a></li>
+                    <li><a href="/fornjot/blog">Blog</a></li>
+                    <li><a href="https://github.com/hannobraun/fornjot">GitHub ↪</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            
+    <article class="blog-post">
+        <header>
+            <h2>Fornjot 0.5.0</h2>
+            <span class="metadata">
+        Posted on <time datetime="2022-01-27">2022-01-27</time> by <a href="https://github.com/hannobraun">Hanno Braun</a>
+
+        </span>
+        </header>
+
+        
+
+        <p><a href="/fornjot/">Fornjot</a> is a next-generation Code-CAD application, and this is the announcement of its new release, version 0.5.0.</p>
+<p>Fornjot is still at an early stage and far from being useful as a general CAD application. The project is steadily inching forward, however, and this new version comes with support for more platforms, more flexible tools for defining CAD models, various fixes to make doing so more robust, and lots of internal clean-ups to enable future improvements.</p>
+<h3 id="sponsors">Sponsors</h3>
+<p>Fornjot is supported by <a rel="external" href="https://github.com/lthiery">@lthiery</a>, <a rel="external" href="https://github.com/Yatekii">@Yatekii</a>, and <a rel="external" href="https://github.com/sponsors/hannobraun">my other awesome sponsors</a>.</p>
+<p>If you're interested in making the project sustainable long-term, please consider <a rel="external" href="https://github.com/sponsors/hannobraun">supporting me</a>.</p>
+<h3 id="support-for-windows-and-macos">Support for Windows and macOS</h3>
+<p>I develop Fornjot on Linux, but broad platform support was always part of the plan. With this release, we're getting closer to that goal. Support for Windows and macOS was added by <a rel="external" href="https://github.com/Bandsberg">@Bandsberg</a>, Fornjot's very first contributor.</p>
+<h3 id="sketches">Sketches</h3>
+<p>The concept of a sketch (represented by <a rel="external" href="https://docs.rs/fj/0.5.0/fj/struct.Sketch.html"><code>fj::Sketch</code></a>) was introduced. Right now, it is a more flexible replacement for (the now removed) <code>fj::Rectangle</code>, and only allows for making sketches with straight edges.</p>
+<p>Like <code>fj::Rectangle</code>, <code>fj::Sketch</code> can be extruded into a 3D model, and limited support for combining sketches exists.</p>
+<p><img src="/fornjot/blog/fornjot-0.5.0/star.png" alt="Screenshot of the star model" /></p>
+<p>While this is very limited, don't forget that Fornjot is a Code-CAD application, and you can generate these sketches programmatically, from the Rust code that defines your model. This should allow for approximations of more complex shapes.</p>
+<p>In the future, <code>fj::Sketch</code> will subsume <a rel="external" href="https://docs.rs/fj/0.5.0/fj/struct.Circle.html"><code>fj::Circle</code></a> to allow for sketches with arcs. Long-term, support for more powerful concepts like Bézier curves/B-spline/NURBS is a goal.</p>
+<h3 id="unions-and-transformations">Unions and Transformations</h3>
+<p>Once you have created some 3D models by extruding sketches, you can combine them using <a rel="external" href="https://docs.rs/fj/0.5.0/fj/struct.Union.html"><code>fj::Union</code></a> and transform them using <a rel="external" href="https://docs.rs/fj/0.5.0/fj/struct.Transform.html"><code>fj::Transform</code></a>.</p>
+<p>Both of these operations are still subject to limitations and will be improved in future versions.</p>
+<h3 id="convenient-syntax">Convenient Syntax</h3>
+<p>Some extension traits have been added to the <a rel="external" href="https://docs.rs/fj/0.5.0/fj/"><code>fj</code></a> library, to provide more convenient syntax for the various operations the library supports.</p>
+<pre class="giallo" style="color: #24292E; background-color: #FFFFFF;"><code data-lang="rust"><span class="giallo-l"><span style="color: #D73A49;">let</span><span> side</span><span style="color: #D73A49;"> =</span><span> [</span></span>
+<span class="giallo-l"><span>    [</span><span style="color: #005CC5;">          0</span><span style="color: #D73A49;">.</span><span>,</span><span style="color: #005CC5;">          0</span><span style="color: #D73A49;">.</span><span>],</span></span>
+<span class="giallo-l"><span>    [inner_height,</span><span style="color: #005CC5;">          0</span><span style="color: #D73A49;">.</span><span>],</span></span>
+<span class="giallo-l"><span>    [inner_height, outer_depth],</span></span>
+<span class="giallo-l"><span>    [</span><span style="color: #005CC5;">          0</span><span style="color: #D73A49;">.</span><span>, outer_depth],</span></span>
+<span class="giallo-l"><span>];</span></span>
+<span class="giallo-l"><span style="color: #D73A49;">let</span><span> side</span><span style="color: #D73A49;"> =</span><span> side</span></span>
+<span class="giallo-l"><span style="color: #D73A49;">    .</span><span style="color: #6F42C1;">sketch</span><span>()</span></span>
+<span class="giallo-l"><span style="color: #D73A49;">    .</span><span style="color: #6F42C1;">sweep</span><span>(material_strength)</span></span>
+<span class="giallo-l"><span style="color: #D73A49;">    .</span><span style="color: #6F42C1;">rotate</span><span>([</span><span style="color: #005CC5;">0</span><span style="color: #D73A49;">.</span><span>,</span><span style="color: #005CC5;"> 1</span><span style="color: #D73A49;">.</span><span>,</span><span style="color: #005CC5;"> 0</span><span style="color: #D73A49;">.</span><span>],</span><span style="color: #D73A49;"> -</span><span style="color: #005CC5;">FRAC_PI_2</span><span>)</span></span>
+<span class="giallo-l"><span style="color: #D73A49;">    .</span><span style="color: #6F42C1;">translate</span><span>([</span><span style="color: #005CC5;">0</span><span style="color: #D73A49;">.</span><span>,</span><span style="color: #005CC5;"> 0</span><span style="color: #D73A49;">.</span><span>, material_strength]);</span></span></code></pre><h3 id="fixes-and-clean-ups">Fixes and Clean-ups</h3>
+<p>Some small issues have been fixes, around the camera behavior, triangle mesh generation, and reloading models (special thanks for that last one to first-time contributor <a rel="external" href="https://github.com/mxdamien">@mxdamien</a>).</p>
+<p>In addition, there has been a huge amount of clean-up, focused on the CAD kernel, to make the software architecture more robust and pave the way for adding more features in the future.</p>
+<h3 id="more-details">More Details</h3>
+<p>To learn more, check out the <a rel="external" href="https://github.com/hannobraun/Fornjot/releases/tag/v0.5.0">release on GitHub</a>.</p>
+
+
+        <footer>
+            
+        </footer>
+    </article>
+
+        </main>
+        <footer>
+            <hr />
+
+            <p>
+                This website is maintained by <a href="https://www.hannobraun.com/">me</a>:
+            </p>
+
+            <address>
+                Hanno Braun<br />
+                Untere Pfarrgasse 19<br />
+                64720 Michelstadt<br />
+                Germany<br />
+                <br />
+                <a href="mailto:hello@hannobraun.com">hello@hannobraun.com</a><br />
+            </address>
+        </footer>
+    </body>
+</html>

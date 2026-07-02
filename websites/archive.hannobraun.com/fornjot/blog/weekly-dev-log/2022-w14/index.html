@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        
+        
+            
+        
+
+        
+            <title>Fornjot - Weekly Dev Log - 2022-W14</title>
+        
+
+        <link
+            href="/fornjot/style.css"
+            rel="stylesheet"
+            type="text/css"
+            media="all" />
+
+        <link href="/fornjot/atom.xml" rel="alternate" type="application/atom+xml" />
+    </head>
+    <body>
+        <header>
+            <div class="archival highlight">
+                This website has been archived. It will not be kept up-to-date.
+            </div>
+            <a class="title" href="/fornjot/">
+                <h1>Fornjot</h1>
+                <h2>early-stage b-rep CAD kernel, written in Rust</h2>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/fornjot/">About</a></li>
+                    <li><a href="/fornjot/blog">Blog</a></li>
+                    <li><a href="https://github.com/hannobraun/fornjot">GitHub ↪</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            
+    <article class="blog-post">
+        <header>
+            <h2>Weekly Dev Log - 2022-W14</h2>
+            <span class="metadata">
+        Posted on <time datetime="2022-04-11">2022-04-11</time> by <a href="https://github.com/hannobraun">Hanno Braun</a>
+
+        </span>
+        </header>
+
+        <aside>
+            
+    <p>
+        <a href="/fornjot/">Fornjot</a> is an early-stage project to create a next-generation Code-CAD application. This is Fornjot's Weekly Dev Log, a summary of the previous week's development activities.
+    </p>
+
+        </aside>
+
+        <p>It's been a good week! After all the distractions caused by my broken computer, I'm finally back to full productivity. The replacement arrived last week!</p>
+<p>I managed to wrap up my work on improving the testing infrastructure for the triangulation algorithm, and managed to fix some of the most annoying bugs (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/105">#105</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/143">#143</a>). I also fixed a few bugs with the graphics code, that were surfaced by me having access to an AMD GPU now.</p>
+<p>Meanwhile <a rel="external" href="https://github.com/hendrikmaus">@hendrikmaus</a> continued his work on release automation (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/104">#104</a>). I'm still looking forward to trying that, but there are a few tasks I need to check off my list before I'm ready for a new release.</p>
+<h3 id="sponsors">Sponsors</h3>
+<p>Fornjot is supported by <a rel="external" href="https://github.com/webtrax-oz">@webtrax-oz</a>, <a rel="external" href="https://github.com/lthiery">@lthiery</a>, <a rel="external" href="https://github.com/Yatekii">@Yatekii</a>, <a rel="external" href="https://github.com/martindederer">@martindederer</a>, <a rel="external" href="https://github.com/hobofan">@hobofan</a>, and <a rel="external" href="https://github.com/sponsors/hannobraun">my other awesome sponsors</a>. Thank you!</p>
+<p>If you're interested in helping to make the project sustainable long-term, please consider <a rel="external" href="https://github.com/sponsors/hannobraun">supporting me</a> too.</p>
+<h3 id="end-user-improvements">End-user improvements</h3>
+<p>Improvements to the Fornjot application, the API for creating models, and documentation.</p>
+<ul>
+<li>Update README (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/419">#419</a>)</li>
+<li>Fix issues with an AMD GPU (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/437">#437</a>)</li>
+<li>Fix some triangulation issues (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/448">#448</a>)</li>
+</ul>
+<h3 id="ecosystem-improvements">Ecosystem improvements</h3>
+<p>Improvements to the Fornjot ecosystem that are relevant to developers who are building on top of Fornjot components.</p>
+<h4 id="fj-debug"><code>fj-debug</code></h4>
+<ul>
+<li>Simplify debug info (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/447">#447</a>)</li>
+</ul>
+<h4 id="fj-kernel"><code>fj-kernel</code></h4>
+<ul>
+<li>Expand topology builder API (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/425">#425</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/428">#428</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/432">#432</a>)</li>
+<li>Fix wrong word in doc comment (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/426">#426</a>)</li>
+<li>Improve representation of approximations (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/427">#427</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/429">#429</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/433">#433</a>)</li>
+</ul>
+<h4 id="fj-math"><code>fj-math</code></h4>
+<ul>
+<li>Improve <code>Triangle</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/434">#434</a>)</li>
+<li>Expand API of <code>Segment</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/441">#441</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/442">#442</a>)</li>
+<li>Add <code>PolyChain</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/444">#444</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/446">#446</a>)</li>
+</ul>
+<h3 id="internal-improvements">Internal Improvements</h3>
+<p>Improvements that are relevant to developers working on Fornjot itself.</p>
+<ul>
+<li>Update dependencies (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/420">#420</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/421">#421</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/422">#422</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/424">#424</a>)</li>
+<li>Improve testing infrastructure of triangulation (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/435">#435</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/439">#439</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/440">#440</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/443">#443</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/445">#445</a>)</li>
+<li>Upgrade to latest Rust version (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/438">#438</a>)</li>
+<li>Continue automation of release procedure (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/436">#436</a>; thanks to <a rel="external" href="https://github.com/hendrikmaus">@hendrikmaus</a>!)</li>
+</ul>
+<h3 id="issue-of-the-week">Issue of the Week</h3>
+<p>If you open a model in the Fornjot application, then make changes to its source code, it automatically reloads. However, there's a longstanding issue about this not working on macOS, <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/12">#12 - Reloading the model doesn't work on macOS</a>.</p>
+<p>If you're running macOS, maybe you'd be interested in taking a look? Your contribution could be as small as verifying that the issue is still present, as large as figuring out what's wrong and submitting a fix, or anything in between. Since I don't have access to macOS, any help in that area is especially appreciated!</p>
+<h3 id="outlook">Outlook</h3>
+<p>With <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/105">#105</a> wrapped up, I'll be taking a look at the remaining open triangulation issues, to update them and figure out, if they're still present. I don't think I'll address any remaining ones at this point though. I think it's more prudent to wrap up my work on a modular Fornjot ecosystem (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/141">#141</a>), then start working on getting a release out. It's long overdue!</p>
+<p>Friday is a public holiday here, so it'll be a shorter work week for me. In addition, I'll be on vacation for two weeks, starting next week. For this reason, I plan to publish the next dev log on Thursday or Friday.</p>
+
+
+        <footer>
+            
+        </footer>
+    </article>
+
+        </main>
+        <footer>
+            <hr />
+
+            <p>
+                This website is maintained by <a href="https://www.hannobraun.com/">me</a>:
+            </p>
+
+            <address>
+                Hanno Braun<br />
+                Untere Pfarrgasse 19<br />
+                64720 Michelstadt<br />
+                Germany<br />
+                <br />
+                <a href="mailto:hello@hannobraun.com">hello@hannobraun.com</a><br />
+            </address>
+        </footer>
+    </body>
+</html>

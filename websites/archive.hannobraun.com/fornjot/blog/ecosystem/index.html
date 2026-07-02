@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        
+        
+            
+        
+
+        
+            <title>Fornjot - The Fornjot Ecosystem</title>
+        
+
+        <link
+            href="/fornjot/style.css"
+            rel="stylesheet"
+            type="text/css"
+            media="all" />
+
+        <link href="/fornjot/atom.xml" rel="alternate" type="application/atom+xml" />
+    </head>
+    <body>
+        <header>
+            <div class="archival highlight">
+                This website has been archived. It will not be kept up-to-date.
+            </div>
+            <a class="title" href="/fornjot/">
+                <h1>Fornjot</h1>
+                <h2>early-stage b-rep CAD kernel, written in Rust</h2>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/fornjot/">About</a></li>
+                    <li><a href="/fornjot/blog">Blog</a></li>
+                    <li><a href="https://github.com/hannobraun/fornjot">GitHub ↪</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            
+    <article class="blog-post">
+        <header>
+            <h2>The Fornjot Ecosystem</h2>
+            <span class="metadata">
+        Posted on <time datetime="2022-05-04">2022-05-04</time> by <a href="https://github.com/hannobraun">Hanno Braun</a>
+
+        </span>
+        </header>
+
+        
+
+        <p>The goal of Fornjot is not only to create a CAD application, but also to encourage an ecosystem to develop around it. I want to enable others to build on top of the components that make Fornjot work, so they can develop their own solutions more easily.</p>
+<p>This has recently become possible. The previously monolithic Fornjot application has been broken up into a number of smaller, self-contained libraries. This work has been tracked in issue <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/141">#141</a>.</p>
+<h3 id="why-is-enabling-an-ecosystem-important">Why is enabling an ecosystem important?</h3>
+<p>By opening up Fornjot's components for wider use, the project can become useful to a larger number of people, both directly and indirectly. Directly, to developers who want to build their own CAD-related software; indirectly, to the people who end up using the software built by those developers.</p>
+<p>A broader user base means the project could attract more contributions, which would be great for Fornjot's long-term health. And contributions to Fornjot's components would lead to improvements that directly benefit users of the Fornjot application itself.</p>
+<p>Aside from encouraging other projects to build on top of Fornjot, this also makes extensions to Fornjot itself easier. New features can be prototyped by outside contributors, then later be merged into Fornjot; or kept as standalone extensions, as deemed appropriate.</p>
+<p>And all of this is not purely theoretical. Several people I've talked to have expressed the hope that Fornjot will become a suitable base for them to build their own projects on top of.</p>
+<h3 id="won-t-this-be-a-distraction">Won't this be a distraction?</h3>
+<p>It could be. Opening up Fornjot like that could dilute the project's focus, and ultimately distract from its main objective of building a next-generation Code-CAD application. To some extent, that doesn't matter. So what, if contributors who otherwise wouldn't have been involved in the first place, end up doing work that doesn't directly benefit that goal?</p>
+<p>But it can turn into a problem, if work on the Fornjot ecosystem diverts existing resources, like my own development time. I'm aware of that danger, and will do my best to not let myself get distracted. It will be a matter of focusing on Fornjot's core goals, and drawing clear boundaries regarding what is in scope for the project, and what isn't.</p>
+<p>My hope is, that any additional work will be a worthwhile investment. Publishing parts of Fornjot as separate libraries and making sure they are documented isn't taking that much additional time, but it could pay off for all the reasons mentioned above.</p>
+<p>And in the end, this ecosystem effort could result in the opposite: Enabling external developers to build on top of Fornjot means more work can happen without my involvement. And if specific use cases can be addressed by such work, it becomes easier to declare those uses cases as out of scope for the core project.</p>
+<h3 id="an-overview">An overview</h3>
+<p>But enough talk about why this is or isn't a good idea. Let's take a look at each of the new libraries, and what they do:</p>
+<ul>
+<li><code>fj-math</code> provides math primitives for the Fornjot ecosystem. It is itself built on top of <a rel="external" href="https://nalgebra.org/">nalgebra</a> and <a rel="external" href="https://www.parry.rs/">Parry</a>, but its interface is tailor-made for Fornjot, simplifying the math code in the rest of the ecosystem.</li>
+<li><code>fj</code> provides the API for defining Fornjot models. It is used in model code, and is thus the only of the libraries that is directly relevant to end users.</li>
+<li><code>fj-interop</code> defines various types that are used for interoperation between other Fornjot components, without requiring those other components to depend on each other.</li>
+<li><code>fj-kernel</code> is Fornjot's CAD kernel, the core part of Fornjot. It define geometric and topological primitives, as well as algorithms that operate on those.</li>
+<li><code>fj-operations</code> serves as the link between <code>fj</code> and <code>fj-kernel</code>. It uses <code>fj-kernel</code> to implement the CAD operations that models define via the <code>fj</code> crate.</li>
+<li><code>fj-export</code> can export Fornjot models to external data formats, like 3MF, and hopefully many more in the future.</li>
+<li><code>fj-host</code> loads Fornjot models, and watches them for changes. Fornjot models are basically plugins that are loaded into the Fornjot app, and <code>fj-host</code> serves as the host for those model plugins.</li>
+<li><code>fj-viewer</code> provides the user interface for Fornjot: it handles input, controls the camera, and can render Fornjot models.</li>
+<li><code>fj-app</code> is the only application in this list. It puts all of the aforementioned libraries together to provide a CAD application to end users.</li>
+</ul>
+<h4 id="interested">Interested?</h4>
+<p>Are you interested in using parts of Fornjot to build your own application? I'd love to hear about that! Please <a href="/fornjot/community">get in touch</a>!</p>
+
+
+        <footer>
+            
+        </footer>
+    </article>
+
+        </main>
+        <footer>
+            <hr />
+
+            <p>
+                This website is maintained by <a href="https://www.hannobraun.com/">me</a>:
+            </p>
+
+            <address>
+                Hanno Braun<br />
+                Untere Pfarrgasse 19<br />
+                64720 Michelstadt<br />
+                Germany<br />
+                <br />
+                <a href="mailto:hello@hannobraun.com">hello@hannobraun.com</a><br />
+            </address>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        
+        
+            
+        
+
+        
+            <title>Fornjot - Weekly Dev Log - 2022-W05</title>
+        
+
+        <link
+            href="/fornjot/style.css"
+            rel="stylesheet"
+            type="text/css"
+            media="all" />
+
+        <link href="/fornjot/atom.xml" rel="alternate" type="application/atom+xml" />
+    </head>
+    <body>
+        <header>
+            <div class="archival highlight">
+                This website has been archived. It will not be kept up-to-date.
+            </div>
+            <a class="title" href="/fornjot/">
+                <h1>Fornjot</h1>
+                <h2>early-stage b-rep CAD kernel, written in Rust</h2>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/fornjot/">About</a></li>
+                    <li><a href="/fornjot/blog">Blog</a></li>
+                    <li><a href="https://github.com/hannobraun/fornjot">GitHub ↪</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            
+    <article class="blog-post">
+        <header>
+            <h2>Weekly Dev Log - 2022-W05</h2>
+            <span class="metadata">
+        Posted on <time datetime="2022-02-07">2022-02-07</time> by <a href="https://github.com/hannobraun">Hanno Braun</a>
+
+        </span>
+        </header>
+
+        <aside>
+            
+    <p>
+        <a href="/fornjot/">Fornjot</a> is an early-stage project to create a next-generation Code-CAD application. This is Fornjot's Weekly Dev Log, a summary of the previous week's development activities.
+    </p>
+
+        </aside>
+
+        <h3 id="sponsors">Sponsors</h3>
+<p>Fornjot is supported by <a rel="external" href="https://github.com/lthiery">@lthiery</a>, <a rel="external" href="https://github.com/Yatekii">@Yatekii</a>, and <a rel="external" href="https://github.com/sponsors/hannobraun">my other awesome sponsors</a>. Thank you!</p>
+<p>If you're interested in helping to make the project sustainable long-term, please consider <a rel="external" href="https://github.com/sponsors/hannobraun">supporting me</a> too.</p>
+<h3 id="improvements-and-fixes">Improvements and fixes</h3>
+<ul>
+<li>Prevent potential floating-point accuracy issues in triangulation (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/133">#133</a>)</li>
+</ul>
+<h3 id="documentation">Documentation</h3>
+<ul>
+<li>Update README (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/113">#113</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/127">#127</a>)</li>
+</ul>
+<h3 id="internal-improvements">Internal improvements</h3>
+<ul>
+<li>Use caching to speed up CI build (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/114">#114</a>) (thanks to <a rel="external" href="https://github.com/mxdamien">@mxdamien</a>)</li>
+<li>Update dependencies (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/115">#115</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/119">#119</a>)</li>
+<li>Clean up CAD kernel (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/120">#120</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/121">#121</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/125">#125</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/129">#129</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/130">#130</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/132">#132</a>)</li>
+<li>Update release procedure (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/124">#124</a>)</li>
+<li>Update internal developer documentation (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/126">#126</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/128">#128</a>)</li>
+<li>Replace delaunator-rs with Spade (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/131">#131</a>)</li>
+</ul>
+<h3 id="website">Website</h3>
+<ul>
+<li>Update list of sponsors (<a rel="external" href="https://github.com/hannobraun/www.fornjot.app/pull/14">#14</a>)</li>
+<li>Add weekly dev log (<a rel="external" href="https://github.com/hannobraun/www.fornjot.app/pull/15">#15</a>)</li>
+<li>Minor clean-ups (<a rel="external" href="https://github.com/hannobraun/www.fornjot.app/pull/16">#16</a>)</li>
+<li>Add first issue of Last Month in Fornjot (<a rel="external" href="https://github.com/hannobraun/www.fornjot.app/pull/17">#17</a>)</li>
+<li>Add newsletter template for Last Month in Fornjot (<a rel="external" href="https://github.com/hannobraun/www.fornjot.app/pull/18">#18</a>)</li>
+<li>Update about page (<a rel="external" href="https://github.com/hannobraun/www.fornjot.app/pull/19">#19</a>)</li>
+</ul>
+<h3 id="outlook">Outlook</h3>
+<p>I managed to wrap up <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/78">#78</a> last week, which means I'm now ready to tackle <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/97">#97</a>. This is a refactoring that should enable the implementation of constructive solid geometry (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/42">#42</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/43">#43</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/44">#44</a>). I've finished most of this a few weeks back, but the last bit will require some additions to, and associated clean-ups of, the CAD kernel.</p>
+<p>I don't think this will be too much of a problem, but we'll see.</p>
+
+
+        <footer>
+            
+        </footer>
+    </article>
+
+        </main>
+        <footer>
+            <hr />
+
+            <p>
+                This website is maintained by <a href="https://www.hannobraun.com/">me</a>:
+            </p>
+
+            <address>
+                Hanno Braun<br />
+                Untere Pfarrgasse 19<br />
+                64720 Michelstadt<br />
+                Germany<br />
+                <br />
+                <a href="mailto:hello@hannobraun.com">hello@hannobraun.com</a><br />
+            </address>
+        </footer>
+    </body>
+</html>

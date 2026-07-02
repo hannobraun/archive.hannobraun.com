@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        
+        
+            
+        
+
+        
+            <title>Fornjot - Weekly Release - Experimentation</title>
+        
+
+        <link
+            href="/fornjot/style.css"
+            rel="stylesheet"
+            type="text/css"
+            media="all" />
+
+        <link href="/fornjot/atom.xml" rel="alternate" type="application/atom+xml" />
+    </head>
+    <body>
+        <header>
+            <div class="archival highlight">
+                This website has been archived. It will not be kept up-to-date.
+            </div>
+            <a class="title" href="/fornjot/">
+                <h1>Fornjot</h1>
+                <h2>early-stage b-rep CAD kernel, written in Rust</h2>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/fornjot/">About</a></li>
+                    <li><a href="/fornjot/blog">Blog</a></li>
+                    <li><a href="https://github.com/hannobraun/fornjot">GitHub ↪</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            
+    <article class="blog-post">
+        <header>
+            <h2>Weekly Release - Experimentation</h2>
+            <span class="metadata">
+        Posted on <time datetime="2022-11-28">2022-11-28</time> by <a href="https://github.com/hannobraun">Hanno Braun</a>
+
+        </span>
+        </header>
+
+        <aside>
+            
+    <p>
+        <a href="/fornjot/">Fornjot</a> is an early-stage project to create a next-generation Code-CAD application. This is the announcement for this week's release, version <a href="https://github.com/hannobraun/Fornjot/releases/tag/v0.26.0">0.26.0</a>.
+    </p>
+
+        </aside>
+
+        <p>A week ago, I reported how I got inspired by a talk I've seen, and my time since then was dominated by experimentation, with some promising first results!</p>
+<p>My goal is to make the Fornjot kernel interactive. Right now, you more or less launch it with some input, then get back the results. I want to be able to inspect it while it is running, to understand exactly what is going on at every point. The immediate benefit should be that debugging the kernel becomes easier. If it works out like that, this could help accelerate development in the future.</p>
+<p>I've been prototyping an architecture that enables this interactivity. The results are promising, in that it's possible now to inspect exactly what a core part of the kernel does over time, without that complicating any other parts of the code. However, there is no tooling that makes use of this new capability yet, so it's hard to judge how useful it is going to be in practice.</p>
+<p>I want to wrap up this initial experimentation quickly, then continue this work on the side. While I believe that this is going to be very beneficial for Fornjot's further development, there is so much more important work to do, and I can't afford to have one thing take over my time completely.</p>
+<h3 id="sponsors">Sponsors</h3>
+<p>Fornjot is supported by <a rel="external" href="https://github.com/webtrax-oz">@webtrax-oz</a>, <a rel="external" href="https://github.com/lthiery">@lthiery</a>, <a rel="external" href="https://github.com/ahdinosaur">@ahdinosaur</a>, <a rel="external" href="https://github.com/Yatekii">@Yatekii</a>, <a rel="external" href="https://github.com/martindederer">@martindederer</a>, <a rel="external" href="https://github.com/hobofan">@hobofan</a>, <a rel="external" href="https://github.com/thawkins">@thawkins</a>, <a rel="external" href="https://github.com/bollian">@bollian</a>, <a rel="external" href="https://github.com/rozgo">@rozgo</a>, <a rel="external" href="https://github.com/reivilibre">@reivilibre</a>, and <a rel="external" href="https://github.com/sponsors/hannobraun">my other awesome sponsors</a>. Thank you!</p>
+<strong class="call-to-action">
+    <p>
+        If you want Fornjot to be sustainable long-term, please consider <a href="https://github.com/sponsors/hannobraun">supporting me</a> too.
+    </p>
+</strong>
+<h3 id="end-user-improvements">End-user improvements</h3>
+<p>Improvements to Fornjot and its documentation that are visible to end users.</p>
+<ul>
+<li>Remove model generation feature to fix <code>cargo install</code> error (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1373">#1373</a>)</li>
+<li>Enable model version check on Windows (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1374">#1374</a>)</li>
+<li>Change messages to say "evaluating" instead of "compiling" (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1396">#1396</a>)</li>
+</ul>
+<h3 id="ecosystem-improvements">Ecosystem improvements</h3>
+<p>Improvements to Fornjot components that are relevant to developers building on top of those. These have an indirect effect on end users, through fixed bugs and improved robustness.</p>
+<h4 id="fj-kernel"><code>fj-kernel</code></h4>
+<ul>
+<li>Build service abstraction around <code>Objects</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1377">#1377</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1384">#1384</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1390">#1390</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1392">#1392</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1393">#1393</a>)</li>
+<li>Fix <code>Store</code> iteration bug (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1383">#1383</a>)</li>
+<li>Simplify old builder structs (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1388">#1388</a>)</li>
+<li>Add <code>Object</code> enum (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1391">#1391</a>)</li>
+</ul>
+<h4 id="fj-operations"><code>fj-operations</code></h4>
+<ul>
+<li>Take <code>&amp;mut Objects</code> in <code>Shape::compute_brep</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1389">#1389</a>)</li>
+<li>Simplify return value of <code>Shape::compute_brep</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1394">#1394</a>)</li>
+</ul>
+<h3 id="internal-improvements">Internal Improvements</h3>
+<p>Improvements that are relevant to developers working on Fornjot itself.</p>
+<ul>
+<li>Update dependencies (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1378">#1378</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1379">#1379</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1380">#1380</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1381">#1381</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1382">#1382</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1386">#1386</a>)</li>
+<li>Make some small cleanups (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1395">#1395</a>)</li>
+</ul>
+
+
+        <footer>
+            
+        </footer>
+    </article>
+
+        </main>
+        <footer>
+            <hr />
+
+            <p>
+                This website is maintained by <a href="https://www.hannobraun.com/">me</a>:
+            </p>
+
+            <address>
+                Hanno Braun<br />
+                Untere Pfarrgasse 19<br />
+                64720 Michelstadt<br />
+                Germany<br />
+                <br />
+                <a href="mailto:hello@hannobraun.com">hello@hannobraun.com</a><br />
+            </address>
+        </footer>
+    </body>
+</html>

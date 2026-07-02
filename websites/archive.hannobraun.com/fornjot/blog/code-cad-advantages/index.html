@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        
+        
+            
+        
+
+        
+            <title>Fornjot - Advantages of Code-CAD</title>
+        
+
+        <link
+            href="/fornjot/style.css"
+            rel="stylesheet"
+            type="text/css"
+            media="all" />
+
+        <link href="/fornjot/atom.xml" rel="alternate" type="application/atom+xml" />
+    </head>
+    <body>
+        <header>
+            <div class="archival highlight">
+                This website has been archived. It will not be kept up-to-date.
+            </div>
+            <a class="title" href="/fornjot/">
+                <h1>Fornjot</h1>
+                <h2>early-stage b-rep CAD kernel, written in Rust</h2>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/fornjot/">About</a></li>
+                    <li><a href="/fornjot/blog">Blog</a></li>
+                    <li><a href="https://github.com/hannobraun/fornjot">GitHub ↪</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            
+    <article class="blog-post">
+        <header>
+            <h2>Advantages of Code-CAD</h2>
+            <span class="metadata">
+        Posted on <time datetime="2022-02-09">2022-02-09</time> by <a href="https://github.com/hannobraun">Hanno Braun</a>
+
+        (updated <time datetime="2022-03-04">2022-03-04</time>)</span>
+        </header>
+
+        <aside>
+            
+    <p>
+        This article originally appeared <a href="https://hanno.braun-odw.eu/notes/code-cad-advantages/">on my website</a>.
+    </p>
+
+        </aside>
+
+        <p>I'm a software developer. I've learned to prefer clear code, written in a programming language, to complex graphical user interfaces that control opaque data formats. Applied to CAD, this approach is called Code-CAD or Programmatic CAD. Let's talk about some of the advantages of Code-CAD, as I see them.</p>
+<h3 id="source-of-truth">Source of Truth</h3>
+<p>Let's start with something that may be easy to overlook: <strong>If code is the source of truth for your model, you can inspect and manipulate this source of truth directly.</strong></p>
+<p>With typical CAD software, the model is defined by a data format that you are walled off from. Most likely, you never interact with it directly. Your interaction is filtered through a complicated graphical user interface (GUI).</p>
+<p>If that interface is well-made and bug-free, you might not perceive this as a disadvantage. But if you use a graphical application extensively, you will more than likely, sooner or later, run into a bug that messes up your data in a way that the software may or may not be able to recover from.</p>
+<p>With Code-CAD, you change the code directly. If you mess it up, you can fix it again.</p>
+<h3 id="inherent-advantages-of-programming">Inherent Advantages of Programming</h3>
+<p>Simply by using a programming language, you get some inherent advantages:</p>
+<ul>
+<li><strong>You can avoid repetitive work.</strong> If a feature needs to appear in 100 places all across you model, you don't have to model it 100 times. Or copy-and-paste it 99 times. Or make the same change to it 100 times.</li>
+<li><strong>A well-written model is going to be parametric by nature.</strong> If you decide to change some decision you made early on in the modeling process, you won't have to rewrite your whole model to adapt.</li>
+<li><strong>Programming languages allow you to build abstractions.</strong> You tend to need gears in your models? Write code that generates those gears according to your parameters. Often use whole gearboxes? Write code that knows how to generate those.</li>
+<li><strong>You get the full power of the language.</strong> Compute the number and the positions of support beams based on the load they have to carry. Or generate the complex geometry of a key from a simple numeric representation.</li>
+<li><strong>Programming languages allow for comments.</strong> You can explain your model and document your design intent, in as much detail as required.</li>
+</ul>
+<p>A sufficiently advanced GUI-based CAD program can also provide all of these things. However, the developers of that program might not have gotten around to develop what you need yet. And even if they have, they could have used that time to develop something else that would have been just as useful.</p>
+<p>Many CAD programs can be extended with plugins, which provides the full power of a programming language in a different way. But there will always be a disconnect between GUI-based CAD modeling and writing a plugin. On the other hand, if you've been writing code anyway, just to create your model, then writing some slightly more complicated code poses less of a hurdle.</p>
+<h3 id="using-tools-made-for-text">Using Tools Made for Text</h3>
+<p>The large majority of programming languages are represented (and hence written) as simple text. By using such a language, you can tap into a vast ecosystem of tools that have been developed to deal with text:</p>
+<ul>
+<li><strong>You can use a text editor or IDE to read and manipulate code.</strong> Modern IDEs provide advanced tooling to help you do that, like allowing you to change the name of a function automatically, all across your code. Or jumping to the definition of a type from where it is used.</li>
+<li><strong>You can track changes to your code</strong>, using standard version control software. This makes it straight-forward to understand how a model has changed, or return to an older version if you took a wrong turn somewhere.</li>
+<li><strong>Collaborate with others, worldwide</strong>, using the same version control software. Send your code to a team member, receive their changes to that code, and discuss those changes with them. There are tools that make all of this easy.</li>
+</ul>
+<p>Again, a sufficiently advanced GUI-based CAD program can provide you with all of these capabilities. But the developers have to put in the effort to make it happen. And their solutions might not compare favorably to the standard tools from the software development world, which have been refined over years and decades.</p>
+<h3 id="the-disadvantage">The Disadvantage</h3>
+<p>There is one glaring disadvantage, of course: To use Code-CAD, you have to know how to write code. And while that is a very useful skill to have in general, not everyone wants to invest the effort into learning that.</p>
+<p>This is somewhat offset by the fact that learning a non-trivial GUI-based CAD application is also not easy. But if you're already proficient in a CAD program that you're reasonably happy with, learning a completely new skill to switch to something else might not be the best use of your time.</p>
+<p>And that's fine. The best solution to a problem depends not only on the problem itself, but also on its context. Your context is going to be different from mine, so what's the best solution for me, might not even be a good one for you.</p>
+<h3 id="a-hybrid-approach">A Hybrid Approach</h3>
+<p>There are other disadvantages to Code-CAD, of course. Making a sketch and applying some constraints can be very easy with a nice GUI, while having to type it all out would be very tedious.</p>
+<p>For that reason, I think the ideal CAD program would use a hybrid approach: Being code-first for all the reasons presented above, but letting you edit that code through graphical tools, where it makes sense. I'm not aware of any system that works like that, at least to the extent that is possible in principle. I believe that creating such a system would be a worthwhile effort.</p>
+
+
+        <footer>
+            
+                <section id="changes" class="changes">
+                    <h3>Changes</h3>
+                    <table>
+                        <tr>
+                            <th>2022-02-09</th>
+                            <td>Initial release.</td>
+                        </tr>
+                        
+                            <tr>
+                                <th>2022-03-04</th>
+                                <td><p>Edited and replaced some paragraphs for clarity, while leaving the overall meaning and structure intact. Added a paragraph on avoiding repetitive work.</p>
+</td>
+                            </tr>
+                        
+                    </table>
+                </section>
+            
+        </footer>
+    </article>
+
+        </main>
+        <footer>
+            <hr />
+
+            <p>
+                This website is maintained by <a href="https://www.hannobraun.com/">me</a>:
+            </p>
+
+            <address>
+                Hanno Braun<br />
+                Untere Pfarrgasse 19<br />
+                64720 Michelstadt<br />
+                Germany<br />
+                <br />
+                <a href="mailto:hello@hannobraun.com">hello@hannobraun.com</a><br />
+            </address>
+        </footer>
+    </body>
+</html>

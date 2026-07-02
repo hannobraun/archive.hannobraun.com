@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        
+        
+            
+        
+
+        
+            <title>Fornjot - Weekly Dev Log - 2022-W23</title>
+        
+
+        <link
+            href="/fornjot/style.css"
+            rel="stylesheet"
+            type="text/css"
+            media="all" />
+
+        <link href="/fornjot/atom.xml" rel="alternate" type="application/atom+xml" />
+    </head>
+    <body>
+        <header>
+            <div class="archival highlight">
+                This website has been archived. It will not be kept up-to-date.
+            </div>
+            <a class="title" href="/fornjot/">
+                <h1>Fornjot</h1>
+                <h2>early-stage b-rep CAD kernel, written in Rust</h2>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/fornjot/">About</a></li>
+                    <li><a href="/fornjot/blog">Blog</a></li>
+                    <li><a href="https://github.com/hannobraun/fornjot">GitHub ↪</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            
+    <article class="blog-post">
+        <header>
+            <h2>Weekly Dev Log - 2022-W23</h2>
+            <span class="metadata">
+        Posted on <time datetime="2022-06-13">2022-06-13</time> by <a href="https://github.com/hannobraun">Hanno Braun</a>
+
+        </span>
+        </header>
+
+        <aside>
+            
+    <p>
+        <a href="/fornjot/">Fornjot</a> is an early-stage project to create a next-generation Code-CAD application. This is Fornjot's Weekly Dev Log, a summary of the previous week's development activities.
+    </p>
+
+        </aside>
+
+        <p>Looking at the number of pull requests, this was an exceptionally slow week. I spent a lot of my time thinking about the Fornjot kernel's data structures. This lead to some immediate (if minor) simplifications, but mostly to interesting ideas. Nothing actionable as of yet, but I hope that long-term, we can improve those data structures to simplify the kernel and increase robustness. We'll see. I'll keep thinking.</p>
+<p>At the end of the week, I had a break-through in my work on <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/568">#568</a>, removing the main blocker that I have been working on for weeks now (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/680">#680</a>). Unfortunately, there wasn't any time left to follow up on that.</p>
+<p>Meanwhile, <a rel="external" href="https://github.com/chrisprice">@chrisprice</a> continued his work on improving the input code, fixing the previously unintuitive rotation behavior of the model. <a rel="external" href="https://github.com/kamirr">@kamirr</a> fixed <code>fj</code>'s <code>serialization</code> feature, which somewhat embarrassingly was completely broken.</p>
+<h3 id="sponsors">Sponsors</h3>
+<p>Fornjot is supported by <a rel="external" href="https://github.com/webtrax-oz">@webtrax-oz</a>, <a rel="external" href="https://github.com/lthiery">@lthiery</a>, <a rel="external" href="https://github.com/Yatekii">@Yatekii</a>, <a rel="external" href="https://github.com/martindederer">@martindederer</a>, <a rel="external" href="https://github.com/hobofan">@hobofan</a>, <a rel="external" href="https://github.com/ahdinosaur">@ahdinosaur</a>, <a rel="external" href="https://github.com/thawkins">@thawkins</a>, <a rel="external" href="https://github.com/bollian">@bollian</a>, and <a rel="external" href="https://github.com/sponsors/hannobraun">my other awesome sponsors</a>. Thank you!</p>
+<p>If you want Fornjot to be stable and sustainable long-term, please consider <a rel="external" href="https://github.com/sponsors/hannobraun">supporting me</a> too.</p>
+<h3 id="end-user-improvements">End-user improvements</h3>
+<p>Improvements to Fornjot and its documentation that are visible to end-users.</p>
+<ul>
+<li>Make model rotation behavior intuitive (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/669">#669</a>; thanks to <a rel="external" href="https://github.com/chrisprice">@chrisprice</a>!)</li>
+<li>Update list of sponsors (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/671">#671</a>)</li>
+<li>Fix color of sketches being ignored (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/675">#675</a>)</li>
+<li>Fix serialization in <code>fj</code> crate (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/682">#682</a>; thanks to <a rel="external" href="https://github.com/kamirr">@kamirr</a>!)</li>
+</ul>
+<h3 id="ecosystem-improvements">Ecosystem improvements</h3>
+<p>Improvements to the Fornjot ecosystem that are relevant to developers who are building on top of Fornjot components.</p>
+<h4 id="fj-kernel"><code>fj-kernel</code></h4>
+<ul>
+<li>Embed <code>Point&lt;3&gt;</code> in <code>Vertex</code> directly (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/673">#673</a>)</li>
+<li>Rebrand geometric validation as coherence validation (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/676">#676</a>)</li>
+<li>Make <code>CycleBuilder</code> more flexible (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/679">#679</a>)</li>
+<li>Add local forms of cycles to <code>Face</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/680">#680</a>)</li>
+</ul>
+<h3 id="internal-improvements">Internal Improvements</h3>
+<p>Improvements that are relevant to developers working on Fornjot itself.</p>
+<ul>
+<li>Update dependencies (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/670">#670</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/672">#672</a>)</li>
+<li>Small fixes (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/674">#674</a>)</li>
+</ul>
+<h3 id="issue-of-the-week">Issue of the Week</h3>
+<p>When creating a CAD model, you often need to take a close look, and to do that, you need fine control over moving and rotating the model. Fornjot tries to address this with an intuitive approach, based on where the mouse pointer is touching the model (called the "focus point").</p>
+<p>This is a work in progress, and some kinks still need to be ironed out. One such kink is <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/678">#678 - Moving the model should work without a focus point</a>. If you are interested in user interfaces, this issue could be a great introduction to Fornjot!</p>
+<h3 id="outlook">Outlook</h3>
+<p>Given the breakthrough I had last week, it feels like I'm really close to wrapping up <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/568">#568</a>. That, or I'll uncover more previously unknown problems shortly. Either way, it's progress.</p>
+
+
+        <footer>
+            
+        </footer>
+    </article>
+
+        </main>
+        <footer>
+            <hr />
+
+            <p>
+                This website is maintained by <a href="https://www.hannobraun.com/">me</a>:
+            </p>
+
+            <address>
+                Hanno Braun<br />
+                Untere Pfarrgasse 19<br />
+                64720 Michelstadt<br />
+                Germany<br />
+                <br />
+                <a href="mailto:hello@hannobraun.com">hello@hannobraun.com</a><br />
+            </address>
+        </footer>
+    </body>
+</html>

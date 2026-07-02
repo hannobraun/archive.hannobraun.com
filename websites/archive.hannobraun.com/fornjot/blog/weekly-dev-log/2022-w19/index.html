@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        
+        
+            
+        
+
+        
+            <title>Fornjot - Weekly Dev Log - 2022-W19</title>
+        
+
+        <link
+            href="/fornjot/style.css"
+            rel="stylesheet"
+            type="text/css"
+            media="all" />
+
+        <link href="/fornjot/atom.xml" rel="alternate" type="application/atom+xml" />
+    </head>
+    <body>
+        <header>
+            <div class="archival highlight">
+                This website has been archived. It will not be kept up-to-date.
+            </div>
+            <a class="title" href="/fornjot/">
+                <h1>Fornjot</h1>
+                <h2>early-stage b-rep CAD kernel, written in Rust</h2>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/fornjot/">About</a></li>
+                    <li><a href="/fornjot/blog">Blog</a></li>
+                    <li><a href="https://github.com/hannobraun/fornjot">GitHub ↪</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            
+    <article class="blog-post">
+        <header>
+            <h2>Weekly Dev Log - 2022-W19</h2>
+            <span class="metadata">
+        Posted on <time datetime="2022-05-16">2022-05-16</time> by <a href="https://github.com/hannobraun">Hanno Braun</a>
+
+        </span>
+        </header>
+
+        <aside>
+            
+    <p>
+        <a href="/fornjot/">Fornjot</a> is an early-stage project to create a next-generation Code-CAD application. This is Fornjot's Weekly Dev Log, a summary of the previous week's development activities.
+    </p>
+
+        </aside>
+
+        <p>I continued working on the union operation last week (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/42">#42</a>). I implemented some building blocks for the algorithm, then hit complications (of course 😁), which prompted me to divert my attention to another cleanup effort (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/568">#568</a>).</p>
+<p>The short version is, up until recently, the Fornjot kernel dealt mostly with 3D coordinates. This kept things simple, but there are cases where it makes more sense to work in other coordinates systems (i.e. 2D surface coordinates and 1D curve coordinates). The simplistic "3D-mostly" approach causes problems in various areas (see <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/250">#250</a>, for an example), and now boolean operations have been added to that list.</p>
+<p>It's unfortunate that there's another detour, but it is what it is. As always, I'd rather do things right, than build on top of an insufficient foundation.</p>
+<h3 id="sponsors">Sponsors</h3>
+<p>Fornjot is supported by <a rel="external" href="https://github.com/webtrax-oz">@webtrax-oz</a>, <a rel="external" href="https://github.com/lthiery">@lthiery</a>, <a rel="external" href="https://github.com/Yatekii">@Yatekii</a>, <a rel="external" href="https://github.com/martindederer">@martindederer</a>, <a rel="external" href="https://github.com/hobofan">@hobofan</a>, <a rel="external" href="https://github.com/ahdinosaur">@ahdinosaur</a>, <a rel="external" href="https://github.com/thawkins">@thawkins</a>, and <a rel="external" href="https://github.com/sponsors/hannobraun">my other awesome sponsors</a>. Thank you!</p>
+<p>If you're interested in helping to make the project sustainable long-term, please consider <a rel="external" href="https://github.com/sponsors/hannobraun">supporting me</a> too.</p>
+<h3 id="end-user-improvements">End-user improvements</h3>
+<p>Improvements to Fornjot and its documentation that are visible to end-users.</p>
+<ul>
+<li>Fix mistakes in model READMEs (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/555">#555</a>; special thanks to first-time contributor <a rel="external" href="https://github.com/chrisprice">@chrisprice</a>!)</li>
+</ul>
+<h3 id="ecosystem-improvements">Ecosystem improvements</h3>
+<p>Improvements to the Fornjot ecosystem that are relevant to developers who are building on top of Fornjot components.</p>
+<h4 id="fj-kernel"><code>fj-kernel</code></h4>
+<ul>
+<li>Replace curve types with new types in <code>fj_math</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/558">#558</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/578">#578</a>)</li>
+<li>Expand and clean up intersection code (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/560">#560</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/562">#562</a>)</li>
+<li>Improve APIs for conversion between coordinate systems (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/561">#561</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/564">#564</a>)</li>
+<li>Start using local coordinates where that makes sense (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/574">#574</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/575">#575</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/579">#579</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/582">#582</a>)</li>
+<li>Make minor improvements to various APIs (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/580">#580</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/581">#581</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/583">#583</a>)</li>
+</ul>
+<h4 id="fj-math"><code>fj-math</code></h4>
+<ul>
+<li>Add <code>Vector::scalar_projection_onto</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/553">#553</a>)</li>
+<li>Add <code>Line</code> and <code>Circle</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/557">#557</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/563">#563</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/577">#577</a>)</li>
+<li>Improve <code>Aabb</code> API (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/559">#559</a>)</li>
+</ul>
+<h4 id="fj-viewer"><code>fj-viewer</code></h4>
+<ul>
+<li>Fix typo in API documentation (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/573">#573</a>; thanks to <a rel="external" href="https://github.com/freylint">@freylint</a>!)</li>
+</ul>
+<h3 id="internal-improvements">Internal Improvements</h3>
+<p>Improvements that are relevant to developers working on Fornjot itself.</p>
+<ul>
+<li>Update dependencies (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/548">#548</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/549">#549</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/550">#550</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/551">#551</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/552">#552</a>)</li>
+<li>Simplify <code>ToShape</code> implementation of <code>fj::Sketch</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/554">#554</a>)</li>
+<li>Make some minor cleanups (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/565">#565</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/576">#576</a>)</li>
+<li>Add local build script (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/569">#569</a>; thanks to <a rel="external" href="https://github.com/chrisprice">@chrisprice</a>)</li>
+<li>Add Gnome Builder configuration to <code>.gitignore</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/570">#570</a>; thanks to <a rel="external" href="https://github.com/freylint">@freylint</a>!)</li>
+</ul>
+<h3 id="issue-of-the-week">Issue of the Week</h3>
+<p>A while ago, Fornjot gained the ability to sweep a sketch along an arbitrary vector, not just long the z-axis, as before. The bounding volume calculation for the sweep operation wasn't updated correctly, when that change was made.</p>
+<p>If you're interested in getting a taste of how CAD operations are implemented in Fornjot, why not take a look at <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/566">#566 - Bounding volume of sweep operation is incorrect</a>?</p>
+<h3 id="outlook">Outlook</h3>
+<p>I'm going to continue working on <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/568">#568</a>. I've made good progress already, but there are some aspects of the solution I haven't figured out yet. We'll see how it goes.</p>
+<p>After taking care of that, I plan to go back to working on the union operation (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/42">#42</a>).</p>
+
+
+        <footer>
+            
+        </footer>
+    </article>
+
+        </main>
+        <footer>
+            <hr />
+
+            <p>
+                This website is maintained by <a href="https://www.hannobraun.com/">me</a>:
+            </p>
+
+            <address>
+                Hanno Braun<br />
+                Untere Pfarrgasse 19<br />
+                64720 Michelstadt<br />
+                Germany<br />
+                <br />
+                <a href="mailto:hello@hannobraun.com">hello@hannobraun.com</a><br />
+            </address>
+        </footer>
+    </body>
+</html>

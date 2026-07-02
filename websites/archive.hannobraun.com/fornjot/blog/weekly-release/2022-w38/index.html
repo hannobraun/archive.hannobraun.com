@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        
+        
+            
+        
+
+        
+            <title>Fornjot - Weekly Release - 2022-W38</title>
+        
+
+        <link
+            href="/fornjot/style.css"
+            rel="stylesheet"
+            type="text/css"
+            media="all" />
+
+        <link href="/fornjot/atom.xml" rel="alternate" type="application/atom+xml" />
+    </head>
+    <body>
+        <header>
+            <div class="archival highlight">
+                This website has been archived. It will not be kept up-to-date.
+            </div>
+            <a class="title" href="/fornjot/">
+                <h1>Fornjot</h1>
+                <h2>early-stage b-rep CAD kernel, written in Rust</h2>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/fornjot/">About</a></li>
+                    <li><a href="/fornjot/blog">Blog</a></li>
+                    <li><a href="https://github.com/hannobraun/fornjot">GitHub ↪</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            
+    <article class="blog-post">
+        <header>
+            <h2>Weekly Release - 2022-W38</h2>
+            <span class="metadata">
+        Posted on <time datetime="2022-09-19">2022-09-19</time> by <a href="https://github.com/hannobraun">Hanno Braun</a>
+
+        </span>
+        </header>
+
+        <aside>
+            
+    <p>
+        <a href="/fornjot/">Fornjot</a> is an early-stage project to create a next-generation Code-CAD application. This is the announcement for this week's release, version <a href="https://github.com/hannobraun/Fornjot/releases/tag/v0.16.0">0.16.0</a>.
+    </p>
+
+        </aside>
+
+        <p>At the beginning of last week, I had just wrapped up a round of cleanups and was about to return to <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/993">#993</a>, which is blocking further work on the union operation (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/42">#42</a>). Instead, I found another problem that I need to address first (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/1079">#1079</a>).</p>
+<p>All of this is relatively complex, concerning the architecture of the CAD kernel data structures. If you're interested in the details, check out those issues, but here's my attempt at a high-level summary:</p>
+<ul>
+<li>For the the union operation (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/42">#42</a>), lots of intersection testing code needs to be written.</li>
+<li>One of those intersection tests needs to determine whether two edges are equal, which isn't really possible right now (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/993">#993</a>).</li>
+<li>Fixing that isn't possible, because curves can't really compared for equality either (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/1079">#1079</a>).</li>
+<li>The best way to fix that involves having a central data store for curves (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/1021">#1021</a>).</li>
+</ul>
+<p>I've made good progress on <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/1079">#1079</a> and started working on <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/1021">#1021</a>. I ran into some trouble with that, preventing the work I already have in a local branch from getting merged on Friday.</p>
+<p>Meanwhile, <a rel="external" href="https://github.com/payload">@payload</a> addressed a very confusing problem with the Fornjot app, making sure the GUI is displayed, even if there's a problem with loading the model.</p>
+<h3 id="sponsors">Sponsors</h3>
+<p>Fornjot is supported by <a rel="external" href="https://github.com/webtrax-oz">@webtrax-oz</a>, <a rel="external" href="https://github.com/lthiery">@lthiery</a>, <a rel="external" href="https://github.com/Yatekii">@Yatekii</a>, <a rel="external" href="https://github.com/martindederer">@martindederer</a>, <a rel="external" href="https://github.com/hobofan">@hobofan</a>, <a rel="external" href="https://github.com/ahdinosaur">@ahdinosaur</a>, <a rel="external" href="https://github.com/thawkins">@thawkins</a>, <a rel="external" href="https://github.com/bollian">@bollian</a>, <a rel="external" href="https://github.com/rozgo">@rozgo</a>, <a rel="external" href="https://github.com/reivilibre">@reivilibre</a>, and <a rel="external" href="https://github.com/sponsors/hannobraun">my other awesome sponsors</a>. Thank you!</p>
+<strong class="call-to-action">
+    <p>
+        If you want Fornjot to be sustainable long-term, please consider <a href="https://github.com/sponsors/hannobraun">supporting me</a> too.
+    </p>
+</strong>
+<h3 id="end-user-improvements">End-user improvements</h3>
+<p>Improvements to Fornjot and its documentation that are visible to end-users.</p>
+<ul>
+<li>Fix GUI not being loaded, if model is not available (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1095">#1095</a>; thank you, <a rel="external" href="https://github.com/payload">@payload</a>!)</li>
+</ul>
+<h3 id="ecosystem-improvements">Ecosystem improvements</h3>
+<p>Improvements to the Fornjot ecosystem that are relevant to developers who are building on top of Fornjot components.</p>
+<h4 id="fj-math"><code>fj-math</code></h4>
+<ul>
+<li>Fix <code>Vector::unit_v</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1085">#1085</a>)</li>
+<li>Expand <code>Circle</code> API (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1086">#1086</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1088">#1088</a>)</li>
+<li>Expand <code>Scalar</code> API (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1087">#1087</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1093">#1093</a>)</li>
+</ul>
+<h4 id="fj-kernel"><code>fj-kernel</code></h4>
+<ul>
+<li>Improve validation of <code>HalfEdge</code> and <code>Vertex</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1075">#1075</a>)</li>
+<li>Expand builder API (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1076">#1076</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1083">#1083</a>)</li>
+<li>Expand sweep test suite (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1077">#1077</a>)</li>
+<li>Perform various cleanups (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1080">#1080</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1084">#1084</a>)</li>
+<li>Replace <code>CurveKind</code> with <code>SurfacePath</code>/<code>GlobalPath</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1081">#1081</a>)</li>
+<li>Make path approximation deterministic (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1089">#1089</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1090">#1090</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1094">#1094</a>)</li>
+<li>Future-proof curve approximation code (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1082">#1082</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1091">#1091</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1092">#1092</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1096">#1096</a>)</li>
+<li>Un-derive <code>Copy</code> from various object types (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1097">#1097</a>)</li>
+</ul>
+<h3 id="internal-improvements">Internal Improvements</h3>
+<p>Improvements that are relevant to developers working on Fornjot itself.</p>
+<ul>
+<li>Update dependencies (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1071">#1071</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1072">#1072</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1074">#1074</a>)</li>
+<li>Update release procedure (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1073">#1073</a>)</li>
+<li>Expand release automation (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1078">#1078</a>)</li>
+<li>Update list of sponsors in README (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1098">#1098</a>)</li>
+</ul>
+<h3 id="issue-of-the-week">Issue of the Week</h3>
+<p>Fornjot models can have parameters, and those can be provided by the user as command-line arguments. But if the user provides an argument that the model doesn't actually use (which could be the result of a simple typo), that argument just gets ignored. This is confusing.</p>
+<p>If you're interested in how the Fornjot application interacts with models, maybe issue <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/821">#821 - Exit with error, if user provides unused parameters</a> could be your way to get into that.</p>
+<h3 id="outlook">Outlook</h3>
+<p>I've been doing some thinking over the weekend, and I believe I've come up with solutions for the issues that prevented my work on <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/1021">#1021</a> from getting merged last week. I expect to make enough progress there to start finishing up <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/1079">#1079</a>, and after that, the road should be clear for <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/993">#993</a>.</p>
+<p>I said something similar last week, so take it with a grain of salt. More issues popping up and needing to be addressed first, wouldn't be a surprise.</p>
+
+
+        <footer>
+            
+        </footer>
+    </article>
+
+        </main>
+        <footer>
+            <hr />
+
+            <p>
+                This website is maintained by <a href="https://www.hannobraun.com/">me</a>:
+            </p>
+
+            <address>
+                Hanno Braun<br />
+                Untere Pfarrgasse 19<br />
+                64720 Michelstadt<br />
+                Germany<br />
+                <br />
+                <a href="mailto:hello@hannobraun.com">hello@hannobraun.com</a><br />
+            </address>
+        </footer>
+    </body>
+</html>

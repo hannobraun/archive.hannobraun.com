@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        
+        
+            
+        
+
+        
+            <title>Fornjot - Weekly Release - Ostensibly Quiet</title>
+        
+
+        <link
+            href="/fornjot/style.css"
+            rel="stylesheet"
+            type="text/css"
+            media="all" />
+
+        <link href="/fornjot/atom.xml" rel="alternate" type="application/atom+xml" />
+    </head>
+    <body>
+        <header>
+            <div class="archival highlight">
+                This website has been archived. It will not be kept up-to-date.
+            </div>
+            <a class="title" href="/fornjot/">
+                <h1>Fornjot</h1>
+                <h2>early-stage b-rep CAD kernel, written in Rust</h2>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/fornjot/">About</a></li>
+                    <li><a href="/fornjot/blog">Blog</a></li>
+                    <li><a href="https://github.com/hannobraun/fornjot">GitHub ↪</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            
+    <article class="blog-post">
+        <header>
+            <h2>Weekly Release - Ostensibly Quiet</h2>
+            <span class="metadata">
+        Posted on <time datetime="2023-02-06">2023-02-06</time> by <a href="https://github.com/hannobraun">Hanno Braun</a>
+
+        </span>
+        </header>
+
+        <aside>
+            
+    <p>
+        <a href="/fornjot/">Fornjot</a> is an early-stage project to create a next-generation Code-CAD application. This is the announcement for this week's release, version <a href="https://github.com/hannobraun/Fornjot/releases/tag/v0.35.0">0.35.0</a>.
+    </p>
+
+        </aside>
+
+        <p>Ostensibly, this has been a quiet week. Not many pull request, not many commits. But behind the scenes, the object graph simplification work (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/1525">#1525</a>) has been ongoing. Some improvements related to that have made it into the repository this week, but most of it is still blocked by unsolved problems.</p>
+<p>I <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/1525#issuecomment-1415898182">wrote a short update</a> about that. The short version is, my work simplifying the object graph has been hampered by the complexity of the object graph. Technical debt protecting itself, in a way. At the moment, I'm still looking into ways to solve the specific problems, but it might become necessary to pause this, and try to approach the object graph simplification from another angle.</p>
+<p>Meanwhile, <a rel="external" href="https://github.com/tmayoff">@tmayoff</a> has made some very welcome improvements in the GUI, while <a rel="external" href="https://github.com/Philipp-M">@Philipp-M</a> has updated Fornjot's Nix flake.</p>
+<h3 id="sponsors">Sponsors</h3>
+<p>Fornjot is supported by <a rel="external" href="https://github.com/webtrax-oz">@webtrax-oz</a>, <a rel="external" href="https://github.com/reivilibre">@reivilibre</a>, <a rel="external" href="https://github.com/lthiery">@lthiery</a>, <a rel="external" href="https://github.com/ahdinosaur">@ahdinosaur</a>, <a rel="external" href="https://github.com/Yatekii">@Yatekii</a>, <a rel="external" href="https://github.com/martindederer">@martindederer</a>, <a rel="external" href="https://github.com/hobofan">@hobofan</a>, <a rel="external" href="https://github.com/thawkins">@thawkins</a>, <a rel="external" href="https://github.com/bollian">@bollian</a>, <a rel="external" href="https://github.com/rozgo">@rozgo</a>, and <a rel="external" href="https://github.com/sponsors/hannobraun">my other awesome sponsors</a>. Thank you!</p>
+<strong class="call-to-action">
+    <p>
+        If you want Fornjot to be sustainable long-term, please consider <a href="https://github.com/sponsors/hannobraun">supporting me</a> too.
+    </p>
+</strong>
+<h3 id="end-user-improvements">End-user improvements</h3>
+<p>Improvements to Fornjot and its documentation that are visible to end users.</p>
+<ul>
+<li>Fixed status messages taking up too much space (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1551">#1551</a>; thank you, <a rel="external" href="https://github.com/tmayoff">@tmayoff</a>!)</li>
+<li>Display version mismatch warning in GUI (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1554">#1554</a>; thank you, <a rel="external" href="https://github.com/tmayoff">@tmayoff</a>!)</li>
+</ul>
+<h3 id="ecosystem-improvements">Ecosystem improvements</h3>
+<p>Improvements to Fornjot components that are relevant to developers building on top of those. These have an indirect effect on end users, through fixed bugs and improved robustness.</p>
+<h4 id="fj-kernel"><code>fj-kernel</code></h4>
+<ul>
+<li>Improve validation error message (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1553">#1553</a>)</li>
+<li>Lift limitation when inferring surface as plane (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1556">#1556</a>)</li>
+<li>Reuse cached curve approximation, if range is reversed (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1557">#1557</a>)</li>
+</ul>
+<h4 id="fj-math"><code>fj-math</code></h4>
+<ul>
+<li>Improve projections into plane (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1555">#1555</a>)</li>
+</ul>
+<h3 id="internal-improvements">Internal Improvements</h3>
+<p>Improvements that are relevant to developers working on Fornjot itself.</p>
+<ul>
+<li>Update dependencies (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1546">#1546</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1547">#1547</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1548">#1548</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1550">#1550</a>)</li>
+<li>Update list of sponsors (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1552">#1552</a>)</li>
+<li>Updated nix flake inputs (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1558">#1558</a>; thank you, <a rel="external" href="https://github.com/Philipp-M">@Philipp-M</a>!)</li>
+</ul>
+
+
+        <footer>
+            
+        </footer>
+    </article>
+
+        </main>
+        <footer>
+            <hr />
+
+            <p>
+                This website is maintained by <a href="https://www.hannobraun.com/">me</a>:
+            </p>
+
+            <address>
+                Hanno Braun<br />
+                Untere Pfarrgasse 19<br />
+                64720 Michelstadt<br />
+                Germany<br />
+                <br />
+                <a href="mailto:hello@hannobraun.com">hello@hannobraun.com</a><br />
+            </address>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        
+        
+            
+        
+
+        
+            <title>Fornjot - Weekly Release - 2022-W35</title>
+        
+
+        <link
+            href="/fornjot/style.css"
+            rel="stylesheet"
+            type="text/css"
+            media="all" />
+
+        <link href="/fornjot/atom.xml" rel="alternate" type="application/atom+xml" />
+    </head>
+    <body>
+        <header>
+            <div class="archival highlight">
+                This website has been archived. It will not be kept up-to-date.
+            </div>
+            <a class="title" href="/fornjot/">
+                <h1>Fornjot</h1>
+                <h2>early-stage b-rep CAD kernel, written in Rust</h2>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/fornjot/">About</a></li>
+                    <li><a href="/fornjot/blog">Blog</a></li>
+                    <li><a href="https://github.com/hannobraun/fornjot">GitHub ↪</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            
+    <article class="blog-post">
+        <header>
+            <h2>Weekly Release - 2022-W35</h2>
+            <span class="metadata">
+        Posted on <time datetime="2022-08-29">2022-08-29</time> by <a href="https://github.com/hannobraun">Hanno Braun</a>
+
+        </span>
+        </header>
+
+        <aside>
+            
+    <p>
+        <a href="/fornjot/">Fornjot</a> is an early-stage project to create a next-generation Code-CAD application. This is the announcement for this week's release, version <a href="https://github.com/hannobraun/Fornjot/releases/tag/v0.13.0">0.13.0</a>.
+    </p>
+
+        </aside>
+
+        <p>Last week was eventful! Initially I made some progress on the intersection tests (see <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/42">#42</a>, specifically the <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/42#issuecomment-1206449099">list I keep updated</a>). Then, I hit a hurdle (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/993">#993</a>). That issue has more details, but the gist of it is, that the kernel data structures are not robust enough to handle certain tasks required for the next batch of intersection tests.</p>
+<p>Solving this required some cleanups, and while planning those out, inspiration struck and I recognized an opportunity for a big simplification of the kernel code, which in turn required some more cleanups... and down the rabbit hole I went. Check out the pull requests below for the progress I made so far.</p>
+<h3 id="sponsors">Sponsors</h3>
+<p>Fornjot is supported by <a rel="external" href="https://github.com/webtrax-oz">@webtrax-oz</a>, <a rel="external" href="https://github.com/lthiery">@lthiery</a>, <a rel="external" href="https://github.com/Yatekii">@Yatekii</a>, <a rel="external" href="https://github.com/martindederer">@martindederer</a>, <a rel="external" href="https://github.com/hobofan">@hobofan</a>, <a rel="external" href="https://github.com/ahdinosaur">@ahdinosaur</a>, <a rel="external" href="https://github.com/thawkins">@thawkins</a>, <a rel="external" href="https://github.com/bollian">@bollian</a>, <a rel="external" href="https://github.com/rozgo">@rozgo</a>, <a rel="external" href="https://github.com/reivilibre">@reivilibre</a>, and <a rel="external" href="https://github.com/sponsors/hannobraun">my other awesome sponsors</a>. Thank you!</p>
+<p>If you want Fornjot to be stable and sustainable long-term, please consider <a rel="external" href="https://github.com/sponsors/hannobraun">supporting me</a> too.</p>
+<h3 id="end-user-improvements">End-user improvements</h3>
+<p>Improvements to Fornjot and its documentation that are visible to end-users.</p>
+<ul>
+<li>Update usage documentation in README (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/994">#994</a>)</li>
+</ul>
+<h3 id="ecosystem-improvements">Ecosystem improvements</h3>
+<p>Improvements to the Fornjot ecosystem that are relevant to developers who are building on top of Fornjot components.</p>
+<h4 id="fj-host"><code>fj-host</code></h4>
+<ul>
+<li>Improve comments and documentation (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/988">#988</a>)</li>
+</ul>
+<h4 id="fj-kernel"><code>fj-kernel</code></h4>
+<ul>
+<li>Expand intersection tests (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/977">#977</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/978">#978</a>)</li>
+<li>Extract <code>Shell</code> from <code>Solid</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/983">#983</a>)</li>
+<li>Clean up sweep API (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/984">#984</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/989">#989</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/991">#991</a>)</li>
+<li>Add builder API for <code>Sketch</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/992">#992</a>)</li>
+<li>Add <code>GlobalEdge</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/998">#998</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/999">#999</a>)</li>
+<li>Make some minor cleanups (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1000">#1000</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1001">#1001</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1005">#1005</a>)</li>
+<li>Clean up <code>approx</code> module (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1003">#1003</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1006">#1006</a>)</li>
+</ul>
+<h4 id="fj-math"><code>fj-math</code></h4>
+<ul>
+<li>Make minor API additions (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1004">#1004</a>)</li>
+</ul>
+<h4 id="fj-viewer-fj-window"><code>fj-viewer</code>/<code>fj-window</code></h4>
+<ul>
+<li>Upgrade dependencies related to wgpu/winit (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/975">#975</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/979">#979</a>)</li>
+</ul>
+<h3 id="internal-improvements">Internal Improvements</h3>
+<p>Improvements that are relevant to developers working on Fornjot itself.</p>
+<ul>
+<li>Update dependencies (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/964">#964</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/965">#965</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/966">#966</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/968">#968</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/969">#969</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/970">#970</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/974">#974</a>)</li>
+<li>Update release procedure (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/972">#972</a>)</li>
+<li>Upgrade to Rust 1.63.0 (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/973">#973</a>)</li>
+<li>Expand release automation (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/981">#981</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/982">#982</a>)</li>
+<li>Add usage documentation to <code>CONTRIBUTING.md</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/995">#995</a>)</li>
+</ul>
+<h3 id="issue-of-the-week">Issue of the Week</h3>
+<p>Fornjot is still very much an early-stage project, and I'm pretty sure that most of its usage still happens as part of developing it. Being run mostly from within its own repository has allowed some problems to creep in, that become really obvious once you start using it in the real world.</p>
+<p>One such problem is <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/980">#980 - Version mismatch between <code>fj</code> and <code>fj-app</code> can cause problems</a>. If you like fiddling with Rust and aren't deterred by the presence of an FFI boundary, this might be the issue for you!</p>
+<h3 id="outlook">Outlook</h3>
+<p>As I explained above, I fell into a rabbit hole of kernel cleanups. My priority this week will be to figure out, which of those cleanups are going to be required to solve the problem at hand (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/993">#993</a>); which of them aren't, but are still worth the investment (because they will soon start saving more work than implementing them costs me now); and which of them are currently a distraction.</p>
+<p>Implementing the union operation (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/42">#42</a>) remains my top priority and I don't want to get stuck in a cleanup cycle that won't be conducive to that.</p>
+
+
+        <footer>
+            
+        </footer>
+    </article>
+
+        </main>
+        <footer>
+            <hr />
+
+            <p>
+                This website is maintained by <a href="https://www.hannobraun.com/">me</a>:
+            </p>
+
+            <address>
+                Hanno Braun<br />
+                Untere Pfarrgasse 19<br />
+                64720 Michelstadt<br />
+                Germany<br />
+                <br />
+                <a href="mailto:hello@hannobraun.com">hello@hannobraun.com</a><br />
+            </address>
+        </footer>
+    </body>
+</html>

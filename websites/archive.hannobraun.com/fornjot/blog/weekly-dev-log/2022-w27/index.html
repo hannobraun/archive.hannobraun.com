@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        
+        
+            
+        
+
+        
+            <title>Fornjot - Weekly Dev Log - 2022-W27</title>
+        
+
+        <link
+            href="/fornjot/style.css"
+            rel="stylesheet"
+            type="text/css"
+            media="all" />
+
+        <link href="/fornjot/atom.xml" rel="alternate" type="application/atom+xml" />
+    </head>
+    <body>
+        <header>
+            <div class="archival highlight">
+                This website has been archived. It will not be kept up-to-date.
+            </div>
+            <a class="title" href="/fornjot/">
+                <h1>Fornjot</h1>
+                <h2>early-stage b-rep CAD kernel, written in Rust</h2>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/fornjot/">About</a></li>
+                    <li><a href="/fornjot/blog">Blog</a></li>
+                    <li><a href="https://github.com/hannobraun/fornjot">GitHub ↪</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            
+    <article class="blog-post">
+        <header>
+            <h2>Weekly Dev Log - 2022-W27</h2>
+            <span class="metadata">
+        Posted on <time datetime="2022-07-11">2022-07-11</time> by <a href="https://github.com/hannobraun">Hanno Braun</a>
+
+        </span>
+        </header>
+
+        <aside>
+            
+    <p>
+        <a href="/fornjot/">Fornjot</a> is an early-stage project to create a next-generation Code-CAD application. This is Fornjot's Weekly Dev Log, a summary of the previous week's development activities.
+    </p>
+
+        </aside>
+
+        <p>My efforts last week were dominated by releasing <a href="/fornjot/blog/fornjot-0.7/">version 0.7</a> of Fornjot. Getting out a release after 2 months of frantic work is difficult. Writing the changelog and the release announcement was lots of work!</p>
+<p>This time, I've decided I've had enough. Starting next week, there will be weekly releases, and the changelog format will be updated to closely match this Weekly Dev Log, which will become the release announcement. This will hopefully make releases both regular and manageable.</p>
+<p>After the release, I took a bit of a breather and worked on some smaller improvements to the <code>fj</code> crate.</p>
+<p>Meanwhile, contributors have been busy! I've merged an experimental GUI based on <a rel="external" href="https://github.com/emilk/egui">egui</a>, submitted by <a rel="external" href="https://github.com/follower">@follower</a>, which should provide the basis for more UI improvements in the future! <a rel="external" href="https://github.com/jeevcat">@jeevcat</a> has been busy improving the zooming behavior, and implementing lots of improvements to the project's development infrastructure.</p>
+<h3 id="sponsors">Sponsors</h3>
+<p>Fornjot is supported by <a rel="external" href="https://github.com/webtrax-oz">@webtrax-oz</a>, <a rel="external" href="https://github.com/lthiery">@lthiery</a>, <a rel="external" href="https://github.com/Yatekii">@Yatekii</a>, <a rel="external" href="https://github.com/martindederer">@martindederer</a>, <a rel="external" href="https://github.com/hobofan">@hobofan</a>, <a rel="external" href="https://github.com/ahdinosaur">@ahdinosaur</a>, <a rel="external" href="https://github.com/thawkins">@thawkins</a>, <a rel="external" href="https://github.com/bollian">@bollian</a>, <a rel="external" href="https://github.com/rozgo">@rozgo</a>, and <a rel="external" href="https://github.com/sponsors/hannobraun">my other awesome sponsors</a>. Thank you!</p>
+<p>If you want Fornjot to be stable and sustainable long-term, please consider <a rel="external" href="https://github.com/sponsors/hannobraun">supporting me</a> too.</p>
+<h3 id="end-user-improvements">End-user improvements</h3>
+<p>Improvements to Fornjot and its documentation that are visible to end-users.</p>
+<ul>
+<li>Add experimental egui-based UI (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/763">#763</a>; special thanks to first-time contributor <a rel="external" href="https://github.com/follower">@follower</a>!)</li>
+<li>Improve zooming behavior (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/764">#764</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/781">#781</a>; thanks to <a rel="external" href="https://github.com/jeevcat">@jeevcat</a>!)</li>
+<li>Update wording in README (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/795">#795</a>)</li>
+<li>Subsume <code>fj::Circle</code> into <code>fj::Sketch</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/796">#796</a>)</li>
+<li>Rename <code>#[value]</code> attribute to <code>#[param]</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/797">#797</a>)</li>
+</ul>
+<h3 id="ecosystem-improvements">Ecosystem improvements</h3>
+<p>Improvements to the Fornjot ecosystem that are relevant to developers who are building on top of Fornjot components.</p>
+<ul>
+<li>None this week. Busy getting out the release!</li>
+</ul>
+<h3 id="internal-improvements">Internal Improvements</h3>
+<p>Improvements that are relevant to developers working on Fornjot itself.</p>
+<ul>
+<li>Update list of sponsors (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/765">#765</a>)</li>
+<li>Fail CI build, if doc warnings are present (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/766">#766</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/774">#774</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/776">#776</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/780">#780</a>; thanks to <a rel="external" href="https://github.com/jeevcat">@jeevcat</a>!)</li>
+<li>Update dependencies (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/767">#767</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/768">#768</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/769">#769</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/770">#770</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/771">#771</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/775">#775</a>)</li>
+<li>Update Rust version to 1.62.0 (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/777">#777</a>)</li>
+<li>Check that changes to <code>Cargo.lock</code> are committed (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/782">#782</a>; thanks to <a rel="external" href="https://github.com/jeevcat">@jeevcat</a>!)</li>
+<li>Release version 0.7.0 (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/779">#779</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/784">#784</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/785">#785</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/786">#786</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/787">#787</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/789">#789</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/790">#790</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/791">#791</a>)</li>
+<li>Update release procedure (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/792">#792</a>)</li>
+</ul>
+<h3 id="issue-of-the-week">Issue of the Week</h3>
+<p>We recently got experimental support for <a rel="external" href="https://github.com/emilk/egui">egui</a>, which should make future extensions to our UI much easier. This was a big step forward, and to get it merged without further delay, I decided to accept a trade-off: weakening the previously clear separation between <code>fj-window</code> and <code>fj-viewer</code>.</p>
+<p><code>fj-viewer</code> is a library for displaying Fornjot models. <code>fj-window</code> had previously been extracted from it to cleanly separate <code>fj-viewer</code> from the windowing library used. <code>fj-window</code> uses winit, and the split allowed alternative applications that use something else to still use <code>fj-viewer</code>.</p>
+<p>Unfortunately, the addition of egui re-added a dependency on winit to <code>fj-viewer</code>, indirectly through egui. If you have some experience with winit and egui, or are interested to learn, why not look into <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/793">#793 - <code>fj-viewer</code> depends on winit</a>?</p>
+<h3 id="outlook">Outlook</h3>
+<p>The release is out of the way, and I'm looking forward to restart my work on implementing the union operation (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/42">#42</a>)!</p>
+
+
+        <footer>
+            
+        </footer>
+    </article>
+
+        </main>
+        <footer>
+            <hr />
+
+            <p>
+                This website is maintained by <a href="https://www.hannobraun.com/">me</a>:
+            </p>
+
+            <address>
+                Hanno Braun<br />
+                Untere Pfarrgasse 19<br />
+                64720 Michelstadt<br />
+                Germany<br />
+                <br />
+                <a href="mailto:hello@hannobraun.com">hello@hannobraun.com</a><br />
+            </address>
+        </footer>
+    </body>
+</html>

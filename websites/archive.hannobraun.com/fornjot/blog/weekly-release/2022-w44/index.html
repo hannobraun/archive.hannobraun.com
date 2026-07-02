@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        
+        
+            
+        
+
+        
+            <title>Fornjot - Weekly Release - UI Week</title>
+        
+
+        <link
+            href="/fornjot/style.css"
+            rel="stylesheet"
+            type="text/css"
+            media="all" />
+
+        <link href="/fornjot/atom.xml" rel="alternate" type="application/atom+xml" />
+    </head>
+    <body>
+        <header>
+            <div class="archival highlight">
+                This website has been archived. It will not be kept up-to-date.
+            </div>
+            <a class="title" href="/fornjot/">
+                <h1>Fornjot</h1>
+                <h2>early-stage b-rep CAD kernel, written in Rust</h2>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/fornjot/">About</a></li>
+                    <li><a href="/fornjot/blog">Blog</a></li>
+                    <li><a href="https://github.com/hannobraun/fornjot">GitHub ↪</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            
+    <article class="blog-post">
+        <header>
+            <h2>Weekly Release - UI Week</h2>
+            <span class="metadata">
+        Posted on <time datetime="2022-10-31">2022-10-31</time> by <a href="https://github.com/hannobraun">Hanno Braun</a>
+
+        </span>
+        </header>
+
+        <aside>
+            
+    <p>
+        <a href="/fornjot/">Fornjot</a> is an early-stage project to create a next-generation Code-CAD application. This is the announcement for this week's release, version <a href="https://github.com/hannobraun/Fornjot/releases/tag/v0.22.0">0.22.0</a>.
+    </p>
+
+        </aside>
+
+        <p>Last week saw lots of small, user-visible improvements to the app. Anti-aliasing, various fixes to the GUI, replacing weird crashes with good error messages, and maybe most significantly, the ability to load a model from within the app, instead of having to provide it as a command-line argument (contributed by <a rel="external" href="https://github.com/erenoku">@erenoku</a>).</p>
+<p>Meanwhile my work on advancing the core CAD features is trucking along, although at a slower pace than hoped (isn't it always 😄). As a reminder, my main priority is the implementation of the union operation (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/42">#42</a>), which is currently blocked by a bug (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/1162">#1162</a>). I've been making some progress on improving the validation infrastructure in the kernel, which should allow me to attack the bug itself soon.</p>
+<h3 id="sponsors">Sponsors</h3>
+<p>Fornjot is supported by <a rel="external" href="https://github.com/webtrax-oz">@webtrax-oz</a>, <a rel="external" href="https://github.com/lthiery">@lthiery</a>, <a rel="external" href="https://github.com/ahdinosaur">@ahdinosaur</a>, <a rel="external" href="https://github.com/Yatekii">@Yatekii</a>, <a rel="external" href="https://github.com/martindederer">@martindederer</a>, <a rel="external" href="https://github.com/hobofan">@hobofan</a>, <a rel="external" href="https://github.com/thawkins">@thawkins</a>, <a rel="external" href="https://github.com/bollian">@bollian</a>, <a rel="external" href="https://github.com/rozgo">@rozgo</a>, <a rel="external" href="https://github.com/reivilibre">@reivilibre</a>, and <a rel="external" href="https://github.com/sponsors/hannobraun">my other awesome sponsors</a>. Thank you!</p>
+<strong class="call-to-action">
+    <p>
+        If you want Fornjot to be sustainable long-term, please consider <a href="https://github.com/sponsors/hannobraun">supporting me</a> too.
+    </p>
+</strong>
+<h3 id="end-user-improvements">End-user improvements</h3>
+<p>Improvements to Fornjot and its documentation that are visible to end users.</p>
+<ul>
+<li>Fix UI being blurry on some systems (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1266">#1266</a>; thank you, <a rel="external" href="https://github.com/erenoku">@erenoku</a>!)</li>
+<li>Improve error message when failing to load model (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1268">#1268</a>)</li>
+<li>Enable anti-aliasing (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1274">#1274</a>)</li>
+<li>Fix text of status messages looking jagged (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1275">#1275</a>)</li>
+<li>Fix some crashes, turn them into actionable errors (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1276">#1276</a>)</li>
+<li>Add UI to load model from within app, if no model is passed (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1286">#1286</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1288">#1288</a>; thank you, <a rel="external" href="https://github.com/erenoku">@erenoku</a>!)</li>
+</ul>
+<h3 id="ecosystem-improvements">Ecosystem improvements</h3>
+<p>Improvements to Fornjot components that are relevant to developers building on top of those. These have an indirect effect on end users, through fixed bugs and improved robustness.</p>
+<h4 id="fj-host"><code>fj-host</code></h4>
+<ul>
+<li>Clean up API (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1269">#1269</a>)</li>
+</ul>
+<h4 id="fj-kernel"><code>fj-kernel</code></h4>
+<ul>
+<li>Add new validation infrastructure (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1279">#1279</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1282">#1282</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1283">#1283</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1284">#1284</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1285">#1285</a>)</li>
+<li>Simplify handling of <code>MaybePartial</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1287">#1287</a>)</li>
+</ul>
+<h4 id="fj-math"><code>fj-math</code></h4>
+<ul>
+<li>Replace <code>Point::distance</code> with <code>distance_to</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1281">#1281</a>)</li>
+</ul>
+<h3 id="internal-improvements">Internal Improvements</h3>
+<p>Improvements that are relevant to developers working on Fornjot itself.</p>
+<ul>
+<li>Update release procedure (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1258">#1258</a>)</li>
+<li>Clean up CI build (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1259">#1259</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1260">#1260</a>)</li>
+<li>Update dependencies (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1261">#1261</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1262">#1262</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1263">#1263</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1264">#1264</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1265">#1265</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1267">#1267</a>)</li>
+<li>Lower limits requested of the graphics backend (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1273">#1273</a>)</li>
+<li>Make sure <code>fj</code>'s <code>build.rs</code> doesn't run too often (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1277">#1277</a>)</li>
+</ul>
+
+
+        <footer>
+            
+        </footer>
+    </article>
+
+        </main>
+        <footer>
+            <hr />
+
+            <p>
+                This website is maintained by <a href="https://www.hannobraun.com/">me</a>:
+            </p>
+
+            <address>
+                Hanno Braun<br />
+                Untere Pfarrgasse 19<br />
+                64720 Michelstadt<br />
+                Germany<br />
+                <br />
+                <a href="mailto:hello@hannobraun.com">hello@hannobraun.com</a><br />
+            </address>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        
+        
+            
+        
+
+        
+            <title>Fornjot - Straight edges, flat faces, simple sketches, full CSG</title>
+        
+
+        <link
+            href="/fornjot/style.css"
+            rel="stylesheet"
+            type="text/css"
+            media="all" />
+
+        <link href="/fornjot/atom.xml" rel="alternate" type="application/atom+xml" />
+    </head>
+    <body>
+        <header>
+            <div class="archival highlight">
+                This website has been archived. It will not be kept up-to-date.
+            </div>
+            <a class="title" href="/fornjot/">
+                <h1>Fornjot</h1>
+                <h2>early-stage b-rep CAD kernel, written in Rust</h2>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/fornjot/">About</a></li>
+                    <li><a href="/fornjot/blog">Blog</a></li>
+                    <li><a href="https://github.com/hannobraun/fornjot">GitHub ↪</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            
+    <article class="blog-post">
+        <header>
+            <h2>Straight edges, flat faces, simple sketches, full CSG</h2>
+            <span class="metadata">
+        Posted on <time datetime="2022-03-02">2022-03-02</time> by <a href="https://github.com/hannobraun">Hanno Braun</a>
+
+        </span>
+        </header>
+
+        
+
+        <p>Today I'd like to talk about the next big milestone for Fornjot, that I'm currently working towards. I've given it that long, yet weirdly catchy, name that you can see in the title. It's being <a rel="external" href="https://github.com/hannobraun/Fornjot/milestone/1">tracked on GitHub</a>.</p>
+<p>The goal of this milestone is to provide a minimal, yet useful, set of CAD features. It's not going to be the next big thing in the CAD world (yet!), but it will hopefully make Fornjot a useful contender for simple parts and limited use cases.</p>
+<p>Let's deconstruct this milestone, to better understand what it's about.</p>
+<h3 id="straight-edges-flat-faces">Straight edges, flat faces</h3>
+<p>An important aspect of this milestone is that the minimal feature set it provides should be <em>stable</em>. That means no weird bugs and edge cases (as far as that's possible). This can only be achieved, by limiting the feature set. Hence, only straight edges (line segments) and flat faces (polygons) will be supported.</p>
+<p>Now, Fornjot already supports circles and can extrude them into cylinders. Will that functionality be removed? No, but these features will be marked as experimental. Users will have to specifically enable them in their model to use them, and will do so at their own risk.</p>
+<h3 id="simple-sketches">Simple sketches</h3>
+<p>The basis for all models in Fornjot are 2-dimensional sketches that are extruded into 3-dimensional solids using the sweep operation. This is already supported, but the plan is to refine that feature and make it a bit more flexible (for example, right now only sweeps along the z-axis are supported).</p>
+<p>Currently, sketches consist only of line segments, which is actually perfectly in line with this milestones.</p>
+<h3 id="full-csg">Full CSG</h3>
+<p>CSG, <a rel="external" href="https://en.wikipedia.org/wiki/Constructive_solid_geometry">constructive solid geometry</a>, is a technique for combining multiple shapes using union, difference, or intersection operations. The goal for this milestone is to have full support for CSG, for straight-edged/flat-faced shapes.</p>
+<p>CSG is certainly not the ultimate expression of CAD modeling, but it is a useful feature. And the infrastructure that's required to make it work will be a building block for other features later.</p>
+<p>Eventually, I want to support a more sketch-based approach to modeling, but we gotta start somewhere.</p>
+<h3 id="is-that-all">Is that all?</h3>
+<p>So, is this it? Well, it is what I'm focused on. That doesn't mean that contributors can't work on other features, or fix bugs that fall outside the scope of this milestone.</p>
+<p>So if you're interested in working on something else, don't be discouraged. I'm happy to assist! I just won't be able to drive such an effort myself, for the time being.</p>
+<h3 id="what-comes-after">What comes after?</h3>
+<p>What will happen after this milestone is achieved is, as of yet, undetermined. I have <a rel="external" href="https://github.com/hannobraun/Fornjot/milestones">plans for other milestones</a>, and notes for more milestones that I still need to plan. We'll see.</p>
+<p>At this point, I think the <a rel="external" href="https://github.com/hannobraun/Fornjot/milestone/2">Basic Usability</a> milestone is a strong candidate for the next focus area. As far as CAD features are concerned, I'm thinking a lot about more advanced sketching (specifically, sketching on existing surfaces) and bevels/chamfers.</p>
+<h3 id="want-to-help-out">Want to help out?</h3>
+<p>Any help in getting this done is greatly appreciated! If you're interested, <a rel="external" href="https://github.com/hannobraun/Fornjot/milestone/1">head over to the milestone</a>, pick an issue that sounds interesting to you, and get working!</p>
+<p>Whether it's implementing a feature, fixing a bug, or testing and providing feedback, I can use the help.</p>
+
+
+        <footer>
+            
+        </footer>
+    </article>
+
+        </main>
+        <footer>
+            <hr />
+
+            <p>
+                This website is maintained by <a href="https://www.hannobraun.com/">me</a>:
+            </p>
+
+            <address>
+                Hanno Braun<br />
+                Untere Pfarrgasse 19<br />
+                64720 Michelstadt<br />
+                Germany<br />
+                <br />
+                <a href="mailto:hello@hannobraun.com">hello@hannobraun.com</a><br />
+            </address>
+        </footer>
+    </body>
+</html>

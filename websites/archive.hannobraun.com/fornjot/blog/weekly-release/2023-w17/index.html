@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        
+        
+            
+        
+
+        
+            <title>Fornjot - Weekly Release - Where We&#x27;ve Been, Where We&#x27;re Going</title>
+        
+
+        <link
+            href="/fornjot/style.css"
+            rel="stylesheet"
+            type="text/css"
+            media="all" />
+
+        <link href="/fornjot/atom.xml" rel="alternate" type="application/atom+xml" />
+    </head>
+    <body>
+        <header>
+            <div class="archival highlight">
+                This website has been archived. It will not be kept up-to-date.
+            </div>
+            <a class="title" href="/fornjot/">
+                <h1>Fornjot</h1>
+                <h2>early-stage b-rep CAD kernel, written in Rust</h2>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/fornjot/">About</a></li>
+                    <li><a href="/fornjot/blog">Blog</a></li>
+                    <li><a href="https://github.com/hannobraun/fornjot">GitHub ↪</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            
+    <article class="blog-post">
+        <header>
+            <h2>Weekly Release - Where We&#x27;ve Been, Where We&#x27;re Going</h2>
+            <span class="metadata">
+        Posted on <time datetime="2023-04-25">2023-04-25</time> by <a href="https://github.com/hannobraun">Hanno Braun</a>
+
+        </span>
+        </header>
+
+        <aside>
+            
+    <p>
+        <a href="/fornjot/">Fornjot</a> is an early-stage project to create a next-generation Code-CAD application. This is the announcement for this week's release, version <a href="https://github.com/hannobraun/Fornjot/releases/tag/v0.44.0">0.44.0</a>.
+    </p>
+
+        </aside>
+
+        <p>Yet again, sorry for being a day late with this release! I've been experimenting with some changes to how I organize my work day, and not everything is going smoothly 😁</p>
+<p>It's been a while since we had a <em>proper</em> release (due to my vacation), so I'd like to take this opportunity to summarize where we've been, where we stand now, and where we're going.</p>
+<p>For many months, my development efforts where dominated by cleanup. A lot of complexity had crept into the kernel over time, and it became more and more clear that this was getting untenable. Fortunately, I also developed more and more ideas on how to address it.</p>
+<p><a rel="external" href="https://github.com/hannobraun/Fornjot/issues/1589">#1589</a> (and the issues it links to) provide a good overview. The oldest issue linked there dates back to October, and I declared victory in March. This wasn't the only thing I worked on during that time, but still, it was a major effort.</p>
+<p>With the complexity addressed and the code in a much better position, it became time to work on advancing the roadmap again! The <a rel="external" href="https://github.com/hannobraun/Fornjot/milestone/1">next milestone</a> is largely defined by <a rel="external" href="https://en.wikipedia.org/wiki/Constructive_solid_geometry">constructive solid geometry</a>, and we need boolean operations (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/42">#42</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/43">#43</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/44">#44</a>) for that. However, this is a bit too much to bite off all at once. We need better APIs to construct geometry from the primitives that the Fornjot kernel already supports.</p>
+<p>And that's what I'm working on right now. I've come to call it the <em>operations</em> API, as it's made up of a number of orthogonal operations on geometry ("build this, update part of it like that, join it to this other thing"). I've identified a smaller use case, writing test cases for some validation checks (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/1713">#1713</a>), that is suited to experiment with the new API.</p>
+<p>I've made some good progress there, and I'm reasonably happy with how it's going. Still lots of questions to answer along the way of course, but that's always going to be the case. Once the new API is powerful enough to handle those test cases, I'll be looking for another use case to improve the API with, until eventually, I'm ready to tackle boolean operations directly.</p>
+<p>This is an exciting time in the development of Fornjot (at least for me), as for the first time in a while, I'm dealing primarily with developing new things. Not just struggling to get the mess I've already made under control. Let's see where that leads over the next months!</p>
+<h3 id="sponsors">Sponsors</h3>
+<p>Fornjot is supported by <a rel="external" href="https://github.com/webtrax-oz">@webtrax-oz</a>, <a rel="external" href="https://github.com/reivilibre">@reivilibre</a>, <a rel="external" href="https://github.com/lthiery">@lthiery</a>, <a rel="external" href="https://github.com/ahdinosaur">@ahdinosaur</a>, <a rel="external" href="https://github.com/martindederer">@martindederer</a>, <a rel="external" href="https://github.com/bollian">@bollian</a>, <a rel="external" href="https://github.com/rozgo">@rozgo</a>, and <a rel="external" href="https://github.com/sponsors/hannobraun">my other awesome sponsors</a>. Thank you!</p>
+<strong class="call-to-action">
+    <p>
+        If you want Fornjot to be sustainable long-term, please consider <a href="https://github.com/sponsors/hannobraun">supporting me</a> too.
+    </p>
+</strong>
+<h3 id="end-user-improvements">End-user improvements</h3>
+<p>Improvements to Fornjot and its documentation that are visible to end users.</p>
+<p><em>None this week. Busy working on the kernel!</em></p>
+<h3 id="ecosystem-improvements">Ecosystem improvements</h3>
+<p>Improvements to Fornjot components that are relevant to developers building on top of those. These have an indirect effect on end users, through fixed bugs and improved robustness.</p>
+<h4 id="fj-kernel"><code>fj-kernel</code></h4>
+<ul>
+<li>Clean up <code>Solid</code> validation code (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1774">#1774</a>)</li>
+<li>Update and expand operations API (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1775">#1775</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1776">#1776</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1777">#1777</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1778">#1778</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1779">#1779</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1783">#1783</a>)</li>
+<li>Add some useful methods to <code>Cycle</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1780">#1780</a>)</li>
+</ul>
+<h3 id="internal-improvements">Internal Improvements</h3>
+<p>Improvements that are relevant to developers working on Fornjot itself.</p>
+<ul>
+<li>Update dependencies (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1773">#1773</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1790">#1790</a>; thank you, <a rel="external" href="https://github.com/dzvon">@dzvon</a>!)</li>
+<li>Turn <code>pretty_assertions</code> into a <code>dev</code> dependency (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1781">#1781</a>; thank you, <a rel="external" href="https://github.com/therealprof">@therealprof</a>!)</li>
+<li>Upgrade to Rust 1.69.0 (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/1782">#1782</a>)</li>
+</ul>
+
+
+        <footer>
+            
+        </footer>
+    </article>
+
+        </main>
+        <footer>
+            <hr />
+
+            <p>
+                This website is maintained by <a href="https://www.hannobraun.com/">me</a>:
+            </p>
+
+            <address>
+                Hanno Braun<br />
+                Untere Pfarrgasse 19<br />
+                64720 Michelstadt<br />
+                Germany<br />
+                <br />
+                <a href="mailto:hello@hannobraun.com">hello@hannobraun.com</a><br />
+            </address>
+        </footer>
+    </body>
+</html>

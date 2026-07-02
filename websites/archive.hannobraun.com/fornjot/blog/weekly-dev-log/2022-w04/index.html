@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        
+        
+            
+        
+
+        
+            <title>Fornjot - Weekly Dev Log for 2022-W04</title>
+        
+
+        <link
+            href="/fornjot/style.css"
+            rel="stylesheet"
+            type="text/css"
+            media="all" />
+
+        <link href="/fornjot/atom.xml" rel="alternate" type="application/atom+xml" />
+    </head>
+    <body>
+        <header>
+            <div class="archival highlight">
+                This website has been archived. It will not be kept up-to-date.
+            </div>
+            <a class="title" href="/fornjot/">
+                <h1>Fornjot</h1>
+                <h2>early-stage b-rep CAD kernel, written in Rust</h2>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/fornjot/">About</a></li>
+                    <li><a href="/fornjot/blog">Blog</a></li>
+                    <li><a href="https://github.com/hannobraun/fornjot">GitHub ↪</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            
+    <article class="blog-post">
+        <header>
+            <h2>Weekly Dev Log for 2022-W04</h2>
+            <span class="metadata">
+        Posted on <time datetime="2022-01-31">2022-01-31</time> by <a href="https://github.com/hannobraun">Hanno Braun</a>
+
+        </span>
+        </header>
+
+        <aside>
+            
+    <p>
+        <a href="/fornjot/">Fornjot</a> is an early-stage project to create a next-generation Code-CAD application. This is Fornjot's Weekly Dev Log, a summary of the previous week's development activities.
+    </p>
+
+        </aside>
+
+        <p>In addition to the work highlighted below, last week saw the release of Fornjot 0.5. Check out the <a href="/fornjot/blog/fornjot-0-5-0/">release announcement</a>!</p>
+<h3 id="sponsors">Sponsors</h3>
+<p>Fornjot is supported by <a rel="external" href="https://github.com/lthiery">@lthiery</a>, <a rel="external" href="https://github.com/Yatekii">@Yatekii</a>, and <a rel="external" href="https://github.com/sponsors/hannobraun">my other awesome sponsors</a>. Thank you!</p>
+<p>If you're interested in helping to make the project sustainable long-term, please consider <a rel="external" href="https://github.com/sponsors/hannobraun">supporting me</a> too.</p>
+<h3 id="added-and-improved">Added and improved</h3>
+<ul>
+<li>Improve performance and reliability of circle approximation (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/111">#111</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/112">#112</a>; special thanks to first-time contributor <a rel="external" href="https://github.com/gzsombor">@gzsombor</a>)</li>
+</ul>
+<h3 id="bugs-fixed">Bugs fixed</h3>
+<ul>
+<li>Fix floating point accuracy issue in triangulation (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/81">#81</a>)</li>
+<li>Fix model loading error, if name contains '-' (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/107">#107</a>)</li>
+</ul>
+<h3 id="documentation">Documentation</h3>
+<ul>
+<li>Improve README (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/84">#84</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/85">#85</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/99">#99</a>)</li>
+<li>Improve documentation of <code>fj</code> crate (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/86">#86</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/106">#106</a>)</li>
+<li>Fix typo in "star" README (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/94">#94</a>)</li>
+<li>Add model to test/demonstrate disjoint unions (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/108">#108</a>)</li>
+</ul>
+<h3 id="internal-improvements">Internal improvements</h3>
+<ul>
+<li>Update dependencies (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/75">#75</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/76">#76</a>)</li>
+<li>Add contribution guide (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/80">#80</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/83">#83</a>)</li>
+<li>Remove "enclosure" model (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/87">#87</a>)</li>
+<li>Publish version 0.5.0 (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/89">#89</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/90">#90</a>)</li>
+<li>Document release procedure (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/93">#93</a>)</li>
+<li>Remove <code>TASK</code>s from source code (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/96">#96</a>)</li>
+<li>Merge some refactorings from ongoing development work (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/98">#98</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/109">#109</a>)</li>
+</ul>
+<h3 id="website">Website</h3>
+<ul>
+<li>Move website to separate repository (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/77">#77</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/79">#79</a>)</li>
+<li>Update base URL (<a rel="external" href="https://github.com/hannobraun/www.fornjot.app/pull/3">#3</a>)</li>
+<li>Add blog posts (<a rel="external" href="https://github.com/hannobraun/www.fornjot.app/pull/4">#4</a>, <a rel="external" href="https://github.com/hannobraun/www.fornjot.app/pull/9">#9</a>, <a rel="external" href="https://github.com/hannobraun/www.fornjot.app/pull/11">#11</a>)</li>
+<li>Update community page (<a rel="external" href="https://github.com/hannobraun/www.fornjot.app/pull/5">#5</a>, <a rel="external" href="https://github.com/hannobraun/www.fornjot.app/pull/10">#10</a>)</li>
+<li>Tweak design (<a rel="external" href="https://github.com/hannobraun/www.fornjot.app/pull/6">#6</a>)</li>
+<li>Add template to generate email newsletter (<a rel="external" href="https://github.com/hannobraun/www.fornjot.app/pull/7">#7</a>)</li>
+<li>Add missing country to address (<a rel="external" href="https://github.com/hannobraun/www.fornjot.app/pull/8">#8</a>)</li>
+<li>Add link to GitHub repository to navigation (<a rel="external" href="https://github.com/hannobraun/www.fornjot.app/pull/12">#12</a>)</li>
+<li>Replace screenshot with "star" screenshot (<a rel="external" href="https://github.com/hannobraun/www.fornjot.app/pull/13">#13</a>)</li>
+</ul>
+<h3 id="outlook">Outlook</h3>
+<p>Right now I'm busy working on <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/78">#78</a>, which is a refactoring that should enable <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/97">#97</a>, which is another refactoring that will hopefully enable constructive solid geometry (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/42">#42</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/43">#43</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/44">#44</a>). So lots of cleanup work ahead, but I think it's important to do this right. Anything else would just result in more bugs, and more work in the end.</p>
+
+
+        <footer>
+            
+        </footer>
+    </article>
+
+        </main>
+        <footer>
+            <hr />
+
+            <p>
+                This website is maintained by <a href="https://www.hannobraun.com/">me</a>:
+            </p>
+
+            <address>
+                Hanno Braun<br />
+                Untere Pfarrgasse 19<br />
+                64720 Michelstadt<br />
+                Germany<br />
+                <br />
+                <a href="mailto:hello@hannobraun.com">hello@hannobraun.com</a><br />
+            </address>
+        </footer>
+    </body>
+</html>

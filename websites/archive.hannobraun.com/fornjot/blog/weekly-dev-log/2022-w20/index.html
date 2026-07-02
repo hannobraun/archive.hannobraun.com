@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        
+        
+            
+        
+
+        
+            <title>Fornjot - Weekly Dev Log - 2022-W20</title>
+        
+
+        <link
+            href="/fornjot/style.css"
+            rel="stylesheet"
+            type="text/css"
+            media="all" />
+
+        <link href="/fornjot/atom.xml" rel="alternate" type="application/atom+xml" />
+    </head>
+    <body>
+        <header>
+            <div class="archival highlight">
+                This website has been archived. It will not be kept up-to-date.
+            </div>
+            <a class="title" href="/fornjot/">
+                <h1>Fornjot</h1>
+                <h2>early-stage b-rep CAD kernel, written in Rust</h2>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/fornjot/">About</a></li>
+                    <li><a href="/fornjot/blog">Blog</a></li>
+                    <li><a href="https://github.com/hannobraun/fornjot">GitHub ↪</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            
+    <article class="blog-post">
+        <header>
+            <h2>Weekly Dev Log - 2022-W20</h2>
+            <span class="metadata">
+        Posted on <time datetime="2022-05-23">2022-05-23</time> by <a href="https://github.com/hannobraun">Hanno Braun</a>
+
+        </span>
+        </header>
+
+        <aside>
+            
+    <p>
+        <a href="/fornjot/">Fornjot</a> is an early-stage project to create a next-generation Code-CAD application. This is Fornjot's Weekly Dev Log, a summary of the previous week's development activities.
+    </p>
+
+        </aside>
+
+        <p>My focus last week was the ongoing change to approximating faces in surface coordinates (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/568">#568</a>), a cleanup that is necessary to make further progress on implementing the union operation (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/42">#42</a>). This work necessitated some further cleanups (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/399">#399</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/601">#601</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/602">#602</a>), which I've completed.</p>
+<p>Meanwhile, <a rel="external" href="https://github.com/chrisprice">@chrisprice</a> added support for exporting to STL, while <a rel="external" href="https://github.com/freylint">@freylint</a> added optional Serde support to the <code>fj</code> crate.</p>
+<h3 id="sponsors">Sponsors</h3>
+<p>Fornjot is supported by <a rel="external" href="https://github.com/webtrax-oz">@webtrax-oz</a>, <a rel="external" href="https://github.com/lthiery">@lthiery</a>, <a rel="external" href="https://github.com/Yatekii">@Yatekii</a>, <a rel="external" href="https://github.com/martindederer">@martindederer</a>, <a rel="external" href="https://github.com/hobofan">@hobofan</a>, <a rel="external" href="https://github.com/ahdinosaur">@ahdinosaur</a>, <a rel="external" href="https://github.com/thawkins">@thawkins</a>, and <a rel="external" href="https://github.com/sponsors/hannobraun">my other awesome sponsors</a>. Thank you!</p>
+<p>If you're interested in helping to make the project sustainable long-term, please consider <a rel="external" href="https://github.com/sponsors/hannobraun">supporting me</a> too.</p>
+<h3 id="end-user-improvements">End-user improvements</h3>
+<p>Improvements to Fornjot and its documentation that are visible to end-users.</p>
+<ul>
+<li>Update list of sponsors (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/585">#585</a>)</li>
+<li>Add support for exporting to STL (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/594">#594</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/599">#599</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/604">#604</a>; thanks to <a rel="external" href="https://github.com/chrisprice">@chrisprice</a>!)</li>
+<li>Remove restrictions from 2D difference operation (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/598">#598</a>)</li>
+<li>Add Serde support to <code>fj</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/610">#610</a>; thanks to <a rel="external" href="https://github.com/freylint">@freylint</a>!)</li>
+</ul>
+<h3 id="ecosystem-improvements">Ecosystem improvements</h3>
+<p>Improvements to the Fornjot ecosystem that are relevant to developers who are building on top of Fornjot components.</p>
+<h4 id="fj-kernel"><code>fj-kernel</code></h4>
+<ul>
+<li>Close down <code>LocalForm</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/588">#588</a>)</li>
+<li>Continue introduction of local coordinates (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/589">#589</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/590">#590</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/591">#591</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/592">#592</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/593">#593</a>)</li>
+<li>Extend <code>Shape</code> API (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/595">#595</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/605">#605</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/608">#608</a>)</li>
+<li>Make working with b-rep faces easier (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/597">#597</a>)</li>
+<li>Prefer returning cloned <code>Handle</code>s (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/606">#606</a>)</li>
+<li>Improve error message for structural validation failure (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/607">#607</a>)</li>
+<li>Add <code>Surface::plane_from_points</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/611">#611</a>)</li>
+</ul>
+<h4 id="fj-math"><code>fj-math</code></h4>
+<ul>
+<li>Add <code>Triangle::normal</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/600">#600</a>; thanks to <a rel="external" href="https://github.com/chrisprice">@chrisprice</a>!)</li>
+</ul>
+<h3 id="internal-improvements">Internal Improvements</h3>
+<p>Improvements that are relevant to developers working on Fornjot itself.</p>
+<ul>
+<li>Update dependencies (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/586">#586</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/587">#587</a>)</li>
+<li>Simplify names of <code>topology</code> modules (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/596">#596</a>)</li>
+<li>Make some cleanups within <code>shape</code> module (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/603">#603</a>)</li>
+<li>Clean up sweep algorithm (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/609">#609</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/612">#612</a>)</li>
+</ul>
+<h3 id="issue-of-the-week">Issue of the Week</h3>
+<p>The <code>fj</code> library, which users use to define CAD models in Fornjot, uses straight floating point numbers to represent angles, and interprets those as radians. This has lead to confusion in the past, as users assumed those numbers represented degrees.</p>
+<p>Let's fix this once and for all with <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/263">#263 - Use static typing to distinguish between degrees and radians</a>. Interested in getting an introduction to the <code>fj</code> library? This might be the issue for you!</p>
+<h3 id="outlook">Outlook</h3>
+<p>The priority for the coming week remains <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/568">#568</a>, and I have lots of unfinished code in local branches that I need to polish up and get merged. There are bugs though, and the lack of geometric validation (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/613">#613</a>) is making it difficult to figure out what's wrong. That's what I will address first.</p>
+
+
+        <footer>
+            
+        </footer>
+    </article>
+
+        </main>
+        <footer>
+            <hr />
+
+            <p>
+                This website is maintained by <a href="https://www.hannobraun.com/">me</a>:
+            </p>
+
+            <address>
+                Hanno Braun<br />
+                Untere Pfarrgasse 19<br />
+                64720 Michelstadt<br />
+                Germany<br />
+                <br />
+                <a href="mailto:hello@hannobraun.com">hello@hannobraun.com</a><br />
+            </address>
+        </footer>
+    </body>
+</html>

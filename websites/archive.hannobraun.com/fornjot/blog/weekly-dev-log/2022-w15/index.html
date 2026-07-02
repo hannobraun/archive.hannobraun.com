@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        
+        
+            
+        
+
+        
+            <title>Fornjot - Weekly Dev Log - 2022-W15 (Pre-Vacation Edition)</title>
+        
+
+        <link
+            href="/fornjot/style.css"
+            rel="stylesheet"
+            type="text/css"
+            media="all" />
+
+        <link href="/fornjot/atom.xml" rel="alternate" type="application/atom+xml" />
+    </head>
+    <body>
+        <header>
+            <div class="archival highlight">
+                This website has been archived. It will not be kept up-to-date.
+            </div>
+            <a class="title" href="/fornjot/">
+                <h1>Fornjot</h1>
+                <h2>early-stage b-rep CAD kernel, written in Rust</h2>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/fornjot/">About</a></li>
+                    <li><a href="/fornjot/blog">Blog</a></li>
+                    <li><a href="https://github.com/hannobraun/fornjot">GitHub ↪</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            
+    <article class="blog-post">
+        <header>
+            <h2>Weekly Dev Log - 2022-W15 (Pre-Vacation Edition)</h2>
+            <span class="metadata">
+        Posted on <time datetime="2022-04-15">2022-04-15</time> by <a href="https://github.com/hannobraun">Hanno Braun</a>
+
+        </span>
+        </header>
+
+        <aside>
+            
+    <p>
+        <a href="/fornjot/">Fornjot</a> is an early-stage project to create a next-generation Code-CAD application. This is Fornjot's Weekly Dev Log, a summary of the previous week's development activities.
+    </p>
+
+        </aside>
+
+        <p>It's been another good (if short) week! You might notice, I'm publishing this on a Friday, not as usual on a Monday. That's because as of now, I'm on vacation! I didn't want to delay the dev log for two weeks, so here we go with an earlier one.</p>
+<p>I finally wrapped up splitting the Fornjot app into self-contained libraries (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/141">#141</a>), an effort that has gone on for a few weeks now (with interruptions). After that, I initially planned to start preparing for the next release. But it came to my attention that exported 3MF files were not valid, so I decided to focus on that.</p>
+<p>I managed to fix 3MF export (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/451">#451</a>), as well as a display issue that had the same root cause (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/339">#339</a>). I added validation of exported 3MF files in the CI build, making sure issues like this won't creep in again as easily (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/54">#54</a>).</p>
+<p>Meanwhile, <a rel="external" href="https://github.com/hendrikmaus">@hendrikmaus</a> has continued his tireless work on release automation (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/104">#104</a>), which I'll hopefully get to try out for the first time in a few weeks.</p>
+<h3 id="sponsors">Sponsors</h3>
+<p>Fornjot is supported by <a rel="external" href="https://github.com/webtrax-oz">@webtrax-oz</a>, <a rel="external" href="https://github.com/lthiery">@lthiery</a>, <a rel="external" href="https://github.com/Yatekii">@Yatekii</a>, <a rel="external" href="https://github.com/martindederer">@martindederer</a>, <a rel="external" href="https://github.com/hobofan">@hobofan</a>, and <a rel="external" href="https://github.com/sponsors/hannobraun">my other awesome sponsors</a>. Thank you!</p>
+<p>If you're interested in helping to make the project sustainable long-term, please consider <a rel="external" href="https://github.com/sponsors/hannobraun">supporting me</a> too.</p>
+<h3 id="end-user-improvements">End-user improvements</h3>
+<p>Improvements to Fornjot and its documentation that are visible to end-users.</p>
+<ul>
+<li>Fix triangulation edge case (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/453">#453</a>)</li>
+<li>Fix 3MF export and display issues with transparent faces (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/484">#484</a>)</li>
+</ul>
+<h3 id="ecosystem-improvements">Ecosystem improvements</h3>
+<p>Improvements to the Fornjot ecosystem that are relevant to developers who are building on top of Fornjot components.</p>
+<ul>
+<li>Extract <code>fj-export</code> from <code>fj-app</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/472">#472</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/473">#473</a>)</li>
+<li>Extract <code>fj-viewer</code> from <code>fj-app</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/474">#474</a>)</li>
+</ul>
+<h4 id="fj-host"><code>fj-host</code></h4>
+<ul>
+<li>Add dedicated type for model parameters (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/466">#466</a>)</li>
+</ul>
+<h4 id="fj-interop"><code>fj-interop</code></h4>
+<ul>
+<li>Rename <code>fj-debug</code> to <code>fj-interop</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/454">#454</a>)</li>
+<li>Move <code>Mesh</code> to <code>fj-interop</code> and clean it up a little (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/456">#456</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/457">#457</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/459">#459</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/460">#460</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/462">#462</a>)</li>
+</ul>
+<h4 id="fj-kernel"><code>fj-kernel</code></h4>
+<ul>
+<li>Add support for arcs (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/483">#483</a>)</li>
+</ul>
+<h4 id="fj-math"><code>fj-math</code></h4>
+<ul>
+<li>Remove <code>color</code> field from <code>fj_math::Triangle</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/458">#458</a>)</li>
+<li>Make <code>Triangle::from_points</code> more flexible (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/461">#461</a>)</li>
+<li>Implement <code>fmt::Display</code> for <code>Scalar</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/464">#464</a>)</li>
+<li>Implement <code>Neg</code> for <code>Vector</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/482">#482</a>)</li>
+</ul>
+<h4 id="fj-operations"><code>fj-operations</code></h4>
+<ul>
+<li>Move <code>ShapeProcessor</code> to <code>fj-operations</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/467">#467</a>)</li>
+</ul>
+<h3 id="internal-improvements">Internal Improvements</h3>
+<p>Improvements that are relevant to developers working on Fornjot itself.</p>
+<ul>
+<li>Update dependencies (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/449">#449</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/450">#450</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/452">#452</a>)</li>
+<li>Clean up triangulation code (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/455">#455</a>)</li>
+<li>Add <code>Tolerance</code> struct to enforce validity of tolerance values (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/465">#465</a>)</li>
+<li>Continue automating release process (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/468">#468</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/469">#469</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/470">#470</a>; thanks to <a rel="external" href="https://github.com/hendrikmaus">@hendrikmaus</a>!)</li>
+<li>Clean up directory structure in repository (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/475">#475</a>)</li>
+<li>Validate exported 3MF files in CI build (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/476">#476</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/480">#480</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/481">#481</a>)</li>
+</ul>
+<h3 id="issue-of-the-week">Issue of the Week</h3>
+<p>People make mistakes. <em>I</em> make mistakes. Sometimes I don't notice them, and get bitten by them later. It would be nice to prevent that, by having a robot tell me how dumb I am, and that I need to be more careful.</p>
+<p>If that kind of thing is interesting to you, why not take a look at <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/477">#477 - CI build should fail, if crates are not part of workspace</a>? This is the kind of thing that's not a big task for a newcomer, but can be very helpful going forward. (And if you're looking for more along those lines, there's also <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/478">#478</a>.)</p>
+<h3 id="outlook">Outlook</h3>
+<p>I'll be on vacation for the next two weeks! I <em>might</em> do some work during that time, but that will be completely governed by what I happen to be in the mood for. If that's something noteworthy, I'm going to publish a post-vacation dev log on May 2nd. If not, I'll be back with a regular one on May 9th.</p>
+<p>Unless I learn about more critical bugs, my immediate priority after the vacation is going to be the next release. That will require a tiny bit of cleanup (READMEs, crate metadata, etc.), as well as a changelog and release announcement that will probably take days to write (I've waited too long).</p>
+
+
+        <footer>
+            
+        </footer>
+    </article>
+
+        </main>
+        <footer>
+            <hr />
+
+            <p>
+                This website is maintained by <a href="https://www.hannobraun.com/">me</a>:
+            </p>
+
+            <address>
+                Hanno Braun<br />
+                Untere Pfarrgasse 19<br />
+                64720 Michelstadt<br />
+                Germany<br />
+                <br />
+                <a href="mailto:hello@hannobraun.com">hello@hannobraun.com</a><br />
+            </address>
+        </footer>
+    </body>
+</html>

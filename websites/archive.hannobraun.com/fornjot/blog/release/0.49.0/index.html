@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        
+        
+            
+        
+
+        
+            <title>Fornjot - Fornjot 0.49.0</title>
+        
+
+        <link
+            href="/fornjot/style.css"
+            rel="stylesheet"
+            type="text/css"
+            media="all" />
+
+        <link href="/fornjot/atom.xml" rel="alternate" type="application/atom+xml" />
+    </head>
+    <body>
+        <header>
+            <div class="archival highlight">
+                This website has been archived. It will not be kept up-to-date.
+            </div>
+            <a class="title" href="/fornjot/">
+                <h1>Fornjot</h1>
+                <h2>early-stage b-rep CAD kernel, written in Rust</h2>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/fornjot/">About</a></li>
+                    <li><a href="/fornjot/blog">Blog</a></li>
+                    <li><a href="https://github.com/hannobraun/fornjot">GitHub ↪</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            
+    <article class="blog-post">
+        <header>
+            <h2>Fornjot 0.49.0</h2>
+            <span class="metadata">
+        Posted on <time datetime="2024-03-21">2024-03-21</time> by <a href="https://github.com/hannobraun">Hanno Braun</a>
+
+        </span>
+        </header>
+
+        <aside>
+            
+    <p>
+        <a href="/fornjot/">Fornjot</a> is an early-stage b-rep CAD kernel, written in Rust. This is the announcement for the new release, version <a href="https://github.com/hannobraun/Fornjot/releases/tag/v0.49.0">0.49.0</a>.
+    </p>
+
+        </aside>
+
+        <p>It's about time for a new release of Fornjot! This one is a bit of a transitionary one, with lots of work that has been started but isn't finished yet. But none the less, there are a few goodies in here.</p>
+<p>Let's take a look at the highlights first. A full (curated) changelog is available below.</p>
+<h4 id="fj-instance"><code>fj::Instance</code></h4>
+<p><code>fj::Instance</code> serves as the new entry point to the Fornjot API, and you can now easily create an instance of Fornjot by calling <code>fj::Instance::new()</code>.</p>
+<p><code>fj-core</code>, the most substantial of Fornjot's libraries, also has a new entry point, <code>fj_core::Core</code>, which is available as a field on <code>fj::Instance</code>.</p>
+<p>The following sections have some examples that show off the improved ease of use.</p>
+<h4 id="create-a-shell-from-vertices-and-indices">Create a shell from vertices and indices</h4>
+<p>It's now possible to create a shell by providing a bunch of vertices and indices:</p>
+<pre class="giallo" style="color: #24292E; background-color: #FFFFFF;"><code data-lang="rust"><span class="giallo-l"><span style="color: #D73A49;">use</span><span style="color: #6F42C1;"> fj</span><span style="color: #D73A49;">::</span><span style="color: #6F42C1;">core</span><span style="color: #D73A49;">::</span><span>{</span><span style="color: #6F42C1;">objects</span><span style="color: #D73A49;">::</span><span style="color: #6F42C1;">Shell</span><span>,</span><span style="color: #6F42C1;"> operations</span><span style="color: #D73A49;">::</span><span style="color: #6F42C1;">build</span><span style="color: #D73A49;">::</span><span style="color: #6F42C1;">BuildShell</span><span>};</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #D73A49;">let mut</span><span> fj</span><span style="color: #D73A49;"> =</span><span style="color: #6F42C1;"> fj</span><span style="color: #D73A49;">::</span><span style="color: #6F42C1;">Instance</span><span style="color: #D73A49;">::</span><span style="color: #6F42C1;">new</span><span>();</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #D73A49;">let</span><span> tetrahedron</span><span style="color: #D73A49;"> =</span><span style="color: #6F42C1;"> Shell</span><span style="color: #D73A49;">::</span><span style="color: #6F42C1;">from_vertices_and_indices</span><span>(</span></span>
+<span class="giallo-l"><span>    [[</span><span style="color: #005CC5;">0</span><span style="color: #D73A49;">.</span><span>,</span><span style="color: #005CC5;"> 0</span><span style="color: #D73A49;">.</span><span>,</span><span style="color: #005CC5;"> 0</span><span style="color: #D73A49;">.</span><span>], [</span><span style="color: #005CC5;">1</span><span style="color: #D73A49;">.</span><span>,</span><span style="color: #005CC5;"> 0</span><span style="color: #D73A49;">.</span><span>,</span><span style="color: #005CC5;"> 0</span><span style="color: #D73A49;">.</span><span>], [</span><span style="color: #005CC5;">0</span><span style="color: #D73A49;">.</span><span>,</span><span style="color: #005CC5;"> 1</span><span style="color: #D73A49;">.</span><span>,</span><span style="color: #005CC5;"> 0</span><span style="color: #D73A49;">.</span><span>], [</span><span style="color: #005CC5;">0</span><span style="color: #D73A49;">.</span><span>,</span><span style="color: #005CC5;"> 0</span><span style="color: #D73A49;">.</span><span>,</span><span style="color: #005CC5;"> 1</span><span style="color: #D73A49;">.</span><span>]],</span></span>
+<span class="giallo-l"><span>    [[</span><span style="color: #005CC5;">2</span><span>,</span><span style="color: #005CC5;"> 1</span><span>,</span><span style="color: #005CC5;"> 0</span><span>], [</span><span style="color: #005CC5;">0</span><span>,</span><span style="color: #005CC5;"> 1</span><span>,</span><span style="color: #005CC5;"> 3</span><span>], [</span><span style="color: #005CC5;">1</span><span>,</span><span style="color: #005CC5;"> 2</span><span>,</span><span style="color: #005CC5;"> 3</span><span>], [</span><span style="color: #005CC5;">2</span><span>,</span><span style="color: #005CC5;"> 0</span><span>,</span><span style="color: #005CC5;"> 3</span><span>]],</span></span>
+<span class="giallo-l"><span style="color: #D73A49;">    &amp;mut</span><span> fj</span><span style="color: #D73A49;">.</span><span>core,</span></span>
+<span class="giallo-l"><span>);</span></span></code></pre>
+<p>Here's the result:</p>
+<p><img src="/fornjot/blog/release/0.49.0/tetrahedron.png" alt="A tetrahedron" /></p>
+<p>This is not the most convenient way to create a shape, nor the most powerful one, but it does allow you to specify any arbitrary polyhedron. Where the shape is too complex for less general methods, but not yet too complex to get unwieldy, there's a sweet spot for this approach.</p>
+<h4 id="layers">Layers</h4>
+<p>The core of Fornjot's data structure is the object graph, which describes shapes as a graph of interrelated objects (like faces, edges, vertices, and more). Traditionally, this graph has contained all the data necessary to describe a shape. But in this release, I've started to introduce the concept of dedicated layers.</p>
+<p>I've already finished extraction color information to a separate presentation layer. This makes it possible to update the color of an object, without having to create a new, modified object.</p>
+<pre class="giallo" style="color: #24292E; background-color: #FFFFFF;"><code data-lang="rust"><span class="giallo-l"><span style="color: #D73A49;">let mut</span><span> fj</span><span style="color: #D73A49;"> =</span><span style="color: #6F42C1;"> fj</span><span style="color: #D73A49;">::</span><span style="color: #6F42C1;">Instance</span><span style="color: #D73A49;">::</span><span style="color: #6F42C1;">new</span><span>();</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #D73A49;">let</span><span> size</span><span style="color: #D73A49;"> =</span><span style="color: #005CC5;"> 1</span><span style="color: #D73A49;">.</span><span>;</span></span>
+<span class="giallo-l"><span style="color: #D73A49;">let</span><span> cuboid</span><span style="color: #D73A49;"> =</span><span style="color: #6F42C1;"> cuboid</span><span style="color: #D73A49;">::</span><span style="color: #6F42C1;">model</span><span>([size, size, size],</span><span style="color: #D73A49;"> &amp;mut</span><span> fj</span><span style="color: #D73A49;">.</span><span>core);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>cuboid</span></span>
+<span class="giallo-l"><span style="color: #D73A49;">  .</span><span style="color: #6F42C1;">shells</span><span>()</span><span style="color: #D73A49;">.</span><span style="color: #6F42C1;">only</span><span>()</span></span>
+<span class="giallo-l"><span style="color: #D73A49;">  .</span><span style="color: #6F42C1;">faces</span><span>()</span><span style="color: #D73A49;">.</span><span style="color: #6F42C1;">first</span><span>()</span></span>
+<span class="giallo-l"><span style="color: #D73A49;">  .</span><span style="color: #6F42C1;">region</span><span>()</span></span>
+<span class="giallo-l"><span style="color: #D73A49;">  .</span><span style="color: #6F42C1;">set_color</span><span>([</span><span style="color: #005CC5;">0</span><span style="color: #D73A49;">.</span><span>,</span><span style="color: #005CC5;"> 1</span><span style="color: #D73A49;">.</span><span>,</span><span style="color: #005CC5;"> 0</span><span style="color: #D73A49;">.</span><span>],</span><span style="color: #D73A49;"> &amp;mut</span><span> fj</span><span style="color: #D73A49;">.</span><span>core);</span></span></code></pre>
+<p>Here's the result:</p>
+<p><img src="/fornjot/blog/release/0.49.0/cube-with-color.png" alt="A mostly red cube with one green face" /></p>
+<p>This was mostly a test run, and the main effort is still ongoing: Extracting all geometric information from the object graph into a new geometry layer.</p>
+<p>The goal is to leave the object graph as a purely topological data structure, while geometry is defined separately from that, referencing the object graph and enriching it with geometric data.</p>
+<p>Once this work is finished, I'm hoping to get some nice advantages from that:</p>
+<ul>
+<li><strong>Simplified object graph:</strong> So far, every simplification of the object graph that I've managed has been a huge win in maintainability throughout the whole project. This will hopefully have the same effect.</li>
+<li><strong>Easier and more efficient updates of geometry:</strong> If geometry is part of the object graph, it's necessary to create a new object with modified geometry to update it. This is not practical, if you're using Fornjot in a GUI app, your user is dragging an edge over the screen, and you need to re-create most of the object graph every pixel to show a preview.</li>
+<li><strong>Easier to experiment with geometry:</strong> I have big plans for how to make the geometry representation in Fornjot more flexible, and thus much more capable. Having geometry not all tied up in the object graph should help a lot with making those changes.</li>
+</ul>
+<p>This is currently the main focus of my ongoing work, and I hope to have more progress to show soon.</p>
+<h4 id="improved-validation-infrastructure">Improved validation infrastructure</h4>
+<p>Validation is a critical piece of Fornjot, which checks your shapes and points out any problems. In this release, I've started to create a new and improved validation infrastructure. This work is still ongoing, and most validation checks still run on the old infrastructure.</p>
+<p>I'm taking this as an opportunity to clean up and document all the validation checks, which is a big win in itself. But the new validation infrastructure also has some inherent advantages over the old one.</p>
+<h5 id="1-validation-checks-are-now-types">1. Validation checks are now types</h5>
+<p>Whereas before, a validation check was a combination of a method and an error variant, hidden away in a private module, each validation check is now a dedicated type. This makes validation checks more discoverable, and provides a place to document them.</p>
+<p>Here's an example from Fornjot's API reference:</p>
+<p><img src="/fornjot/blog/release/0.49.0/validation-check-docs.png" alt="Screenshot from Fornjot&#39;s API reference, showing the documentation of a validation check" /></p>
+<h5 id="2-validation-checks-implement-a-trait">2. Validation checks implement a trait</h5>
+<p>There already was a validation trait, but it was implemented per-object. With the new trait being implemented per-check, but referencing the object, it shows up in the object's documentation, further aiding discoverability.</p>
+<p>Here's how that looks:</p>
+<p><img src="/fornjot/blog/release/0.49.0/validation-check-in-object-docs.png" alt="Screenshot from Fornjot&#39;s API reference, showing a validation check referenced from an object&#39;s documentation" /></p>
+<h5 id="3-easier-code-sharing">3. Easier code sharing</h5>
+<p>With validation checks no longer organized strictly per-object, it's now easier to share code between similar checks, or even implement the same validation check for multiple types of object.</p>
+<h4 id="more-flexible-exporting">More flexible exporting</h4>
+<p>Fornjot can currently export shapes to <code>.3mf</code>, <code>.obj</code>, and <code>.stl</code> files. Before, you had to export the shape to an actual file, but now you can pass any <code>impl io::Write + io::Seek</code>, providing you better flexibility in where the exported data actually goes.</p>
+<p>In addition, you can now explicitly choose which format to export to via the respective methods in the <code>fj-export</code> crate, whereas before, the format was chosen automatically based on the file extension.</p>
+<p>This work was driven and implemented by contributor <a rel="external" href="https://github.com/IamTheCarl">@IamTheCarl</a>. Thank you!</p>
+<h4 id="cleanups-fixes-improvements-to-documentation">Cleanups, fixes, improvements to documentation</h4>
+<p>In addition to the highlights already mentioned, we have the usual avalanche of small improvements, fixes, and documentation updates. Check out the pull requests linked below, for a full view of what happened!</p>
+<p>I'd like to thank all the contributors who helped out with this release. Thank you <a rel="external" href="https://github.com/nathan-folsom">@nathan-folsom</a>, <a rel="external" href="https://github.com/brungardtdb">@brungardtdb</a>, <a rel="external" href="https://github.com/watana318">@watana318</a>, <a rel="external" href="https://github.com/IamTheCarl">@IamTheCarl</a>, and <a rel="external" href="https://github.com/emka">@emka</a>! You're awesome!</p>
+<h3 id="sponsors">Sponsors</h3>
+<p>Fornjot is supported by <a rel="external" href="https://github.com/MitchellHansen">@MitchellHansen</a>, <a rel="external" href="https://github.com/webtrax-oz">@webtrax-oz</a>, <a rel="external" href="https://github.com/seanjensengrey">@seanjensengrey</a>, <a rel="external" href="https://github.com/reivilibre">@reivilibre</a>, <a rel="external" href="https://github.com/lthiery">@lthiery</a>, <a rel="external" href="https://github.com/ahdinosaur">@ahdinosaur</a>, <a rel="external" href="https://github.com/martindederer">@martindederer</a>, <a rel="external" href="https://github.com/bollian">@bollian</a>, <a rel="external" href="https://github.com/sucaba">@sucaba</a>, and <a rel="external" href="https://github.com/sponsors/hannobraun">my other awesome sponsors</a>. Thank you!</p>
+<strong class="call-to-action">
+    <p>
+        If you want Fornjot to be sustainable long-term, please consider <a href="https://github.com/sponsors/hannobraun">supporting me</a> too.
+    </p>
+</strong>
+<h3 id="library-improvements">Library improvements</h3>
+<p>Improvements to Fornjot libraries.</p>
+<h4 id="fj"><code>fj</code></h4>
+<ul>
+<li>Add <code>fj::Instance</code> (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/2217">#2217</a>)</li>
+</ul>
+<h4 id="fj-core"><code>fj-core</code></h4>
+<ul>
+<li>Expand and improve validation checking (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/2144">#2144</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2148">#2148</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2256">#2256</a>; thank you, <a rel="external" href="https://github.com/nathan-folsom">@nathan-folsom</a> and <a rel="external" href="https://github.com/emka">@emka</a>!)</li>
+<li>Add operation for creating shell from vertices and indices (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/2149">#2149</a>)</li>
+<li>Make background validation configurable (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/2150">#2150</a>; thank you, <a rel="external" href="https://github.com/brungardtdb">@brungardtdb</a>!)</li>
+<li>Make some cleanups in <code>transform</code>, move it to <code>operations</code> (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/2169">#2169</a>)</li>
+<li>Refactor <code>services</code> into <code>layers</code> (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/2212">#2212</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2213">#2213</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2214">#2214</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2215">#2215</a>)</li>
+<li>Move color information to dedicated presentation layer (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/2167">#2167</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2168">#2168</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2179">#2179</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2219">#2219</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2220">#2220</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2221">#2221</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2230">#2230</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2232">#2232</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2233">#2233</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2234">#2234</a>)</li>
+<li>Add <code>IsObject</code> trait (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/2178">#2178</a>)</li>
+<li>Rename <code>Object</code> to <code>AnyObject</code>; clean it up (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/2185">#2185</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2186">#2186</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2187">#2187</a>)</li>
+<li>Improve documentation (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/2188">#2188</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2209">#2209</a>; thank you, <a rel="external" href="https://github.com/watana318">@watana318</a>!)</li>
+<li>Add new entry point into API: <code>Core</code> (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/2191">#2191</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2192">#2192</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2196">#2196</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2197">#2197</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2198">#2198</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2207">#2207</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2210">#2210</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2211">#2211</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2218">#2218</a>)</li>
+<li>Clean up <code>update</code> operations API (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/2200">#2200</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2203">#2203</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2205">#2205</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2206">#2206</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2253">#2253</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2255">#2255</a>; thank you, <a rel="external" href="https://github.com/IamTheCarl">@IamTheCarl</a>!)</li>
+<li>Don't require dropping validation layer to handle validation errors (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/2216">#2216</a>)</li>
+<li>Fix panic in <code>ObjectSet</code> due to equal but not identical objects (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/2228">#2228</a>)</li>
+<li>Start cleanup of validation infrastructure (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/2229">#2229</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2231">#2231</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2235">#2235</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2242">#2242</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2277">#2277</a>)</li>
+<li>Remove unused intersection checks (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/2236">#2236</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2268">#2268</a>)</li>
+<li>Start moving geometry from object graph to dedicate geometry layer (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/2237">#2237</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2241">#2241</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2245">#2245</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2246">#2246</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2247">#2247</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2261">#2261</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2263">#2263</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2265">#2265</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2267">#2267</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2270">#2270</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2271">#2271</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2272">#2272</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2274">#2274</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2275">#2275</a>)</li>
+<li>Expand <code>build</code> operations API (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/2239">#2239</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2240">#2240</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2276">#2276</a>)</li>
+<li>Return more information from shell-face sweep operation (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/2260">#2260</a>)</li>
+<li>Lots of minor clean-ups (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/2147">#2147</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2195">#2195</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2199">#2199</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2204">#2204</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2208">#2208</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2262">#2262</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2273">#2273</a>)</li>
+</ul>
+<h4 id="fj-export"><code>fj-export</code></h4>
+<ul>
+<li>Upgrade to <code>3mf-rs</code> 0.5 (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/2248">#2248</a>; thank you, <a rel="external" href="https://github.com/IamTheCarl">@IamTheCarl</a>!)</li>
+<li>Make export functions more general; make them public (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/2252">#2252</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2254">#2254</a>; thank you, <a rel="external" href="https://github.com/IamTheCarl">@IamTheCarl</a>!)</li>
+</ul>
+<h4 id="fj-interop"><code>fj-interop</code></h4>
+<ul>
+<li>Clean up crate (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/2165">#2165</a>)</li>
+<li>Add various conversions to <code>Color</code> (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/2166">#2166</a>)</li>
+</ul>
+<h4 id="fj-viewer"><code>fj-viewer</code></h4>
+<ul>
+<li>Upgrade to wgpu 0.19 (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/2182">#2182</a>)</li>
+</ul>
+<h3 id="other-changes">Other changes</h3>
+<p>Improvements that are not associated with a specific Fornjot library.</p>
+<ul>
+<li>Improve release procedure (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/2141">#2141</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2142">#2142</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2177">#2177</a>)</li>
+<li>Clean up example models (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/2143">#2143</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2183">#2183</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2184">#2184</a>)</li>
+<li>Keep dependencies up-to-date (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/2146">#2146</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2151">#2151</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2152">#2152</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2154">#2154</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2156">#2156</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2173">#2173</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2181">#2181</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2190">#2190</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2202">#2202</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2225">#2225</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2238">#2238</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2251">#2251</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2257">#2257</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2258">#2258</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2269">#2269</a>)</li>
+<li>Keep Rust version up-to-date (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/2153">#2153</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2226">#2226</a>)</li>
+<li>Keep README files in repository up-to-date (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/2155">#2155</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2163">#2163</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2176">#2176</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2189">#2189</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2243">#2243</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2244">#2244</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/2259">#2259</a>)</li>
+<li>Update <code>CONTRIBUTING.md</code> (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/2175">#2175</a>)</li>
+</ul>
+
+
+        <footer>
+            
+        </footer>
+    </article>
+
+        </main>
+        <footer>
+            <hr />
+
+            <p>
+                This website is maintained by <a href="https://www.hannobraun.com/">me</a>:
+            </p>
+
+            <address>
+                Hanno Braun<br />
+                Untere Pfarrgasse 19<br />
+                64720 Michelstadt<br />
+                Germany<br />
+                <br />
+                <a href="mailto:hello@hannobraun.com">hello@hannobraun.com</a><br />
+            </address>
+        </footer>
+    </body>
+</html>

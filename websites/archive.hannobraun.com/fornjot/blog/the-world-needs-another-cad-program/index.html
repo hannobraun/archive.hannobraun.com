@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        
+        
+            
+        
+
+        
+            <title>Fornjot - The world needs another CAD program</title>
+        
+
+        <link
+            href="/fornjot/style.css"
+            rel="stylesheet"
+            type="text/css"
+            media="all" />
+
+        <link href="/fornjot/atom.xml" rel="alternate" type="application/atom+xml" />
+    </head>
+    <body>
+        <header>
+            <div class="archival highlight">
+                This website has been archived. It will not be kept up-to-date.
+            </div>
+            <a class="title" href="/fornjot/">
+                <h1>Fornjot</h1>
+                <h2>early-stage b-rep CAD kernel, written in Rust</h2>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/fornjot/">About</a></li>
+                    <li><a href="/fornjot/blog">Blog</a></li>
+                    <li><a href="https://github.com/hannobraun/fornjot">GitHub ↪</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            
+    <article class="blog-post">
+        <header>
+            <h2>The world needs another CAD program</h2>
+            <span class="metadata">
+        Posted on <time datetime="2022-02-23">2022-02-23</time> by <a href="https://github.com/hannobraun">Hanno Braun</a>
+
+        </span>
+        </header>
+
+        <aside>
+            
+    <p>
+        This article originally appeared <a href="https://hanno.braun-odw.eu/notes/the-world-needs-another-cad-program/">on my website</a>.
+    </p>
+
+        </aside>
+
+        <p>You might be looking at the huge line-up of CAD software that is available today and think, what's the point of building another one? Aren't there already enough options?</p>
+<p>Yes, there are a whole lot of options to choose from. And I tried to do that, again and again. Choose, I mean. But I've always come away unhappy from the experience.</p>
+<p>So what's the problem? Why can't I find a CAD program that I like? Let's go through the list of problems, as I see them.</p>
+<h3 id="1-it-doesn-t-run-on-linux">1. It doesn't run on Linux.</h3>
+<p>Also known in its more restrictive form, "it only runs on Windows".</p>
+<p>I've been using Linux for almost two decades now. From time to time, I've been running Windows on the side, but that has never worked out well.</p>
+<p>Switching between two systems regularly is a pain, and inefficient. If you don't use Windows often enough, that's a pain too, because then you're spending more time updating and rebooting than doing actual work. A virtual machine is better in some ways, but comes with its own problems.</p>
+<p>And listen, I'm not going to argue that Linux is "better". But it is <em>better for me</em>, and many other people as well. The software I usually run tends to work better on Linux than it does on Windows (or macOS). And I understand how it works, at least well enough to fix the problems I face.</p>
+<p>In any case, this takes away most of the commercial CAD programs, except for <a rel="external" href="https://www.onshape.com/">OnShape</a> and a bunch of others that don't seem suitable to the kind of work that I'd like to do. (If you know of another option that I should take a look at, <a href="mailto:hello@hannobraun.com">please let me know</a>.)</p>
+<h3 id="2-it-s-too-expensive">2. It's too expensive.</h3>
+<p>CAD software tends to cost a lot. That wouldn't be an issue, if I was making a substantial amount of money from using it, but I don't. I'm mainly a software developer, who dabbles with making physical products on the side.</p>
+<p>Yes, I know lots of options are free for non-commercial use, but that doesn't count. There is lots of interesting space between "hobbyist" and "can justify to spend loads of money", and I tend to find myself right in the middle of that.</p>
+<p>At this point, most of what's left is open source. Works for me, I prefer open source software anyway. Let's continue.</p>
+<h3 id="3-it-is-gui-based">3. It is GUI-based.</h3>
+<p>I know this one is controversial, but I think CAD should be code-first. <a href="/fornjot/blog/code-cad-advantages">I've already written about that</a>, so head over to that article, if you want to learn more.</p>
+<p>Here, we lose <a rel="external" href="https://www.freecadweb.org/">FreeCAD</a>, <a rel="external" href="https://solvespace.com/">SolveSpace</a> (both which I use from time to time), and a bunch of others.</p>
+<h3 id="4-it-only-supports-a-basic-feature-set">4. It only supports a basic feature set.</h3>
+<p>The most popular Code-CAD application, as far as I can tell, is <a rel="external" href="https://openscad.org/">OpenSCAD</a>. While programming your CAD models, like you would program software, provides a lot of flexibility, the feature set of OpenSCAD is otherwise very limited. This makes many CAD modeling tasks tedious.</p>
+<p>I want to use something more powerful, and that rules out OpenSCAD and a whole bunch of other less-known alternatives.</p>
+<h3 id="5-there-s-room-for-innovation">5. There's room for innovation.</h3>
+<p>At this point, we're down to a number of less popular solutions that are based on <a rel="external" href="https://www.opencascade.com/open-cascade-technology/">OCCT</a>. I'm aware of <a rel="external" href="https://cadquery.readthedocs.io/en/latest/intro.html">CadQuery</a>, <a rel="external" href="https://zalo.github.io/CascadeStudio/">Cascade Studio</a>, and <a rel="external" href="https://github.com/tpaviot/pythonocc">pythonOCC</a>.</p>
+<p>These look great, but I think there's a lot of room for innovation:</p>
+<ul>
+<li><strong>Experimentation in CAD kernels:</strong> OCCT ist just one CAD kernel. I think it's worth taking a fresh look at the problem, using a different (some might say better) language, like <a rel="external" href="https://www.rust-lang.org/">Rust</a>.</li>
+<li><strong>More diverse selection of modeling language:</strong> All the OCCT-based options mentioned above use either Python or JavaScript, which are all dynamically typed. While using a statically typed language wouldn't be better per se, it would be nice to have a wider range of options. Different languages are good for different use cases.</li>
+<li><strong>Broader platform support:</strong> Each of the options that are left either run on desktop platforms, or in the browser. It would be nice to have a CAD program that supports all major desktop and mobile platforms, as well as the web. We have the technology now to make that practical.</li>
+</ul>
+<h3 id="conclusion">Conclusion</h3>
+<p>I've presented the problems I have with currently available CAD software, how they rule out the large majority of it. The few CAD programs that most of these problems don't apply to are pretty similar to each other, each being based on the same CAD kernel, and each using a dynamic language for modeling.</p>
+<p>I think there's room for something different. A CAD program that:</p>
+<ul>
+<li>uses a code-first approach;</li>
+<li>is open source;</li>
+<li>is broadly available, with support for all major platforms;</li>
+<li>is based on a new CAD kernel, written in Rust;</li>
+<li>provides a well-rounded feature set;</li>
+<li>and a selection of different modeling languages.</li>
+</ul>
+<p>This is what I'm trying to do with Fornjot. If you think this is a worthwhile endeavor, <a rel="external" href="https://github.com/sponsors/hannobraun">please consider supporting me</a>.</p>
+
+
+        <footer>
+            
+        </footer>
+    </article>
+
+        </main>
+        <footer>
+            <hr />
+
+            <p>
+                This website is maintained by <a href="https://www.hannobraun.com/">me</a>:
+            </p>
+
+            <address>
+                Hanno Braun<br />
+                Untere Pfarrgasse 19<br />
+                64720 Michelstadt<br />
+                Germany<br />
+                <br />
+                <a href="mailto:hello@hannobraun.com">hello@hannobraun.com</a><br />
+            </address>
+        </footer>
+    </body>
+</html>

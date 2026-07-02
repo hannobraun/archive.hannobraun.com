@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        
+        
+            
+        
+
+        
+            <title>Fornjot - Weekly Dev Log - 2022-W24</title>
+        
+
+        <link
+            href="/fornjot/style.css"
+            rel="stylesheet"
+            type="text/css"
+            media="all" />
+
+        <link href="/fornjot/atom.xml" rel="alternate" type="application/atom+xml" />
+    </head>
+    <body>
+        <header>
+            <div class="archival highlight">
+                This website has been archived. It will not be kept up-to-date.
+            </div>
+            <a class="title" href="/fornjot/">
+                <h1>Fornjot</h1>
+                <h2>early-stage b-rep CAD kernel, written in Rust</h2>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/fornjot/">About</a></li>
+                    <li><a href="/fornjot/blog">Blog</a></li>
+                    <li><a href="https://github.com/hannobraun/fornjot">GitHub ↪</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            
+    <article class="blog-post">
+        <header>
+            <h2>Weekly Dev Log - 2022-W24</h2>
+            <span class="metadata">
+        Posted on <time datetime="2022-06-20">2022-06-20</time> by <a href="https://github.com/hannobraun">Hanno Braun</a>
+
+        </span>
+        </header>
+
+        <aside>
+            
+    <p>
+        <a href="/fornjot/">Fornjot</a> is an early-stage project to create a next-generation Code-CAD application. This is Fornjot's Weekly Dev Log, a summary of the previous week's development activities.
+    </p>
+
+        </aside>
+
+        <p>Last week, I said that I expected to either wrap up <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/568">#568</a>, or discover new problems that prevent that. Well, I didn't discover new problems exactly, but I did discover new opportunities! As it turns out, that was just as effective in preventing me from making progress on <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/568">#568</a>.</p>
+<p>It started early in the week, when some thoughts I'd been having over the last weeks coalesced into the insight that local forms can be managed much more simply (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/691">#691</a>). Simplifying things always pays dividends, as it makes whatever else I'm working on easier. Hence, I decided to start implementing that immediately.</p>
+<p>While doing that, I ran into a problem pretty quickly: the current, somewhat hacky, way of handling surface orientation got in the way, so I started developing a plan for dealing with that (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/695">#695</a>). And while I was already in deep thinking mode, inspiration struck again, and I came up with a way for simplifying the core data structures of <code>fj-kernel</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/696">#696</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/697">#697</a>).</p>
+<p>So, definitely more of a "thinking" week than a "doing" week. It doesn't feel quite as productive, but you need both kinds to make progress long-term.</p>
+<p>Meanwhile, <a rel="external" href="https://github.com/kamirr">@kamirr</a> fixed some build system issues, and <a rel="external" href="https://github.com/A-Walrus">@A-Walrus</a> improved the usability of the Fornjot app's CLI arguments.</p>
+<h3 id="sponsors">Sponsors</h3>
+<p>Fornjot is supported by <a rel="external" href="https://github.com/webtrax-oz">@webtrax-oz</a>, <a rel="external" href="https://github.com/lthiery">@lthiery</a>, <a rel="external" href="https://github.com/Yatekii">@Yatekii</a>, <a rel="external" href="https://github.com/martindederer">@martindederer</a>, <a rel="external" href="https://github.com/hobofan">@hobofan</a>, <a rel="external" href="https://github.com/ahdinosaur">@ahdinosaur</a>, <a rel="external" href="https://github.com/thawkins">@thawkins</a>, <a rel="external" href="https://github.com/bollian">@bollian</a>, and <a rel="external" href="https://github.com/sponsors/hannobraun">my other awesome sponsors</a>. Thank you!</p>
+<p>If you want Fornjot to be stable and sustainable long-term, please consider <a rel="external" href="https://github.com/sponsors/hannobraun">supporting me</a> too.</p>
+<h3 id="end-user-improvements">End-user improvements</h3>
+<p>Improvements to Fornjot and its documentation that are visible to end-users.</p>
+<ul>
+<li>Rename <code>fj</code> crate's <code>serialization</code> feature to <code>serde</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/688">#688</a>)</li>
+<li>Improve usability of <code>--parameters</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/692">#692</a>; special thanks to first-time contributor <a rel="external" href="https://github.com/A-Walrus">@A-Walrus</a>!)</li>
+</ul>
+<h3 id="ecosystem-improvements">Ecosystem improvements</h3>
+<p>Improvements to the Fornjot ecosystem that are relevant to developers who are building on top of Fornjot components.</p>
+<h4 id="fj-kernel"><code>fj-kernel</code></h4>
+<ul>
+<li>Add <code>Curve</code> constructors for surface axes (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/690">#690</a>)</li>
+<li>Remove <code>Edge::new</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/693">#693</a>)</li>
+<li>Move all objects to new <code>objects</code> module (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/694">#694</a>)</li>
+</ul>
+<h3 id="internal-improvements">Internal Improvements</h3>
+<p>Improvements that are relevant to developers working on Fornjot itself.</p>
+<ul>
+<li>Fix some build system issues (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/685">#685</a>; thanks to <a rel="external" href="https://github.com/kamirr">@kamirr</a>!)</li>
+<li>Update dependencies (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/686">#686</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/687">#687</a>)</li>
+<li>Clean up coherence validation infrastructure (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/689">#689</a>)</li>
+</ul>
+<h3 id="issue-of-the-week">Issue of the Week</h3>
+<p>Fornjot's input/camera control behavior has improved a lot recently, but there are still some annoyances. If you enjoy fiddling with behavior at the interface between human and computer, why not take a look at <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/677">#677 - Improve zooming behavior</a>?</p>
+<h3 id="outlook">Outlook</h3>
+<p>My immediate priority has switched to implementing all the simplifications I came up with last week. Yes, this will delay the completion of <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/568">#568</a>, but I think it will be worth it. As I said above, simplifications pay dividends. If I don't do them now, I'll just make everything more difficult going forward.</p>
+
+
+        <footer>
+            
+        </footer>
+    </article>
+
+        </main>
+        <footer>
+            <hr />
+
+            <p>
+                This website is maintained by <a href="https://www.hannobraun.com/">me</a>:
+            </p>
+
+            <address>
+                Hanno Braun<br />
+                Untere Pfarrgasse 19<br />
+                64720 Michelstadt<br />
+                Germany<br />
+                <br />
+                <a href="mailto:hello@hannobraun.com">hello@hannobraun.com</a><br />
+            </address>
+        </footer>
+    </body>
+</html>

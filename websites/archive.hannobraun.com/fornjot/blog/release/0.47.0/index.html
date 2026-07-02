@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        
+        
+            
+        
+
+        
+            <title>Fornjot - Fornjot 0.47.0</title>
+        
+
+        <link
+            href="/fornjot/style.css"
+            rel="stylesheet"
+            type="text/css"
+            media="all" />
+
+        <link href="/fornjot/atom.xml" rel="alternate" type="application/atom+xml" />
+    </head>
+    <body>
+        <header>
+            <div class="archival highlight">
+                This website has been archived. It will not be kept up-to-date.
+            </div>
+            <a class="title" href="/fornjot/">
+                <h1>Fornjot</h1>
+                <h2>early-stage b-rep CAD kernel, written in Rust</h2>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/fornjot/">About</a></li>
+                    <li><a href="/fornjot/blog">Blog</a></li>
+                    <li><a href="https://github.com/hannobraun/fornjot">GitHub ↪</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            
+    <article class="blog-post">
+        <header>
+            <h2>Fornjot 0.47.0</h2>
+            <span class="metadata">
+        Posted on <time datetime="2023-06-20">2023-06-20</time> by <a href="https://github.com/hannobraun">Hanno Braun</a>
+
+        </span>
+        </header>
+
+        <aside>
+            
+    <p>
+        <a href="/fornjot/">Fornjot</a> is an early-stage b-rep CAD kernel, written in Rust. This is the announcement for the new release, version <a href="https://github.com/hannobraun/Fornjot/releases/tag/v0.47.0">0.47.0</a>.
+    </p>
+
+        </aside>
+
+        <p>It's the first release since the end of the weekly release schedule!</p>
+<p>The big-ticket item this time is the execution of the <a href="/fornjot/blog/a-new-direction/">recent change in focus</a>. This involved moving now deprecated components out of the repository, replace some of them with simpler versions, and improve anything else as required. The biggest chunk of work here was restoring the examples (which were based on the app and other now-removed components).</p>
+<p>As a result, the API of <code>fj-core</code> (formerly <code>fj-kernel</code>) has become a lot more convenient and powerful. All the new examples in the repository are using it directly now, instead of through some intermediate high-level API. Improving the <code>fj-core</code> API further is an ongoing process.</p>
+<p>Other than that, I've been settling into my new schedule, working on Fornjot in a reduced capacity. I've made sure to stay consistent, still putting a bit of work in every week, and that's working well so far.</p>
+<p>Not sure what's next, specifically (figuring that out is actually the next item on my task list), but I'm sure it will mainly involve improving the <code>fj-core</code> API, to make existing models more convenient to write, and enable more powerful models in the future.</p>
+<h3 id="sponsors">Sponsors</h3>
+<p>Fornjot is supported by <a rel="external" href="https://github.com/MitchellHansen">@MitchellHansen</a>, <a rel="external" href="https://github.com/webtrax-oz">@webtrax-oz</a>, <a rel="external" href="https://github.com/reivilibre">@reivilibre</a>, <a rel="external" href="https://github.com/lthiery">@lthiery</a>, <a rel="external" href="https://github.com/ahdinosaur">@ahdinosaur</a>, <a rel="external" href="https://github.com/martindederer">@martindederer</a>, <a rel="external" href="https://github.com/bollian">@bollian</a>, and <a rel="external" href="https://github.com/sponsors/hannobraun">my other awesome sponsors</a>. Thank you!</p>
+<strong class="call-to-action">
+    <p>
+        If you want Fornjot to be sustainable long-term, please consider <a href="https://github.com/sponsors/hannobraun">supporting me</a> too.
+    </p>
+</strong>
+<h3 id="library-improvements">Library improvements</h3>
+<p>Improvements to Fornjot libraries.</p>
+<h4 id="fj"><code>fj</code></h4>
+<ul>
+<li>Add new <code>fj</code> crate as all-in-one interface to the whole kernel (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/1853">#1853</a>)</li>
+<li>Add standardized CLI for models (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/1860">#1860</a>)</li>
+<li>Compute tolerance manually, if not provided via CLI (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/1872">#1872</a>)</li>
+</ul>
+<h4 id="fj-core"><code>fj-core</code></h4>
+<ul>
+<li>Add <code>Region</code> to share code between <code>Sketch</code> and <code>Face</code> (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/1828">#1828</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1883">#1883</a>; thank you, <a rel="external" href="https://github.com/A-Walrus">@A-Walrus</a>!)</li>
+<li>Make various cleanups (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/1830">#1830</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1831">#1831</a>)</li>
+<li>Expand and update operations API (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/1850">#1850</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1879">#1879</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1884">#1884</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1891">#1891</a>)</li>
+<li>Rename <code>fj-kernel</code> to <code>fj-core</code> (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/1852">#1852</a>)</li>
+<li>Compute AABB from boundary representation (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/1871">#1871</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1886">#1886</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1888">#1888</a>)</li>
+<li>Clean up <code>Reverse</code> (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/1885">#1885</a>)</li>
+</ul>
+<h4 id="fj-interop"><code>fj-interop</code></h4>
+<ul>
+<li>Clean up model-related code in <code>fj-interop</code> (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/1863">#1863</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1864">#1864</a>)</li>
+</ul>
+<h4 id="fj-math"><code>fj-math</code></h4>
+<ul>
+<li>Expand <code>Aabb</code> API (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/1870">#1870</a>)</li>
+<li>Add <code>Vector::from_component</code> and <code>Circle::aabb</code> (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/1887">#1887</a>)</li>
+</ul>
+<h4 id="fj-viewer"><code>fj-viewer</code></h4>
+<ul>
+<li>Remove GUI code (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/1829">#1829</a>)</li>
+<li>Remove vestigial debug rendering code (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/1862">#1862</a>)</li>
+<li>Make more cleanups (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/1893">#1893</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1898">#1898</a>)</li>
+</ul>
+<h4 id="fj-window"><code>fj-window</code></h4>
+<ul>
+<li>Re-add <code>fj-window</code> crate (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/1837">#1837</a>)</li>
+<li>Work around crash when opening window (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/1849">#1849</a>)</li>
+<li>Rename <code>window::run</code> to <code>display</code> (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/1861">#1861</a>)</li>
+<li>Expect <code>Model</code> in <code>fj_window::display</code> (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/1865">#1865</a>)</li>
+</ul>
+<h3 id="other-changes">Other changes</h3>
+<p>Improvements that are not associated with a specific Fornjot library.</p>
+<ul>
+<li>Update dependencies (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/1821">#1821</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1827">#1827</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1835">#1835</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1845">#1845</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1847">#1847</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1858">#1858</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1880">#1880</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1897">#1897</a>)</li>
+<li>Execute the change in focus, towards building only a CAD kernel (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/1822">#1822</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1823">#1823</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1824">#1824</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1836">#1836</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1838">#1838</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1846">#1846</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1851">#1851</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1889">#1889</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1890">#1890</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1892">#1892</a>)</li>
+<li>Upgrade to Rust 1.70.0 (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/1859">#1859</a>)</li>
+<li>Update README (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/1869">#1869</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1881">#1881</a>)</li>
+<li>Update documentation (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/1882">#1882</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1894">#1894</a>, <a rel="external" href="https://github.com/hannobraun/fornjot/pull/1899">#1899</a>)</li>
+<li>Determine crates to publish automatically (<a rel="external" href="https://github.com/hannobraun/fornjot/pull/1900">#1900</a>)</li>
+</ul>
+
+
+        <footer>
+            
+        </footer>
+    </article>
+
+        </main>
+        <footer>
+            <hr />
+
+            <p>
+                This website is maintained by <a href="https://www.hannobraun.com/">me</a>:
+            </p>
+
+            <address>
+                Hanno Braun<br />
+                Untere Pfarrgasse 19<br />
+                64720 Michelstadt<br />
+                Germany<br />
+                <br />
+                <a href="mailto:hello@hannobraun.com">hello@hannobraun.com</a><br />
+            </address>
+        </footer>
+    </body>
+</html>

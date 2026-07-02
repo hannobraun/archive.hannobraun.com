@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        
+        
+            
+        
+
+        
+            <title>Fornjot - Last Month in Fornjot - 2022-01</title>
+        
+
+        <link
+            href="/fornjot/style.css"
+            rel="stylesheet"
+            type="text/css"
+            media="all" />
+
+        <link href="/fornjot/atom.xml" rel="alternate" type="application/atom+xml" />
+    </head>
+    <body>
+        <header>
+            <div class="archival highlight">
+                This website has been archived. It will not be kept up-to-date.
+            </div>
+            <a class="title" href="/fornjot/">
+                <h1>Fornjot</h1>
+                <h2>early-stage b-rep CAD kernel, written in Rust</h2>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/fornjot/">About</a></li>
+                    <li><a href="/fornjot/blog">Blog</a></li>
+                    <li><a href="https://github.com/hannobraun/fornjot">GitHub ↪</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            
+    <article class="blog-post">
+        <header>
+            <h2>Last Month in Fornjot - 2022-01</h2>
+            <span class="metadata">
+        Posted on <time datetime="2022-02-02">2022-02-02</time> by <a href="https://github.com/hannobraun">Hanno Braun</a>
+
+        </span>
+        </header>
+
+        <aside>
+            
+    <p>
+        <a href="/fornjot/">Fornjot</a> is an early-stage project to create a next-generation Code-CAD application. This is Last Month in Fornjot, the project's monthly newsletter.
+    </p>
+
+        </aside>
+
+        <p>Welcome to the first issue of Last Month in Fornjot!</p>
+<p>This has truly been a big month for the project. At the beginning of January, Fornjot was just a hobby for me. I wasn't <a rel="external" href="https://github.com/sponsors/hannobraun">trying to make a living</a> off of it, this website didn't exist, the email newsletter didn't exist, and I wasn't publishing weekly and monthly updates.</p>
+<p>The <a rel="external" href="https://github.com/hannobraun/Fornjot">repository</a> also changed a lot. A month ago, I was just pushing code to the <code>main</code> branch however I pleased. Now there are pull requests, a CI build, bots that update dependencies... this is starting to look somewhat professional!</p>
+<p>I've also opened a large number of issues, to document what needs to be done, and to make it easy for people to get involved. This seems to have had some effect, with two new contributors submitting pull requests in January.</p>
+<p>Making all of this happen took some time away from writing code, of course, but now that all the new infrastructure is in place, I'm back in the thick of it and excited to see what's going to happen over the next month.</p>
+<h3 id="sponsors">Sponsors</h3>
+<p>Fornjot is supported by <a rel="external" href="https://github.com/lthiery">@lthiery</a>, <a rel="external" href="https://github.com/Yatekii">@Yatekii</a>, and <a rel="external" href="https://github.com/sponsors/hannobraun">my other awesome sponsors</a>. Thank you!</p>
+<p>If you're interested in helping to make the project sustainable long-term, please consider <a rel="external" href="https://github.com/sponsors/hannobraun">supporting me</a> too.</p>
+<h3 id="development-update">Development Update</h3>
+<p>Development in January has been a bit slower than it could have been, due to the large amount of work caused by the transition from a hobby to a professional open source project. Still, things got done.</p>
+<p>Highlights include improvements to the development infrastructure (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/45">#45</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/53">#53</a>), fixes to make the generation of triangle meshes more robust (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/61">#61</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/74">#74</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/81">#81</a>), more reliable and probably also better performing circle approximation (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/111">#111</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/112">#112</a>), as well as many more small fixes and clean-ups.</p>
+<p>Some of those improvements have already been published in a new release, <a href="/fornjot/blog/fornjot-0-5-0/">Fornjot 0.5</a>.</p>
+<p>Check out the Weekly Dev Logs for all the details:</p>
+<ul>
+<li><a href="/fornjot/blog/weekly-dev-log/2022-w03/">2022-W03</a></li>
+<li><a href="/fornjot/blog/weekly-dev-log/2022-w04/">2022-W04</a></li>
+</ul>
+<h3 id="issue-of-the-month">Issue of the Month</h3>
+<p>Are you interested in getting involved with Fornjot, but don't know where to start? How about trying issue <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/118">#118 - Make tolerance overridable</a>?</p>
+<p>This is a small change that doesn't require much knowledge of Fornjot, or even Rust. Compared to its low difficulty, it's likely to have an outsized impact, allowing users to control the accuracy of exported models.</p>
+<p>There are many other issues labeled as <a rel="external" href="https://github.com/hannobraun/Fornjot/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22"><code>good first issue</code></a> in the Fornjot repository, so maybe check those out too!</p>
+<h3 id="outlook">Outlook</h3>
+<p>As I said above, I'm excited to see what's going to happen over the next month. Right now, I'm focused on cleaning up the CAD kernel, to improve its robustness on an architectural level (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/78">#78</a>). Dealing with floating point numbers can be tricky, so this is hopefully going to prevent lots of bugs in the future.</p>
+<p>There's an open draft pull request with my current work-in-progress (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/110">#110</a>) and I have already been merging some clean-ups that came out of this work.</p>
+<p>After that, I plan to finish another ongoing clean-up (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/97">#97</a>), which will unblock full support for constructive solid geometry (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/42">#42</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/43">#43</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/44">#44</a>). I don't know how much of that I will get through in the following month. Almost certainly not all of it.</p>
+
+
+        <footer>
+            
+        </footer>
+    </article>
+
+        </main>
+        <footer>
+            <hr />
+
+            <p>
+                This website is maintained by <a href="https://www.hannobraun.com/">me</a>:
+            </p>
+
+            <address>
+                Hanno Braun<br />
+                Untere Pfarrgasse 19<br />
+                64720 Michelstadt<br />
+                Germany<br />
+                <br />
+                <a href="mailto:hello@hannobraun.com">hello@hannobraun.com</a><br />
+            </address>
+        </footer>
+    </body>
+</html>

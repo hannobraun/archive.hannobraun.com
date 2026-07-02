@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        
+        
+            
+        
+
+        
+            <title>Fornjot - Fornjot 0.7</title>
+        
+
+        <link
+            href="/fornjot/style.css"
+            rel="stylesheet"
+            type="text/css"
+            media="all" />
+
+        <link href="/fornjot/atom.xml" rel="alternate" type="application/atom+xml" />
+    </head>
+    <body>
+        <header>
+            <div class="archival highlight">
+                This website has been archived. It will not be kept up-to-date.
+            </div>
+            <a class="title" href="/fornjot/">
+                <h1>Fornjot</h1>
+                <h2>early-stage b-rep CAD kernel, written in Rust</h2>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/fornjot/">About</a></li>
+                    <li><a href="/fornjot/blog">Blog</a></li>
+                    <li><a href="https://github.com/hannobraun/fornjot">GitHub ↪</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            
+    <article class="blog-post">
+        <header>
+            <h2>Fornjot 0.7</h2>
+            <span class="metadata">
+        Posted on <time datetime="2022-07-07">2022-07-07</time> by <a href="https://github.com/hannobraun">Hanno Braun</a>
+
+        </span>
+        </header>
+
+        
+
+        <p><a href="/fornjot/">Fornjot</a> is an early-stage project with the goal to create a next-generation, code-first CAD application. This is the announcement for Fornjot's new release, version 0.7.0.</p>
+<p><strong>Fornjot is still at an early stage and far from being useful as a general-purpose CAD tool.</strong> This release should be seen as a preview for anyone who's interested in following Fornjot's development.</p>
+<p>This release features improvements to how models are defined, how they can be viewed and exported, massive cleanups of the CAD kernel, and some improvements to the ecosystem libraries.</p>
+<p>This release announcement provides a high-level summary of those changes. For more details, please refer to the <a rel="external" href="https://github.com/hannobraun/Fornjot/blob/main/CHANGELOG.md">changelog</a>. For pre-compiled binaries, check out the <a rel="external" href="https://github.com/hannobraun/Fornjot/releases/tag/v0.7.0">release on GitHub</a>. Please report bugs to any of the usual <a href="/fornjot/community">community channels</a>.</p>
+<h3 id="sponsors">Sponsors</h3>
+<p>Fornjot is supported by <a rel="external" href="https://github.com/webtrax-oz">@webtrax-oz</a>, <a rel="external" href="https://github.com/lthiery">@lthiery</a>, <a rel="external" href="https://github.com/Yatekii">@Yatekii</a>, <a rel="external" href="https://github.com/martindederer">@martindederer</a>, <a rel="external" href="https://github.com/hobofan">@hobofan</a>, <a rel="external" href="https://github.com/ahdinosaur">@ahdinosaur</a>, <a rel="external" href="https://github.com/thawkins">@thawkins</a>, <a rel="external" href="https://github.com/bollian">@bollian</a>, <a rel="external" href="https://github.com/rozgo">@rozgo</a>, and <a rel="external" href="https://github.com/sponsors/hannobraun">my other awesome sponsors</a>. Thank you!</p>
+<p>To help make the project stable and sustainable long-term, please consider <a rel="external" href="https://github.com/sponsors/hannobraun">supporting me</a> too.</p>
+<h3 id="modeling-improvements">Modeling Improvements</h3>
+<p>Fornjot is a code-first CAD application, meaning CAD models are defined using a programming language. Right now, only Rust is supported, but in the future I hope that support for more languages will be available.</p>
+<p>This release brings with it some great improvements for defining CAD models! Here's how a model with three parameters (including default values for each) looked in version 0.6:</p>
+<pre class="giallo" style="color: #24292E; background-color: #FFFFFF;"><code data-lang="rust"><span class="giallo-l"><span>#[no_mangle]</span></span>
+<span class="giallo-l"><span style="color: #D73A49;">pub extern</span><span style="color: #032F62;"> &quot;C&quot;</span><span style="color: #D73A49;"> fn</span><span style="color: #6F42C1;"> model</span><span>(args</span><span style="color: #D73A49;">: &amp;</span><span style="color: #6F42C1;">HashMap</span><span>&lt;</span><span style="color: #6F42C1;">String</span><span>,</span><span style="color: #6F42C1;"> String</span><span>&gt;)</span><span style="color: #D73A49;"> -&gt;</span><span style="color: #6F42C1;"> fj</span><span style="color: #D73A49;">::</span><span style="color: #6F42C1;">Shape</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #D73A49;">    let</span><span> x</span><span style="color: #D73A49;">:</span><span style="color: #6F42C1;"> f64</span><span style="color: #D73A49;"> =</span><span> args</span><span style="color: #D73A49;">.</span><span style="color: #6F42C1;">get</span><span>(</span><span style="color: #032F62;">&quot;x&quot;</span><span>)</span><span style="color: #D73A49;">.</span><span style="color: #6F42C1;">map</span><span>(</span><span style="color: #D73A49;">|</span><span>arg</span><span style="color: #D73A49;">|</span><span> arg</span><span style="color: #D73A49;">.</span><span style="color: #6F42C1;">parse</span><span>()</span><span style="color: #D73A49;">.</span><span style="color: #6F42C1;">unwrap</span><span>())</span><span style="color: #D73A49;">.</span><span style="color: #6F42C1;">unwrap_or</span><span>(</span><span style="color: #005CC5;">3.0</span><span>);</span></span>
+<span class="giallo-l"><span style="color: #D73A49;">    let</span><span> y</span><span style="color: #D73A49;">:</span><span style="color: #6F42C1;"> f64</span><span style="color: #D73A49;"> =</span><span> args</span><span style="color: #D73A49;">.</span><span style="color: #6F42C1;">get</span><span>(</span><span style="color: #032F62;">&quot;y&quot;</span><span>)</span><span style="color: #D73A49;">.</span><span style="color: #6F42C1;">map</span><span>(</span><span style="color: #D73A49;">|</span><span>arg</span><span style="color: #D73A49;">|</span><span> arg</span><span style="color: #D73A49;">.</span><span style="color: #6F42C1;">parse</span><span>()</span><span style="color: #D73A49;">.</span><span style="color: #6F42C1;">unwrap</span><span>())</span><span style="color: #D73A49;">.</span><span style="color: #6F42C1;">unwrap_or</span><span>(</span><span style="color: #005CC5;">2.0</span><span>);</span></span>
+<span class="giallo-l"><span style="color: #D73A49;">    let</span><span> z</span><span style="color: #D73A49;">:</span><span style="color: #6F42C1;"> f64</span><span style="color: #D73A49;"> =</span><span> args</span><span style="color: #D73A49;">.</span><span style="color: #6F42C1;">get</span><span>(</span><span style="color: #032F62;">&quot;z&quot;</span><span>)</span><span style="color: #D73A49;">.</span><span style="color: #6F42C1;">map</span><span>(</span><span style="color: #D73A49;">|</span><span>arg</span><span style="color: #D73A49;">|</span><span> arg</span><span style="color: #D73A49;">.</span><span style="color: #6F42C1;">parse</span><span>()</span><span style="color: #D73A49;">.</span><span style="color: #6F42C1;">unwrap</span><span>())</span><span style="color: #D73A49;">.</span><span style="color: #6F42C1;">unwrap_or</span><span>(</span><span style="color: #005CC5;">1.0</span><span>);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #6A737D;">    // model code goes here</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p>The same model can now be defined like this:</p>
+<pre class="giallo" style="color: #24292E; background-color: #FFFFFF;"><code data-lang="rust"><span class="giallo-l"><span>#[fj</span><span style="color: #D73A49;">::</span><span>model]</span></span>
+<span class="giallo-l"><span style="color: #D73A49;">pub fn</span><span style="color: #6F42C1;"> model</span><span>(</span></span>
+<span class="giallo-l"><span>    #[</span><span style="color: #6F42C1;">value</span><span>(default</span><span style="color: #D73A49;"> =</span><span style="color: #005CC5;"> 3.0</span><span>)] x</span><span style="color: #D73A49;">:</span><span style="color: #6F42C1;"> f64</span><span>,</span></span>
+<span class="giallo-l"><span>    #[</span><span style="color: #6F42C1;">value</span><span>(default</span><span style="color: #D73A49;"> =</span><span style="color: #005CC5;"> 2.0</span><span>)] y</span><span style="color: #D73A49;">:</span><span style="color: #6F42C1;"> f64</span><span>,</span></span>
+<span class="giallo-l"><span>    #[</span><span style="color: #6F42C1;">value</span><span>(default</span><span style="color: #D73A49;"> =</span><span style="color: #005CC5;"> 1.0</span><span>)] z</span><span style="color: #D73A49;">:</span><span style="color: #6F42C1;"> f64</span><span>,</span></span>
+<span class="giallo-l"><span>)</span><span style="color: #D73A49;"> -&gt;</span><span style="color: #6F42C1;"> fj</span><span style="color: #D73A49;">::</span><span style="color: #6F42C1;">Shape</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #6A737D;">    // model code goes here</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p>Much better, isn't it?</p>
+<p>Models can also specify minimum and maximum values for each parameter:</p>
+<pre class="giallo" style="color: #24292E; background-color: #FFFFFF;"><code data-lang="rust"><span class="giallo-l"><span>#[fj</span><span style="color: #D73A49;">::</span><span>model]</span></span>
+<span class="giallo-l"><span style="color: #D73A49;">pub fn</span><span style="color: #6F42C1;"> model</span><span>(</span></span>
+<span class="giallo-l"><span>    #[</span><span style="color: #6F42C1;">value</span><span>(default</span><span style="color: #D73A49;"> =</span><span style="color: #005CC5;"> 3.0</span><span>, min</span><span style="color: #D73A49;"> =</span><span style="color: #005CC5;"> 2.5</span><span>)] x</span><span style="color: #D73A49;">:</span><span style="color: #6F42C1;"> f64</span><span>,</span></span>
+<span class="giallo-l"><span>    #[</span><span style="color: #6F42C1;">value</span><span>(default</span><span style="color: #D73A49;"> =</span><span style="color: #005CC5;"> 2.0</span><span>, max</span><span style="color: #D73A49;"> =</span><span style="color: #005CC5;"> 2.5</span><span>)] y</span><span style="color: #D73A49;">:</span><span style="color: #6F42C1;"> f64</span><span>,</span></span>
+<span class="giallo-l"><span>    #[</span><span style="color: #6F42C1;">value</span><span>(default</span><span style="color: #D73A49;"> =</span><span style="color: #005CC5;"> 1.0</span><span>, min</span><span style="color: #D73A49;"> =</span><span style="color: #005CC5;"> 0.5</span><span>, max</span><span style="color: #D73A49;"> =</span><span style="color: #005CC5;"> 1.5</span><span>)] z</span><span style="color: #D73A49;">:</span><span style="color: #6F42C1;"> f64</span><span>,</span></span>
+<span class="giallo-l"><span>)</span><span style="color: #D73A49;"> -&gt;</span><span style="color: #6F42C1;"> fj</span><span style="color: #D73A49;">::</span><span style="color: #6F42C1;">Shape</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #6A737D;">    // model code goes here</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p>And these <code>min</code>/<code>max</code> values can even refer to other parameters:</p>
+<pre class="giallo" style="color: #24292E; background-color: #FFFFFF;"><code data-lang="rust"><span class="giallo-l"><span>#[fj</span><span style="color: #D73A49;">::</span><span>model]</span></span>
+<span class="giallo-l"><span style="color: #D73A49;">pub fn</span><span style="color: #6F42C1;"> model</span><span>(</span></span>
+<span class="giallo-l"><span>    #[</span><span style="color: #6F42C1;">value</span><span>(default</span><span style="color: #D73A49;"> =</span><span style="color: #005CC5;"> 3.0</span><span>, min</span><span style="color: #D73A49;"> =</span><span> y)] x</span><span style="color: #D73A49;">:</span><span style="color: #6F42C1;"> f64</span><span>,</span></span>
+<span class="giallo-l"><span>    #[</span><span style="color: #6F42C1;">value</span><span>(default</span><span style="color: #D73A49;"> =</span><span style="color: #005CC5;"> 2.0</span><span>, max</span><span style="color: #D73A49;"> =</span><span> x)] y</span><span style="color: #D73A49;">:</span><span style="color: #6F42C1;"> f64</span><span>,</span></span>
+<span class="giallo-l"><span>    #[</span><span style="color: #6F42C1;">value</span><span>(default</span><span style="color: #D73A49;"> =</span><span style="color: #005CC5;"> 1.0</span><span>, min</span><span style="color: #D73A49;"> =</span><span> y</span><span style="color: #D73A49;"> /</span><span style="color: #005CC5;"> 2.0</span><span>, max</span><span style="color: #D73A49;"> =</span><span> x</span><span style="color: #D73A49;"> /</span><span style="color: #005CC5;"> 2.0</span><span>)] z</span><span style="color: #D73A49;">:</span><span style="color: #6F42C1;"> f64</span><span>,</span></span>
+<span class="giallo-l"><span>)</span><span style="color: #D73A49;"> -&gt;</span><span style="color: #6F42C1;"> fj</span><span style="color: #D73A49;">::</span><span style="color: #6F42C1;">Shape</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #6A737D;">    // model code goes here</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<hr />
+<p>One thing that always seems to be error-prone are angles. Previously, Fornjot would let you write this:</p>
+<pre class="giallo" style="color: #24292E; background-color: #FFFFFF;"><code data-lang="rust"><span class="giallo-l"><span style="color: #6A737D;">// Rotate 180 degrees around the z-axis</span></span>
+<span class="giallo-l"><span style="color: #D73A49;">let</span><span> rotated</span><span style="color: #D73A49;"> =</span><span> my_shape</span><span style="color: #D73A49;">.</span><span style="color: #6F42C1;">rotate</span><span>([</span><span style="color: #005CC5;">0</span><span style="color: #D73A49;">.</span><span>,</span><span style="color: #005CC5;"> 0</span><span style="color: #D73A49;">.</span><span>,</span><span style="color: #005CC5;"> 1</span><span style="color: #D73A49;">.</span><span>],</span><span style="color: #005CC5;"> 180</span><span style="color: #D73A49;">.</span><span>);</span></span></code></pre>
+<p>But would this have been correct? No, actually not. Fornjot internally handles its angles in radians, not degrees.</p>
+<p>This is no longer a problem. Now you would write the same code like this:</p>
+<pre class="giallo" style="color: #24292E; background-color: #FFFFFF;"><code data-lang="rust"><span class="giallo-l"><span style="color: #6A737D;">// Rotate 180 degrees around the z-axis</span></span>
+<span class="giallo-l"><span style="color: #D73A49;">let</span><span> rotated</span><span style="color: #D73A49;"> =</span><span> my_shape</span><span style="color: #D73A49;">.</span><span style="color: #6F42C1;">rotate</span><span>([</span><span style="color: #005CC5;">0</span><span style="color: #D73A49;">.</span><span>,</span><span style="color: #005CC5;"> 0</span><span style="color: #D73A49;">.</span><span>,</span><span style="color: #005CC5;"> 1</span><span style="color: #D73A49;">.</span><span>],</span><span style="color: #6F42C1;"> fj</span><span style="color: #D73A49;">::</span><span style="color: #6F42C1;">Angle</span><span style="color: #D73A49;">::</span><span style="color: #6F42C1;">from_deg</span><span>(</span><span style="color: #005CC5;">180</span><span style="color: #D73A49;">.</span><span>));</span></span></code></pre>
+<p>Or you can specify your angle in radians:</p>
+<pre class="giallo" style="color: #24292E; background-color: #FFFFFF;"><code data-lang="rust"><span class="giallo-l"><span style="color: #6A737D;">// Rotate 180 degrees around the z-axis</span></span>
+<span class="giallo-l"><span style="color: #D73A49;">let</span><span> rotated</span><span style="color: #D73A49;"> =</span><span> my_shape</span><span style="color: #D73A49;">.</span><span style="color: #6F42C1;">rotate</span><span>([</span><span style="color: #005CC5;">0</span><span style="color: #D73A49;">.</span><span>,</span><span style="color: #005CC5;"> 0</span><span style="color: #D73A49;">.</span><span>,</span><span style="color: #005CC5;"> 1</span><span style="color: #D73A49;">.</span><span>],</span><span style="color: #6F42C1;"> fj</span><span style="color: #D73A49;">::</span><span style="color: #6F42C1;">Angle</span><span style="color: #D73A49;">::</span><span style="color: #6F42C1;">from_rad</span><span>(</span><span style="color: #005CC5;">PI</span><span>));</span></span></code></pre>
+<p>Or even revolutions:</p>
+<pre class="giallo" style="color: #24292E; background-color: #FFFFFF;"><code data-lang="rust"><span class="giallo-l"><span style="color: #6A737D;">// Rotate 180 degrees around the z-axis</span></span>
+<span class="giallo-l"><span style="color: #D73A49;">let</span><span> rotated</span><span style="color: #D73A49;"> =</span><span> my_shape</span><span style="color: #D73A49;">.</span><span style="color: #6F42C1;">rotate</span><span>([</span><span style="color: #005CC5;">0</span><span style="color: #D73A49;">.</span><span>,</span><span style="color: #005CC5;"> 0</span><span style="color: #D73A49;">.</span><span>,</span><span style="color: #005CC5;"> 1</span><span style="color: #D73A49;">.</span><span>],</span><span style="color: #6F42C1;"> fj</span><span style="color: #D73A49;">::</span><span style="color: #6F42C1;">Angle</span><span style="color: #D73A49;">::</span><span style="color: #6F42C1;">from_rev</span><span>(</span><span style="color: #005CC5;">0.5</span><span>));</span></span></code></pre>
+<p>All of these features were implemented by contributor <a rel="external" href="https://github.com/gabsi26">@gabsi26</a>, with improvements by <a rel="external" href="https://github.com/T0mstone">@T0mstone</a>. Thank you!</p>
+<h3 id="camera-improvements">Camera Improvements</h3>
+<p>Some time ago, I implemented an advanced system for controlling the camera in the 3D view, meant to solve some problems I had encountered in other CAD programs.</p>
+<p>The most annoying one, to me, is when you're zoomed in to look at a detail of your model, and need to adjust your viewpoint a tiny bit. But when you try to do that, the detail you were looking at is gone from your view, because the model rotates around some far-away point.</p>
+<p>A related issue appears when you're moving the model, but because you're zoomed in too closely, it moves way too fast. Or you are zoomed way out, and it moves really slowly.</p>
+<p>In Fornjot, there is the concept of the focus point, which is the point on the model that the mouse cursor is currently hovering over. If you rotate the model, it will rotate around the focus point. And if you move it, the focus point will stay under the cursor.</p>
+<p>Unfortunately, that was a case where my ambition outpaced my ability to put time into that specific area, and the system didn't work very well. Until very recently, I was contemplating to rip out all that code and replace it with a simpler solution that didn't try to fix those problems.</p>
+<p>No more! The camera system works much, much better now.</p>
+<video controls width="600">
+    <source src="fornjot-camera.webm" type="video/webm" />
+<pre class="giallo" style="color: #24292E; background-color: #FFFFFF;"><code data-lang="plain"><span class="giallo-l"><span>You shouldn&#39;t be seeing this. There should be a video instead. Sorry!</span></span></code></pre></video>
+<p>(Sorry for those weird green artifacts at the beginning of the video. They appeared when I encoded the edited video. When it comes to video editing, I barely know what I'm doing.)</p>
+<p>This work was also completely driven by contributors. Thank you, <a rel="external" href="https://github.com/chrisprice">@chrisprice</a> and <a rel="external" href="https://github.com/jeevcat">@jeevcat</a>!</p>
+<h3 id="stl-export">STL Export</h3>
+<p>Fornjot was already capable of exporting models to <a rel="external" href="https://en.wikipedia.org/wiki/3D_Manufacturing_Format">3MF</a>, the up-and-coming file format for 3D printing. For the traditionalists, we now also support exporting to <a rel="external" href="https://en.wikipedia.org/wiki/STL_(file_format)">STL</a>.</p>
+<p>Just specify the file extension when calling <code>fj-app</code> on the command line:</p>
+<pre class="giallo" style="color: #24292E; background-color: #FFFFFF;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #6F42C1;">fj-app</span><span style="color: #005CC5;"> --model=cuboid --export</span><span style="color: #032F62;"> cuboid.stl</span><span style="color: #6A737D;"> # export to STL</span></span>
+<span class="giallo-l"><span style="color: #6F42C1;">fj-app</span><span style="color: #005CC5;"> --model=cuboid --export</span><span style="color: #032F62;"> cuboid.3mf</span><span style="color: #6A737D;"> # export to 3MF</span></span></code></pre>
+<p>This has been implemented by contributor <a rel="external" href="https://github.com/chrisprice">@chrisprice</a>. Thank you!</p>
+<h3 id="kernel">Kernel</h3>
+<p>A lot of effort went into cleaning up Fornjot's CAD kernel! As Fornjot is slowly edging closer towards support for <a rel="external" href="https://en.wikipedia.org/wiki/Constructive_solid_geometry">boolean operations</a>, architectural problems show themselves that need to be fixed.</p>
+<p>Some of those fixes have been overly complex, as it turned out, and provided ample opportunity for simplifications. Many of those opportunities have been identified and taken advantage of, and the kernel now does similar things as it did before, but with much less code.</p>
+<p>This work is very important, as it paves the way for all the CAD feature work going forward, but this release, it didn't lead to any outwardly visible changes. I figured I'd still call it out, as that's basically all I've been doing in recent weeks (besides pressing the "Merge" button for the awesome contributors that did the real work 😁).</p>
+<h3 id="ecosystem">Ecosystem</h3>
+<p>Fornjot is not just a CAD application. The components that make up this application are released separately, and can be used by other projects that would like to augment Fornjot, or use parts of it for something completely different.</p>
+<p>This release, there have been some additions and cleanups of <code>fj-math</code>, Fornjot's math library, and <code>fj-operations</code>, which is the glue that binds <code>fj-kernel</code> to the operations that Fornjot models have access to. These improvements have largely been driven by the changes in <code>fj-kernel</code>.</p>
+<p>There is also a new library in the Fornjot ecosystem, <code>fj-window</code>, which has been extracted from <code>fj-viewer</code>. This leaves <code>fj-viewer</code> without a dependency on any windowing library, meaning alternative applications that want to use something else than <a rel="external" href="https://crates.io/crates/winit">winit</a> (the library that Fornjot uses for this), can still use <code>fj-viewer</code> to display models.</p>
+<h3 id="smaller-improvements">Smaller Improvements</h3>
+<p>In addition to all this, there have been many smaller improvements. Two I'd like to call out are a memory leak in <code>fj::Sketch</code> that has been fixed (thank you, <a rel="external" href="https://github.com/kamirr">@kamirr</a>!) and improved usability of <code>fj-app</code>'s <code>--parameters</code> argument (thank you, <a rel="external" href="https://github.com/A-Walrus">@A-Walrus</a>!).</p>
+<h3 id="contributors">Contributors</h3>
+<p>Fornjot is an ambitious project, and it wouldn't be possible without contributors! I've already called out a few high-profile contributions in this announcement, but more have helped.</p>
+<p>Thank you, <a rel="external" href="https://github.com/connor-lennox">@connor-lennox</a>, <a rel="external" href="https://github.com/chrisprice">@chrisprice</a>, <a rel="external" href="https://github.com/freylint">@freylint</a>, <a rel="external" href="https://github.com/gabsi26">@gabsi26</a>, <a rel="external" href="https://github.com/T0mstone">@T0mstone</a>, <a rel="external" href="https://github.com/kamirr">@kamirr</a>, <a rel="external" href="https://github.com/A-Walrus">@A-Walrus</a>, <a rel="external" href="https://github.com/eLVas">@eLVas</a>, and <a rel="external" href="https://github.com/jeevcat">@jeevcat</a>!</p>
+
+
+        <footer>
+            
+        </footer>
+    </article>
+
+        </main>
+        <footer>
+            <hr />
+
+            <p>
+                This website is maintained by <a href="https://www.hannobraun.com/">me</a>:
+            </p>
+
+            <address>
+                Hanno Braun<br />
+                Untere Pfarrgasse 19<br />
+                64720 Michelstadt<br />
+                Germany<br />
+                <br />
+                <a href="mailto:hello@hannobraun.com">hello@hannobraun.com</a><br />
+            </address>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        
+        
+            
+        
+
+        
+            <title>Fornjot - Weekly Dev Log - 2022-W12</title>
+        
+
+        <link
+            href="/fornjot/style.css"
+            rel="stylesheet"
+            type="text/css"
+            media="all" />
+
+        <link href="/fornjot/atom.xml" rel="alternate" type="application/atom+xml" />
+    </head>
+    <body>
+        <header>
+            <div class="archival highlight">
+                This website has been archived. It will not be kept up-to-date.
+            </div>
+            <a class="title" href="/fornjot/">
+                <h1>Fornjot</h1>
+                <h2>early-stage b-rep CAD kernel, written in Rust</h2>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/fornjot/">About</a></li>
+                    <li><a href="/fornjot/blog">Blog</a></li>
+                    <li><a href="https://github.com/hannobraun/fornjot">GitHub ↪</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            
+    <article class="blog-post">
+        <header>
+            <h2>Weekly Dev Log - 2022-W12</h2>
+            <span class="metadata">
+        Posted on <time datetime="2022-03-29">2022-03-29</time> by <a href="https://github.com/hannobraun">Hanno Braun</a>
+
+        </span>
+        </header>
+
+        <aside>
+            
+    <p>
+        <a href="/fornjot/">Fornjot</a> is an early-stage project to create a next-generation Code-CAD application. This is Fornjot's Weekly Dev Log, a summary of the previous week's development activities.
+    </p>
+
+        </aside>
+
+        <p>Sorry for being a bit late with this Weekly Dev Log! Yesterday was a crazy day, for multiple reasons (mostly good), and getting this done simply wasn't in the cards.</p>
+<p>I've been working on <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/141">#141</a>, which went pretty well until I started to extract the triangle mesh data structure into a separate crate. I realized that this code could use a good cleanup, which required changes to the triangulation code (<a rel="external" href="https://github.com/hannobraun/Fornjot/issues/105">#105</a>), which required more clean-ups... the usual virtuous cycle of getting distracted by more and more productive tasks.</p>
+<p>Unfortunately, that didn't lead to the same mad rush of activity that I've become accustomed to over the last few weeks. Some of the those cleanups required a lot of <em>thinking</em>, a really tedious activity that tends to distract from all the <em>doing</em> I'd prefer to get into instead.</p>
+<p>Can't be helped! Things are moving in the right direction, which is what counts.</p>
+<p>In other news, I got to merge a lot of contributions last week, some of those from first-time contributors, fixing warnings in Fornjot's output, cleaning up code, as well as improving the CI build and the CD infrastructure.</p>
+<h3 id="sponsors">Sponsors</h3>
+<p>Fornjot is supported by <a rel="external" href="https://github.com/webtrax-oz">@webtrax-oz</a>, <a rel="external" href="https://github.com/lthiery">@lthiery</a>, <a rel="external" href="https://github.com/Yatekii">@Yatekii</a>, <a rel="external" href="https://github.com/martindederer">@martindederer</a>, and <a rel="external" href="https://github.com/sponsors/hannobraun">my other awesome sponsors</a>. Thank you!</p>
+<p>If you're interested in helping to make the project sustainable long-term, please consider <a rel="external" href="https://github.com/sponsors/hannobraun">supporting me</a> too.</p>
+<h3 id="app-and-documentation">App and Documentation</h3>
+<p>Improvements to the Fornjot application and documentation, that are relevant to end users.</p>
+<ul>
+<li>Fix warnings in output due to misuse of graphics API (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/397">#397</a>; special thanks to first-time contributor <a rel="external" href="https://github.com/liubog2008">@liubog2008</a>!)</li>
+</ul>
+<h3 id="ecosystem">Ecosystem</h3>
+<p>Improvements to the Fornjot ecosystem that are relevant to developers who are building on top of Fornjot components.</p>
+<h4 id="fj-kernel"><code>fj-kernel</code></h4>
+<ul>
+<li>Add <code>Curve::x_axis</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/398">#398</a>)</li>
+<li>Distinguish between exterior and interior cycles (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/401">#401</a>)</li>
+<li>Add convenient APIs to build <code>Vertex</code> and <code>Edge</code> (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/403">#403</a>)</li>
+</ul>
+<h4 id="fj-math"><code>fj-math</code></h4>
+<ul>
+<li>Add methods to construct unit vectors (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/390">#390</a>)</li>
+</ul>
+<h3 id="internal-improvements">Internal Improvements</h3>
+<p>Improvements that are relevant to developers working on Fornjot itself.</p>
+<ul>
+<li>Consolidate platform-specific code behind trait (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/383">#383</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/384">#384</a>; special thanks to first-time contributor <a rel="external" href="https://github.com/ozghimire">@ozghimire</a>!)</li>
+<li>Update dependencies (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/385">#385</a>)</li>
+<li>Consolidate triangulation code in single module (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/386">#386</a>)</li>
+<li>Clean up approximation code (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/388">#388</a>)</li>
+<li>Run models as part of CI build (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/389">#389</a>; special thanks to first-time contributor <a rel="external" href="https://github.com/homersimpsons">@homersimpsons</a>!)</li>
+<li>Create GitHub Release via CD workflow (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/391">#391</a>; thanks to <a rel="external" href="https://github.com/hendrikmaus">@hendrikmaus</a>!)</li>
+<li>Fix and improve CI/CD build (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/392">#392</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/393">#393</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/396">#396</a>; thanks to <a rel="external" href="https://github.com/hendrikmaus">@hendrikmaus</a>!)</li>
+<li>Clean up internal implementation of <code>Shape</code> API (<a rel="external" href="https://github.com/hannobraun/Fornjot/pull/402">#402</a>, <a rel="external" href="https://github.com/hannobraun/Fornjot/pull/404">#404</a>)</li>
+</ul>
+<h3 id="issue-of-the-week">Issue of the Week</h3>
+<p>Fornjot support sweeping 2D sketches into 3D solids, along a straight line. Right now, sweeping is only possible along the z-axis, although on the kernel side, all code that's involved in that accepts an arbitrary vector.</p>
+<p>If you want to get involved with Fornjot, why not give <a rel="external" href="https://github.com/hannobraun/Fornjot/issues/192">#192 - Support sweeping in arbitrary directions</a> a try?</p>
+<h3 id="outlook">Outlook</h3>
+<p>My office computer broke! This is not catastrophic, my laptop can fill in for now, but it does throw all of my short-term plans into disarray. While the office PC is out for repair, I don't have access to all my recent work-in-progress.</p>
+<p>Chances are, I'll have it back and in working order later this week, so I don't think it makes sense to re-create any work that's on there. I'll find other tasks to fill the time with, but at this time, I have no idea what those might be.</p>
+
+
+        <footer>
+            
+        </footer>
+    </article>
+
+        </main>
+        <footer>
+            <hr />
+
+            <p>
+                This website is maintained by <a href="https://www.hannobraun.com/">me</a>:
+            </p>
+
+            <address>
+                Hanno Braun<br />
+                Untere Pfarrgasse 19<br />
+                64720 Michelstadt<br />
+                Germany<br />
+                <br />
+                <a href="mailto:hello@hannobraun.com">hello@hannobraun.com</a><br />
+            </address>
+        </footer>
+    </body>
+</html>
