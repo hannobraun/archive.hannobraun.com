@@ -10,5 +10,9 @@
     "fmt": {
         "indentWidth": 4,
         "exclude": ["websites/archive.hannobraun.com"]
+    },
+    "deploy": {
+        "org": "hannobraun",
+        "app": "archivehannobrauncom"
     }
 }
